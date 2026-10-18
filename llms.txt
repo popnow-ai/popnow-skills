@@ -1,0 +1,31 @@
+# PopNow Skills
+
+> Open-source Agent Skills (SKILL.md folders) that let Claude Code, Claude.ai, Codex and other skill-compatible agents generate AI videos, images, music and speech, and apply trending video effects, through the PopNow API (https://api.popnow.ai). Every skill quotes the credit price and waits for the user's confirmation before spending. Scripts are Python 3.8+ standard library only. MIT license.
+
+PopNow (https://popnow.ai) is a browser-based AI studio for videos, images and music: image-to-video, text-to-video, AI images, music and speech, one-tap trending video effects and image styles. Models include Kling, Seedance, Wan, Vidu, MiniMax, Nano Banana, GPT Image, Flux and Suno. Credit packs, no subscription; 1 credit = $0.01; failed runs refunded.
+
+Install in Claude Code: `/plugin marketplace add popnow-ai/popnow-skills` then `/plugin install popnow@popnow-skills`. Or copy `skills/popnow-*` into `~/.claude/skills/` (Claude Code) or `~/.agents/skills/` (Codex). Requires `POPNOW_API_KEY` (sk-popnow-..., from https://popnow.ai/api/console/keys).
+
+Flow used by every skill: `POST /api/v1/jobs/quote` -> user confirms credits -> `POST /api/v1/jobs/createTask` with quoteId, expectedCredits and Idempotency-Key -> poll `GET /api/v1/jobs/recordInfo` -> download `output.assets[].url`.
+
+## Skills
+
+- [popnow-video](skills/popnow-video/SKILL.md): text-to-video, image-to-video, extend, upscale
+- [popnow-image](skills/popnow-image/SKILL.md): text-to-image, photo editing, background removal, upscaling, layers
+- [popnow-audio](skills/popnow-audio/SKILL.md): music, text-to-speech, transcription, video sound effects
+- [popnow-effects](skills/popnow-effects/SKILL.md): 143 trending effects and photo styles (catalog in references/effects.json)
+- [popnow-api](skills/popnow-api/SKILL.md): auth, models, tasks, billing, errors, webhooks, idempotency, media, assets, OpenAI-compatible /v1/videos, MCP
+
+## Scripts
+
+- [popnow.py](skills/popnow-api/scripts/popnow.py): balance, models, model, quote, create --confirm-credits N, status, wait, download, upload, jobs, usage, retry, purge
+- [effects.py](skills/popnow-effects/scripts/effects.py): list, show, quote, create
+
+## PopNow links
+
+- Docs: https://popnow.ai/docs
+- OpenAPI: https://popnow.ai/docs/openapi.yaml
+- llms.txt: https://popnow.ai/llms.txt
+- MCP server: https://api.popnow.ai/mcp (setup: https://popnow.ai/mcp)
+- Pricing: https://popnow.ai/pricing
+- Other repos: https://github.com/popnow-ai/popnow-mcp, https://github.com/popnow-ai/popnow-python, https://github.com/popnow-ai/popnow-js, https://github.com/popnow-ai/popnow-api, https://github.com/popnow-ai/popnow-blender

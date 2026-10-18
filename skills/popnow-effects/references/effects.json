@@ -1,0 +1,2742 @@
+{
+  "version": "2026-10-19",
+  "source": "https://popnow.ai/effects",
+  "count": 143,
+  "effects": [
+    {
+      "slug": "tiny-planet",
+      "name": "Tiny Planet",
+      "description": "Your world curls into a little planet, with you on top.",
+      "category": "camera",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera shoots straight up into the sky while the ground beneath the person curls into a tiny round planet: the scene around them wraps into a small sphere with the person standing on top of it. By the end the whole little planet floats in the frame with the person on its top, waving at the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/tiny-planet-4b1b6dee.mp4",
+      "poster": "https://media.popnow.ai/effects/tiny-planet-f1f5f97c.webp"
+    },
+    {
+      "slug": "hyperdrive",
+      "name": "Hyperdrive",
+      "description": "The world streaks into light speed while you stay cool.",
+      "category": "camera",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person stays completely still while the whole world behind them suddenly stretches into light-speed streaks: every light in the background smears into long blue and white lines rushing past, like jumping to hyperspace. Within one second a violent wind blasts their hair backward. The streaks keep accelerating until they fill the whole background, while the person stays sharp and steady, staring into the lens.",
+      "preview": "https://media.popnow.ai/effects/hyperdrive-8fa33f15.mp4",
+      "poster": "https://media.popnow.ai/effects/hyperdrive-89043887.webp"
+    },
+    {
+      "slug": "pupil-portal",
+      "name": "Pupil Portal",
+      "description": "Zoom into an eye and find a galaxy inside.",
+      "category": "camera",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera pushes straight into one of the person's eyes in a fast smooth zoom until the iris fills the whole frame. Inside the pupil a vast glowing nebula opens up, swirling violet and gold gas clouds full of stars, and the camera keeps flying forward into deep space through it. The final frames are a full-screen cosmic nebula.",
+      "preview": "https://media.popnow.ai/effects/pupil-portal-9ddcd84f.mp4",
+      "poster": "https://media.popnow.ai/effects/pupil-portal-32265c65.webp"
+    },
+    {
+      "slug": "crash-zoom",
+      "name": "Crash Zoom",
+      "description": "One beat of calm, then a punchy snap-zoom to your face.",
+      "category": "camera",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The shot holds wide for a beat, then the camera snaps into a sudden, punchy zoom straight toward the main subject, overshoots slightly and settles into a sharp, steady close-up. Everything else in the scene stays in place while the frame tightens.",
+      "preview": "https://media.popnow.ai/effects/crash-zoom-9a0d92b1.mp4",
+      "poster": "https://media.popnow.ai/effects/crash-zoom-ac86c94f.webp"
+    },
+    {
+      "slug": "molten-gold",
+      "name": "Molten Gold",
+      "description": "Liquid gold pours over you and sets into a gleaming statue.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "kling/3.0/image-to-video",
+      "modelName": "Kling 3.0",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "generate_audio": false,
+        "resolution": "720p"
+      },
+      "prompt": "Liquid gold pours down from above onto the person's head and flows over their hair, face and shoulders and down their whole figure, covering everything within three seconds. The gold sets into a gleaming polished statue of the person that keeps their exact pose and expression, light glinting across the metal. The camera pushes in as the transformation completes and holds on the solid gold statue.",
+      "preview": "https://media.popnow.ai/effects/molten-gold-2step-afaf786a.mp4",
+      "poster": "https://media.popnow.ai/effects/molten-gold-2step-52a6836c.webp"
+    },
+    {
+      "slug": "shatterpoint",
+      "name": "Shatterpoint",
+      "description": "Turn to glass, crack, and burst into flying shards.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person turns to clear crystal glass from the hands upward, clothes and all: the glass figure keeps the exact shape of their outfit, its folds and their hairstyle, like a cut-crystal sculpture of them exactly as they are dressed, catching the light. A crack runs across their chest, then the whole glass figure bursts apart into thousands of glittering shards that fly outward toward the lens in slow motion. The final frames show only drifting glass sparkles where the person stood.",
+      "preview": "https://media.popnow.ai/effects/shatterpoint-9bbe7e73.mp4",
+      "poster": "https://media.popnow.ai/effects/shatterpoint-8c42497a.webp"
+    },
+    {
+      "slug": "ember-form",
+      "name": "Ember Form",
+      "description": "Flames race up into a glowing figure of fire. Calm, unharmed.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Fire ignites at the person's feet and races up within one second, wrapping their whole figure, clothes and all, in roaring orange flames while they stand calm and unharmed, staring into the lens. The flames settle into a glowing fire-and-ember version of them that keeps the exact shape of their outfit: collar, sleeves, coat or jacket, trousers and shoes stay clearly visible as glowing outlines, and their face stays recognizable. Sparks stream toward the camera, lighting the whole scene orange.",
+      "preview": "https://media.popnow.ai/effects/ember-form-2134d2e0.mp4",
+      "poster": "https://media.popnow.ai/effects/ember-form-b879c608.webp"
+    },
+    {
+      "slug": "storm-charge",
+      "name": "Storm Charge",
+      "description": "Eyes flash white as lightning crackles down your arms.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person's eyes flash bright white. Blue electric arcs burst from their shoulders and crawl down their arms to the fingertips, crackling and branching, while static lifts their hair upward. Lightning flickers in the background in sync. The camera pushes in toward their face as the electricity grows to surround them completely, and holds on the charged, glowing figure.",
+      "preview": "https://media.popnow.ai/effects/storm-charge-c2852a7d.mp4",
+      "poster": "https://media.popnow.ai/effects/storm-charge-10c71de7.webp"
+    },
+    {
+      "slug": "marble-statue",
+      "name": "Marble Statue",
+      "description": "Marble creeps up until you’re a gallery masterpiece.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Starting at the bottom of the frame, the main subject gradually turns to smooth white marble, the stone spreading upward over their whole figure and hair, keeping every fold and outline exactly the same, until they stand perfectly still like a gallery sculpture. The camera keeps the original framing and drifts a few degrees around them as soft museum light rakes across the carved surface.",
+      "preview": "https://media.popnow.ai/effects/marble-statue-91f7141e.mp4",
+      "poster": "https://media.popnow.ai/effects/marble-statue-01ae347a.webp"
+    },
+    {
+      "slug": "liquid-chrome",
+      "name": "Liquid Chrome",
+      "description": "A mirror-bright wave turns you into polished metal.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A mirror-bright chrome finish spreads over the main subject from one side to the other like poured liquid metal, coating their whole figure and hair while keeping every fold, seam and outline exactly the same, until the subject gleams like a polished sculpture. The camera keeps the original framing and orbits a few degrees as reflections of the surroundings slide across the new surface.",
+      "preview": "https://media.popnow.ai/effects/liquid-chrome-ede789b3.mp4",
+      "poster": "https://media.popnow.ai/effects/liquid-chrome-5c762675.webp"
+    },
+    {
+      "slug": "unfurl-wings",
+      "name": "Unfurl Wings",
+      "description": "Huge feathered wings unfold behind your shoulders.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A pair of large feathered wings slowly unfold from behind the main subject's shoulders and spread wide, soft feathers catching the light. The camera eases back and tilts up slightly to take in the full span as a few loose feathers drift down through the air.",
+      "preview": "https://media.popnow.ai/effects/unfurl-wings-c2288186.mp4",
+      "poster": "https://media.popnow.ai/effects/unfurl-wings-e7d4a1eb.webp"
+    },
+    {
+      "slug": "meltdown",
+      "name": "Meltdown",
+      "description": "Melt into a puddle of glossy candy colors. Cartoon-style.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Like a candle in the sun, the person starts to melt from the top down into glossy, colorful liquid, sliding downward and pooling on the ground in a playful cartoon way. By the last second only a shiny, colorful puddle remains where they stood.",
+      "preview": "https://media.popnow.ai/effects/meltdown-7914809d.mp4",
+      "poster": "https://media.popnow.ai/effects/meltdown-118e41a2.webp"
+    },
+    {
+      "slug": "wave-wall",
+      "name": "Wave Wall",
+      "description": "A towering wave rises and curls right over your head.",
+      "category": "weather",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Behind the person a towering wall of ocean water rises many stories high, its shadow sweeping over the scene. The giant wave curls overhead with spray blowing past the person, who stays planted and looks into the lens. The final frames show the wave cresting high above them. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/wave-wall-8da8dd92.mp4",
+      "poster": "https://media.popnow.ai/effects/wave-wall-63bcfdae.webp"
+    },
+    {
+      "slug": "eye-of-the-storm",
+      "name": "Calm in the Storm",
+      "description": "You stand still while wind, leaves and lightning whirl around you.",
+      "category": "weather",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second a fierce whirlwind forms around the person: a tight spinning wall of rain, autumn leaves and dust circles their body at high speed, close enough to whip their hair and clothes, while they stand perfectly still and calm in the quiet center, looking straight into the lens. Dark clouds churn overhead and lightning cracks behind them. The camera slowly pushes in. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/eye-of-the-storm-f108dbf6.mp4",
+      "poster": "https://media.popnow.ai/effects/eye-of-the-storm-d3fc7797.webp"
+    },
+    {
+      "slug": "clone-split",
+      "name": "Clone Split",
+      "description": "You split into four copies that walk off, then line up.",
+      "category": "fun",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person takes one step forward and splits into four identical copies of themselves. The four walk away in four different directions, then all turn back at the same moment and stand in a row looking at the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/clone-split-785ff1ad.mp4",
+      "poster": "https://media.popnow.ai/effects/clone-split-f09e9455.webp"
+    },
+    {
+      "slug": "walk-away-explosion",
+      "name": "Cool Walk Away",
+      "description": "A huge fireball erupts behind you. Never look back.",
+      "category": "fun",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person walks calmly toward the camera. Behind them the background erupts in a massive fireball; the blast wave throws debris and sparks past them and orange light floods the scene. They never look back, keep walking and stop close to the lens with a cool stare. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/walk-away-explosion-96c2ce4b.mp4",
+      "poster": "https://media.popnow.ai/effects/walk-away-explosion-604821e1.webp"
+    },
+    {
+      "slug": "costume-spin",
+      "name": "Halloween Costume Spin",
+      "description": "Spin once and land in a full witch costume on a pumpkin porch.",
+      "category": "fun",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person does one quick spin on the spot. Mid-spin a swirl of purple sparkles wraps around them, and when they face the camera again they are wearing a full witch costume: a tall pointed black hat and a long black cape over a dark purple outfit, holding a small glowing jack-o'-lantern. The background turns into a cozy Halloween porch with carved pumpkins and warm string lights. They smile and give a little wave. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/costume-spin-afd2b564.mp4",
+      "poster": "https://media.popnow.ai/effects/costume-spin-4171a499.webp"
+    },
+    {
+      "slug": "costume-walk-reveal",
+      "name": "Costume Walk Reveal",
+      "description": "Slow steps toward the camera, then one beat later a full vampire costume reveal.",
+      "category": "fun",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Starting from the photo, the camera drops low to the person's shoes as they take slow, steady steps toward the lens on a dark street lit by orange porch lights. On a sharp beat the camera tilts up fast to a full-body reveal: they now wear a dramatic vampire costume with a long black high-collared cape lined in red satin over a dark velvet outfit with a silver brooch, and they strike a confident pose with the cape swept open. Carved pumpkins glow along the sidewalk and light fog drifts past. No fangs, no blood. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/costume-walk-reveal-4db070f9.mp4",
+      "poster": "https://media.popnow.ai/effects/costume-walk-reveal-5790ac41.webp"
+    },
+    {
+      "slug": "fan-transition",
+      "name": "Fan Transition",
+      "description": "Spin once under the ceiling fan and, as a blade sweeps past, you land in a brand-new outfit.",
+      "category": "fashion",
+      "popular": true,
+      "kind": "video",
+      "model": "kling/3.0/image-to-video",
+      "modelName": "Kling 3.0",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "generate_audio": false,
+        "resolution": "720p"
+      },
+      "prompt": "The camera looks straight down at the person from high above, past the dark blades of a slowly spinning ceiling fan in the foreground. They look up at the camera, then spin around once in place; exactly as a fan blade sweeps across the lens mid-spin, their outfit changes into a sleek tailored emerald satin suit, and they finish the turn and strike a confident pose looking up at the camera. One continuous shot with no cuts. Plain clothes with no logos, no stripes and no text. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/trending/fan-transition-ava-34f2f637.mp4",
+      "poster": "https://media.popnow.ai/trending/fan-transition-ava-1aa44382.webp"
+    },
+    {
+      "slug": "slow-mo-entrance",
+      "name": "Slow-Mo Entrance",
+      "description": "A hero walk-in in slow motion with dust and sparks hanging in the air.",
+      "category": "moves",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person walks toward the camera in dramatic slow motion like a movie hero entrance, hair and clothes rippling, while dust, leaves and glittering particles hang and drift in the air around them. Low angle, the camera slowly tracks backward in front of them and a warm backlight flares behind. Cool, confident expression. Their face and hairstyle stay exactly the same.",
+      "preview": "https://media.popnow.ai/effects/slow-mo-entrance-e41f0c22.mp4",
+      "poster": "https://media.popnow.ai/effects/slow-mo-entrance-81aba7c2.webp"
+    },
+    {
+      "slug": "butterfly-reveal",
+      "name": "Hidden World Reveal",
+      "description": "A black butterfly lands on you and the room blooms into a glowing secret world.",
+      "category": "transform",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A single black butterfly with glowing blue eye-like markings flutters into the frame and lands on the person's shoulder. As it slowly opens its wings, the ordinary place around them quietly transforms into a dreamlike hidden world: glowing flowers bloom across the walls and ground, soft beams of light fall through the air, and dozens of luminous butterflies rise around them. The person looks around in wonder. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/butterfly-reveal-f85ac0ef.mp4",
+      "poster": "https://media.popnow.ai/effects/butterfly-reveal-2ad34f57.webp"
+    },
+    {
+      "slug": "zombie-turn",
+      "name": "Zombie Turn",
+      "description": "Dusk falls, film-grade zombie makeup creeps across your face, and you look up with clouded eyes.",
+      "category": "fun",
+      "popular": true,
+      "kind": "video",
+      "model": "kling/3.0/image-to-video",
+      "modelName": "Kling 3.0",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "generate_audio": false,
+        "resolution": "720p"
+      },
+      "prompt": "Warm daylight drains into a cold blue night as fog rolls in under a flickering streetlamp. The person winces, lowers their head and turns slightly away while their skin slowly turns ashen grey and mottled, with faint dark veins and deep shadows under the eyes, and their hair turns lank and messy. Then they slowly lift their head and stare into the lens with cloudy milky-white eyes, like a frame from a prestige zombie drama. Realistic film-quality special-effects makeup, not a mask. No blood, no wounds, no gore. Their clothes and face shape stay the same.",
+      "preview": "https://media.popnow.ai/trending/zombie-turn-ethan-96c90251.mp4",
+      "poster": "https://media.popnow.ai/trending/zombie-turn-ethan-04070294.webp"
+    },
+    {
+      "slug": "werewolf-turn",
+      "name": "Werewolf Turn",
+      "description": "The full moon rises, fur and fangs creep in, and you turn into a movie-grade werewolf.",
+      "category": "fun",
+      "popular": true,
+      "kind": "video",
+      "model": "kling/3.0/image-to-video",
+      "modelName": "Kling 3.0",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "generate_audio": false,
+        "resolution": "720p"
+      },
+      "prompt": "The light fades to cold moonlight as a huge full moon rises behind the person and mist drifts in. They squeeze their eyes shut and lower their head while coarse fur spreads across their cheeks, temples and jaw, their brow grows heavier, and pointed ears covered in the same fur grow naturally out of their head and blend into their hair. They lift their head, open glowing amber eyes and bare small fangs in a snarl at the lens. Realistic film-quality creature makeup with their own face still recognizable, not an animal head, not costume ears and not a mask. No blood, no gore. Their clothes stay the same.",
+      "preview": "https://media.popnow.ai/trending/werewolf-turn-claire-6aaa3301.mp4",
+      "poster": "https://media.popnow.ai/trending/werewolf-turn-claire-d9cb34e1.webp"
+    },
+    {
+      "slug": "cliff-rescue",
+      "name": "Cliff Rescue",
+      "description": "You slip at a cliff edge and your future self grabs you just in time.",
+      "category": "moves",
+      "popular": true,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person is suddenly standing at the edge of a dramatic sea cliff in strong wind. A bit of rock crumbles under one foot and they wobble backward, arms flailing, but in the last split second a hand grabs their wrist and yanks them back to safety: it is a future version of themselves, the same face but older with grey hair, wearing an outdoor jacket. They both stumble back onto solid ground and burst out laughing with relief. Comedic action tone: nobody falls, nobody gets hurt. The person's face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/cliff-rescue-e2a325c2.mp4",
+      "poster": "https://media.popnow.ai/effects/cliff-rescue-8aa8df20.webp"
+    },
+    {
+      "slug": "flying-car",
+      "name": "Flying Car Takeoff",
+      "description": "A red supercar pulls up behind you, fires its thrusters and lifts off while you look up in awe.",
+      "category": "fun",
+      "popular": true,
+      "kind": "video",
+      "model": "kling/3.0/image-to-video",
+      "modelName": "Kling 3.0",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "generate_audio": false,
+        "resolution": "720p"
+      },
+      "prompt": "Within the first second an original angular wedge-shaped bright red hypercar with sharp creased body panels, a big rear wing, thin white light strips and a completely smooth blank hood sweeps into the frame and skids to a stop right behind the person, kicking up dust. Its side thrusters ignite with roaring blue-white jets, dust whirls up around them, and the whole car lifts straight off the ground and rises into the air above and behind them. The downwash whips their hair and clothes; they turn to look up at it over their shoulder in amazement, one hand shielding their eyes, as it hovers overhead with jets blazing. Golden backlight, cinematic action-trailer energy. The person's face stays exactly the same. Fictional car design with no logos, no badges, no emblems and no text anywhere.",
+      "preview": "https://media.popnow.ai/trending/flying-car-henrik-bf3b9b4d.mp4",
+      "poster": "https://media.popnow.ai/trending/flying-car-henrik-2b41411e.webp"
+    },
+    {
+      "slug": "pull-back-reveal",
+      "name": "Big Reveal",
+      "description": "The camera flies back until you’re a dot in an epic landscape.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Hold for half a second, then the camera snaps backward in one fast continuous pull-back while rising into the sky, revealing the person as a tiny lone figure in the middle of a vast landscape that stretches to the horizon. By the third second it is an extreme wide aerial shot, and it holds there as the wind moves through the scene. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/pull-back-reveal-7c244296.mp4",
+      "poster": "https://media.popnow.ai/effects/pull-back-reveal-7f2c5a6f.webp"
+    },
+    {
+      "slug": "orbit-rush",
+      "name": "Orbit Rush",
+      "description": "A fast swoop around you, eyes locked on the lens.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera whips around the person in a fast 270-degree orbit, starting low near the ground and climbing to a high angle as it circles, the background smearing into motion blur. The person turns their head to keep their eyes locked on the lens the whole way. The move ends high above, looking straight down at them. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/orbit-rush-24778f1a.mp4",
+      "poster": "https://media.popnow.ai/effects/orbit-rush-ebbd1563.webp"
+    },
+    {
+      "slug": "overhead-spiral",
+      "name": "Overhead Spiral",
+      "description": "Rise above, spin down and land right above your face.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera rises straight up above the person, then spirals back down toward them, rotating a full turn as it descends so the ground and everything around them spin like a kaleidoscope. It ends close above their face as they look straight up into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/overhead-spiral-095c2318.mp4",
+      "poster": "https://media.popnow.ai/effects/overhead-spiral-931aa1ed.webp"
+    },
+    {
+      "slug": "rig-cam",
+      "name": "Rig Cam",
+      "description": "You stay locked in frame while the world swings behind.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Snorricam shot: the camera is rigidly locked to the person's chest, so their face stays fixed in the center of the frame as they walk forward fast. Behind them the whole world swings, tilts and bounces wildly, lights streaking into colored trails, and the frame tightens to a head-and-shoulders shot. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/rig-cam-4f06d518.mp4",
+      "poster": "https://media.popnow.ai/effects/rig-cam-b485ce01.webp"
+    },
+    {
+      "slug": "slider-parallax",
+      "name": "Slider Parallax",
+      "description": "A smooth sideways glide with layers of depth.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera slides sideways on a track in one continuous move from left to right. Whatever is in the blurred foreground races across the edges of the frame, the person in the middle glides past at a lower speed, and the deep background stays almost fixed, giving strong layered parallax. The foreground only crosses the sides of the frame and never covers the face. The person turns their head to keep looking into the lens, and the move ends with them centered and sharp. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/slider-parallax-5e4e466f.mp4",
+      "poster": "https://media.popnow.ai/effects/slider-parallax-9a1f9f3f.webp"
+    },
+    {
+      "slug": "slow-push-in",
+      "name": "Slow Push-In",
+      "description": "A cinematic creep toward your eyes as lights melt to bokeh.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second the camera starts a steady dolly push straight toward the person, gliding past the foreground so it slides out of both sides of the frame. The background melts away and every point of light behind them swells into a huge glowing bokeh disc. By the fourth second the frame is a tight close-up on the face and eyes, and it holds there while they keep looking into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/slow-push-in-e3c9e4d2.mp4",
+      "poster": "https://media.popnow.ai/effects/slow-push-in-59b9375e.webp"
+    },
+    {
+      "slug": "drone-rise",
+      "name": "Drone Rise",
+      "description": "Lift off into a sweeping aerial opening shot.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera lifts off and rises smoothly into the sky like a drone, tilting down as it climbs so the scene opens up into a high, wide aerial view. The landscape spreads out below while wind and light move gently across it.",
+      "preview": "https://media.popnow.ai/effects/drone-rise-276ed93d.mp4",
+      "poster": "https://media.popnow.ai/effects/drone-rise-fcd0ba04.webp"
+    },
+    {
+      "slug": "eyes-in",
+      "name": "Into the Eyes",
+      "description": "Push in until one eye fills the whole screen.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera pushes in slowly and continuously toward the main subject's face and keeps going until a single eye fills the frame. The iris sharpens into fine detail, a faint reflection of the scene glinting across it as everything else melts into blur.",
+      "preview": "https://media.popnow.ai/effects/eyes-in-3d72b0d8.mp4",
+      "poster": "https://media.popnow.ai/effects/eyes-in-08d3a1b1.webp"
+    },
+    {
+      "slug": "crowd-timelapse",
+      "name": "Still in the Rush",
+      "description": "Everyone blurs past in fast-forward. You don’t move.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject stands completely still while time speeds up around them, passers-by, traffic and light streaking past in rapid time-lapse blur. The camera stays locked off so the subject remains the only sharp, unmoving point in the frame.",
+      "preview": "https://media.popnow.ai/effects/crowd-timelapse-0fbd3ef7.mp4",
+      "poster": "https://media.popnow.ai/effects/crowd-timelapse-03f0d878.webp"
+    },
+    {
+      "slug": "fpv-dive",
+      "name": "FPV Dive",
+      "description": "Racing-drone dive, low skim, then a hover right in front of you.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera starts high and dives fast in a first-person flight, swooping low over the ground and threading through the scene before pulling up to hover in front of the main subject. Motion blur streaks the edges while the subject stays sharp at the end of the move.",
+      "preview": "https://media.popnow.ai/effects/fpv-dive-c3d11a04.mp4",
+      "poster": "https://media.popnow.ai/effects/fpv-dive-5df59d1b.webp"
+    },
+    {
+      "slug": "through-the-window",
+      "name": "Through the Window",
+      "description": "Glide in from outside the window and land on you.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera begins outside, looking through a window frame or a gap in the foreground, then glides forward through the opening into the space beyond and settles on the main subject. The foreground edges slip past the lens in soft blur as the room opens up.",
+      "preview": "https://media.popnow.ai/effects/through-the-window-26d4fc63.mp4",
+      "poster": "https://media.popnow.ai/effects/through-the-window-15367b77.webp"
+    },
+    {
+      "slug": "glam-sweep",
+      "name": "Glam Sweep",
+      "description": "A quick arc that eases into slow motion on your best angle.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera sweeps quickly around the main subject in a smooth arc, then slows into dreamy slow motion as it lands on a flattering three-quarter angle. Hair and fabric float mid-movement in the soft light as the move settles.",
+      "preview": "https://media.popnow.ai/effects/glam-sweep-f2b0cb6a.mp4",
+      "poster": "https://media.popnow.ai/effects/glam-sweep-ba4c250a.webp"
+    },
+    {
+      "slug": "whip-pan",
+      "name": "Whip Pan",
+      "description": "Hold, then whoosh: a blurry swish straight out of the scene.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The shot holds on the main subject for a moment, then the camera whips sharply to one side in a fast swish pan, and the whole frame smears into streaks of motion blur as it races past the surroundings until the end of the shot.",
+      "preview": "https://media.popnow.ai/effects/whip-pan-a0d8b27d.mp4",
+      "poster": "https://media.popnow.ai/effects/whip-pan-4b67daa9.webp"
+    },
+    {
+      "slug": "hero-low-angle",
+      "name": "Hero Shot",
+      "description": "Low angle, open sky, warm flare. Main-character energy.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera eases down to a gentle low angle and glides slowly upward toward the main subject while the sky or ceiling opens up behind it and a warm light flare blooms at the edge of the frame.",
+      "preview": "https://media.popnow.ai/effects/hero-low-angle-90fb95fa.mp4",
+      "poster": "https://media.popnow.ai/effects/hero-low-angle-5bea1c50.webp"
+    },
+    {
+      "slug": "bullet-time",
+      "name": "Bullet Time",
+      "description": "Time freezes mid-moment as the camera circles you.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Time freezes: dust, droplets and loose strands of hair or fabric hang motionless in the air while the camera arcs smoothly about a third of the way around the main subject, keeping it centered. The background slides past with strong parallax.",
+      "preview": "https://media.popnow.ai/effects/bullet-time-bc43f4aa.mp4",
+      "poster": "https://media.popnow.ai/effects/bullet-time-a0b589ea.webp"
+    },
+    {
+      "slug": "cosmic-zoom-out",
+      "name": "Cosmic Zoom",
+      "description": "Keep rising past the clouds until the whole planet glows.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera pulls straight up and away in one continuous, accelerating move: the main subject shrinks to a dot, then the surrounding streets, the landscape and the clouds slide past below, ending high above the curve of the planet glowing against space.",
+      "preview": "https://media.popnow.ai/effects/cosmic-zoom-out-c6561870.mp4",
+      "poster": "https://media.popnow.ai/effects/cosmic-zoom-out-5293fb1e.webp"
+    },
+    {
+      "slug": "pixel-scatter",
+      "name": "Pixel Scatter",
+      "description": "Break into glowing pixels that blow away on a digital wind.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person begins to break apart from the edges into glowing square pixels. The pixels peel away from their shoulders, hair and arms and stream sideways in a bright ribbon of light, as if blown by a digital wind. Within four seconds the whole figure has dissolved into a flowing stream of pixels that flies out of frame, leaving the background empty.",
+      "preview": "https://media.popnow.ai/effects/pixel-scatter-fec29198.mp4",
+      "poster": "https://media.popnow.ai/effects/pixel-scatter-c8b983eb.webp"
+    },
+    {
+      "slug": "into-smoke",
+      "name": "Into Smoke",
+      "description": "Dissolve from the feet up into swirling black smoke.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Starting at the feet, the person dissolves into thick black smoke. The smoke rises and swirls upward around them, consuming the legs, the body, the arms and finally the face, which holds a calm stare until the last moment. By the fourth second only a churning column of dark smoke remains, and it drifts up and away, leaving the empty background.",
+      "preview": "https://media.popnow.ai/effects/into-smoke-260eeb27.mp4",
+      "poster": "https://media.popnow.ai/effects/into-smoke-770608a9.webp"
+    },
+    {
+      "slug": "crystal-skin",
+      "name": "Crystal Form",
+      "description": "Crystallize into faceted quartz that throws rainbows.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Starting at the hands, the person's whole figure crystallizes into faceted clear quartz. The crystal spreads up the arms, across the shoulders and over the face within four seconds, every facet refracting rainbow light that scatters across the background. The final frame is a gleaming crystal sculpture of the person in the same pose, catching the light.",
+      "preview": "https://media.popnow.ai/effects/crystal-skin-e1b6c4db.mp4",
+      "poster": "https://media.popnow.ai/effects/crystal-skin-bdf6ca0a.webp"
+    },
+    {
+      "slug": "hologram",
+      "name": "Hologram",
+      "description": "Scan lines sweep in and you flicker into a blue hologram.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Blue scan lines sweep down over the person from head to toe. Their whole figure turns into a translucent, flickering blue hologram with glowing wireframe edges, and the background shows through them. Digital glitches split the image into colored fringes for a moment, then the hologram stabilizes and hovers, still looking into the lens.",
+      "preview": "https://media.popnow.ai/effects/hologram-d4ddc91e.mp4",
+      "poster": "https://media.popnow.ai/effects/hologram-e894d8ac.webp"
+    },
+    {
+      "slug": "ink-bleed",
+      "name": "Ink Bleed",
+      "description": "Your outline bleeds like ink dropped in water.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person's outline begins to bleed like black ink dropped into water. Ink blooms outward from their shoulders, hair and hands in billowing, swirling clouds, spreading across the background until the whole frame becomes a flowing black ink painting. By the final second the person is gone and only drifting ink clouds remain.",
+      "preview": "https://media.popnow.ai/effects/ink-bleed-704afa02.mp4",
+      "poster": "https://media.popnow.ai/effects/ink-bleed-3f280fa6.webp"
+    },
+    {
+      "slug": "overgrowth",
+      "name": "Overgrowth",
+      "description": "Vines and flowers burst out until you’re a living sculpture.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Green vines and blooming flowers burst out of the person's collar and sleeves and climb over them at high speed. Within four seconds their whole body is covered in leaves, moss and bright pink and white flowers, turning them into a living flower sculpture with only their face showing, petals drifting through the light.",
+      "preview": "https://media.popnow.ai/effects/overgrowth-ef57fafc.mp4",
+      "poster": "https://media.popnow.ai/effects/overgrowth-b9a4f30e.webp"
+    },
+    {
+      "slug": "levitate",
+      "name": "Levitate",
+      "description": "Gravity switches off and everything starts to float.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Gravity switches off. The person rises off the ground along with every loose object around them, all drifting upward and turning in midair. Their hair floats as if underwater. The camera circles around them as they hang weightless in the center, smiling into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/levitate-49b96628.mp4",
+      "poster": "https://media.popnow.ai/effects/levitate-af3c3990.webp"
+    },
+    {
+      "slug": "turn-to-dust",
+      "name": "Turn to Dust",
+      "description": "Crumble into glowing dust that drifts away.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person holds still. Within the first second their fingertips and the edge of one shoulder begin to crumble into fine glowing ash. The disintegration is clearly visible over several seconds: flakes and grains peel away from the shoulders, hair and face and stream sideways in a long glowing river of dust that catches the light. By the fourth second only the last of the face remains, still looking into the lens, and the final frame is a drifting cloud of glowing dust where they stood.",
+      "preview": "https://media.popnow.ai/effects/turn-to-dust-c82de4f5.mp4",
+      "poster": "https://media.popnow.ai/effects/turn-to-dust-cc1d9357.webp"
+    },
+    {
+      "slug": "inner-glow",
+      "name": "Inner Glow",
+      "description": "Golden light builds in your eyes and outlines you in an aura.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A soft golden light begins to build from within the main subject, glowing through the eyes and outlining every edge until they radiate a warm aura. Tiny motes of light rise around them as the camera slowly pushes in.",
+      "preview": "https://media.popnow.ai/effects/inner-glow-1a89bc4a.mp4",
+      "poster": "https://media.popnow.ai/effects/inner-glow-d071c31c.webp"
+    },
+    {
+      "slug": "petal-dissolve",
+      "name": "Petal Dissolve",
+      "description": "Break apart into a swirl of rose petals.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject slowly breaks apart into hundreds of rose-colored petals that lift away on a warm breeze and swirl out of the frame. The camera holds steady as the last petals tumble close past the lens.",
+      "preview": "https://media.popnow.ai/effects/petal-dissolve-c206f4cd.mp4",
+      "poster": "https://media.popnow.ai/effects/petal-dissolve-9ec4fac4.webp"
+    },
+    {
+      "slug": "frost-over",
+      "name": "Frost Over",
+      "description": "Ice creeps in from the edges until everything glitters.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Frost creeps in from the edges of the frame, crystals spreading over every surface and across the main subject and their hair until everything glitters with ice. Breath fogs in the cold air and motion slows to a stop as the camera pushes in gently.",
+      "preview": "https://media.popnow.ai/effects/frost-over-2e350b39.mp4",
+      "poster": "https://media.popnow.ai/effects/frost-over-24dad07c.webp"
+    },
+    {
+      "slug": "flower-bloom",
+      "name": "Flower Bloom",
+      "description": "A fast-motion bloom of flowers bursts all around you.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Buds sprout around the main subject and burst into bloom in quick time-lapse, flowers and green tendrils climbing and opening until they frame the whole scene in color. The camera holds still at first, then eases slowly forward through the petals.",
+      "preview": "https://media.popnow.ai/effects/flower-bloom-1abd6efb.mp4",
+      "poster": "https://media.popnow.ai/effects/flower-bloom-a69a897e.webp"
+    },
+    {
+      "slug": "smoke-swirl",
+      "name": "Smoke Swirl",
+      "description": "Silky smoke curls around you in moody side light.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The background dims and silky smoke curls drift and swirl around the main subject, glowing in a single warm side light, while the subject stays clear and the camera drifts in slowly.",
+      "preview": "https://media.popnow.ai/effects/smoke-swirl-46f4fd9f.mp4",
+      "poster": "https://media.popnow.ai/effects/smoke-swirl-5797c400.webp"
+    },
+    {
+      "slug": "twister",
+      "name": "Twister",
+      "description": "A tornado touches down and churns closer behind you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A massive tornado touches down in the distance behind the person and churns closer, ripping up dust and debris. The sky darkens to green-grey and the wind throws their hair sideways while they stand their ground and look into the lens. By the end the funnel towers right behind them. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/twister-16827ac6.mp4",
+      "poster": "https://media.popnow.ai/effects/twister-1bf6d2c3.webp"
+    },
+    {
+      "slug": "starfall",
+      "name": "Starfall",
+      "description": "A meteor shower lights up the sky behind you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The sky behind the person erupts into a meteor shower: dozens of glowing streaks rain across it. A few large meteors blaze down to the horizon and burst into orange flashes that light up the scene and the person's face. They tilt their head up to watch, then look back into the lens with a smile as the sky keeps falling. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/starfall-29e06d39.mp4",
+      "poster": "https://media.popnow.ai/effects/starfall-6a1145b7.webp"
+    },
+    {
+      "slug": "molten-ground",
+      "name": "Lava Floor",
+      "description": "The ground cracks open and glowing lava wells up.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The ground around the person cracks open in a spreading web, and glowing orange lava wells up through the cracks, bubbling and spitting sparks. Red light floods up across them as they stand calmly in the middle. Within four seconds the lava cracks surround them completely, heat haze shimmering in the air. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/molten-ground-0ad0640f.mp4",
+      "poster": "https://media.popnow.ai/effects/molten-ground-191fb376.webp"
+    },
+    {
+      "slug": "dust-wall",
+      "name": "Sandstorm",
+      "description": "A towering wall of sand rolls in and swallows the frame.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "On the horizon behind the person a towering wall of sand rises and rolls forward, blotting out the sun. It races closer every second, wind whipping their hair, until the orange sandstorm swallows the whole frame around them while they stand still and look into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/dust-wall-4ed65004.mp4",
+      "poster": "https://media.popnow.ai/effects/dust-wall-ff092eb7.webp"
+    },
+    {
+      "slug": "lightning-storm",
+      "name": "Lightning Storm",
+      "description": "Clouds boil and a bolt strikes right behind you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Dark storm clouds boil overhead. A blinding bolt of lightning strikes the ground a few meters behind the person, blasting up sparks and dirt and flashing the whole frame white for an instant. As the light returns, more bolts fork across the sky behind them while the wind whips their hair and they stare into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/lightning-storm-b2c66f05.mp4",
+      "poster": "https://media.popnow.ai/effects/lightning-storm-c26f79a0.webp"
+    },
+    {
+      "slug": "embers-and-sparks",
+      "name": "Embers & Sparks",
+      "description": "Glowing embers rain down like fireworks around you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Burning embers begin to fall from above like rain, thousands of glowing orange sparks drifting down around the person and bouncing off the ground. The fall thickens until the air is full of firelight, sparks catching on their shoulders and hair, warm flickering light on their face as they look up and then back into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/embers-and-sparks-e9642bcb.mp4",
+      "poster": "https://media.popnow.ai/effects/embers-and-sparks-5de9ac4b.webp"
+    },
+    {
+      "slug": "gold-dust",
+      "name": "Gold Dust",
+      "description": "A slow-motion shower of gold glitter pours over you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A torrent of fine gold glitter pours down from above onto the person in slow motion, thousands of tiny flakes flashing in the light, bouncing off their shoulders and swirling around them. They tilt their head back with eyes closed, then open their eyes and look straight into the lens as the golden storm keeps falling. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/gold-dust-63b41ee1.mp4",
+      "poster": "https://media.popnow.ai/effects/gold-dust-2c4a2800.webp"
+    },
+    {
+      "slug": "light-tunnel",
+      "name": "Light Tunnel",
+      "description": "Rings of neon snap on as you walk toward the lens.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The lights around the person go dark. Rings of white and violet LED light then snap on one after another around them, pulsing in rhythm, as the person walks toward the camera. They stop close to the lens with the lights blazing behind them and give a slow, confident look. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/light-tunnel-0754d469.mp4",
+      "poster": "https://media.popnow.ai/effects/light-tunnel-46f98041.webp"
+    },
+    {
+      "slug": "blacklight",
+      "name": "Blacklight",
+      "description": "UV lights flick on and neon patterns glow everywhere.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The lights cut to ultraviolet. Glowing neon patterns light up across the walls around the person and across them, electric pink, green and blue lines lighting up in the dark, and anything white blazes violet. The person leans toward the lens with a grin as the glow pulses. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/blacklight-52c02e2a.mp4",
+      "poster": "https://media.popnow.ai/effects/blacklight-bda8652b.webp"
+    },
+    {
+      "slug": "stage-spotlight",
+      "name": "Spotlight",
+      "description": "Darkness, then a single beam through rolling smoke.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Everything around the person sinks into total darkness. A single hard spotlight snaps on from directly above, catching them in a cone of white light as smoke rolls through the beam. The camera rises from their feet up to their face, and they lift their chin into the light and look into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/stage-spotlight-e4a0e891.mp4",
+      "poster": "https://media.popnow.ai/effects/stage-spotlight-5a3f73b0.webp"
+    },
+    {
+      "slug": "butterflies",
+      "name": "Butterflies",
+      "description": "A cloud of bright butterflies swirls in, one lands on you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second a swarm of dozens of bright butterflies pours into the frame, electric blue, orange and yellow wings flashing in the light. They spiral around the person in a tight whirling ring, brushing past the face and the lens. The person raises one hand, and by the fourth second a large electric-blue butterfly lands on their fingertip; they look from it to the lens with a delighted smile as the swarm keeps circling. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/butterflies-98c60e99.mp4",
+      "poster": "https://media.popnow.ai/effects/butterflies-c35c7fb1.webp"
+    },
+    {
+      "slug": "cinemagraph",
+      "name": "Cinemagraph",
+      "description": "You stay frozen while the world behind you keeps moving.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A living photograph. The person stays completely frozen like a still photo: no blinking, no breathing, no movement of the hair, and the camera is locked off with no drift, zoom or cut. Only the biggest element behind them comes alive, with large, clearly visible motion: falling water, waves, clouds or passing lights pour and roll past in a continuous seamless loop. The frozen person against the rushing background holds for the whole shot. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/cinemagraph-0b5fe8e9.mp4",
+      "poster": "https://media.popnow.ai/effects/cinemagraph-446991b1.webp"
+    },
+    {
+      "slug": "fireflies-at-dusk",
+      "name": "Fireflies",
+      "description": "Dusk turns blue and hundreds of fireflies rise around you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second the light cools to deep blue dusk and fireflies start rising out of the ground all around the person. By the third second there are hundreds of them, warm yellow-green points of light swirling up past the face and shoulders, several drifting right past the lens as big glowing blurs. The final frames hold on a blue night scene packed with glowing fireflies, the person standing in the middle of them and smiling into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/fireflies-at-dusk-3a822a53.mp4",
+      "poster": "https://media.popnow.ai/effects/fireflies-at-dusk-26fa1e7f.webp"
+    },
+    {
+      "slug": "fireworks-behind",
+      "name": "Fireworks",
+      "description": "Night falls and the sky behind you bursts into color.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second the sky behind the person turns to night and the first firework bursts high above them. By the second second the whole sky is erupting: huge gold, magenta and white blooms open one after another and rain down sparks, each burst washing flickering colored light across the person's face. They keep facing the camera, lit by the glow, and break into a wide smile at the lens as a giant golden burst fills the sky behind them in the final frames. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/fireworks-behind-d05c08ec.mp4",
+      "poster": "https://media.popnow.ai/effects/fireworks-behind-9c671d64.webp"
+    },
+    {
+      "slug": "golden-hour-sweep",
+      "name": "Golden Hour",
+      "description": "A low beam of sunset light sweeps in and rims you in gold.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The scene starts in cool blue shade. Within the first second a low beam of golden sunlight breaks in from the left edge of the frame and sweeps across the background toward the person. By the third second the band of gold crosses their face, flaring warm on the skin and leaving a bright gold rim along the hair and shoulders while long shadows stretch out behind. It holds there as they turn their face into the warm light, then back to the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/golden-hour-sweep-dc4477f6.mp4",
+      "poster": "https://media.popnow.ai/effects/golden-hour-sweep-f79045e3.webp"
+    },
+    {
+      "slug": "petals-drift",
+      "name": "Petal Storm",
+      "description": "Backlit pink petals build into a glowing blizzard.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second a thick flurry of pale pink cherry blossom petals sweeps into the frame on the wind, backlit so every petal glows against the dark. The flurry keeps building until hundreds of petals are streaming past in front of and behind the person, several sweeping right across the lens in large glowing blurs. The final frames hold on the person standing calm in a pink blizzard of petals, looking into the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/petals-drift-4f016677.mp4",
+      "poster": "https://media.popnow.ai/effects/petals-drift-3008d1ed.webp"
+    },
+    {
+      "slug": "snowfall",
+      "name": "Snowfall",
+      "description": "Soft flakes thicken into a cozy snowstorm.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second the first flakes start falling through the light. The snowfall thickens fast: by the third second it is a heavy, dense snowstorm, big flakes swirling past the lens and glowing where they catch the light. Snow visibly piles up on the hair and shoulders. The final frames hold on the person in a thick white flurry, flakes on their lashes, looking up into the snow and then back into the lens with a smile. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/snowfall-dbb449a1.mp4",
+      "poster": "https://media.popnow.ai/effects/snowfall-aa29e82a.webp"
+    },
+    {
+      "slug": "rain-falls",
+      "name": "Rain Falls",
+      "description": "Cinematic rain with silver streaks and glossy streets.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Cinematic rain starts falling across the whole scene: fine silver streaks catch the light, droplets bounce and splash on every surface, and a glossy sheen spreads over the ground. A soft mist hangs in the air as the camera drifts slowly forward.",
+      "preview": "https://media.popnow.ai/effects/rain-falls-ea8b0994.mp4",
+      "poster": "https://media.popnow.ai/effects/rain-falls-a6c15384.webp"
+    },
+    {
+      "slug": "underwater-light",
+      "name": "Underwater",
+      "description": "Rippling sea light and rising bubbles, like a shot below the surface.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Rippling bands of light dance across the whole scene as if seen from beneath a clear sea surface, washing everything in a soft blue-green glow. Fine bubbles and drifting specks float slowly upward while the camera sways gently and the main subject stays calm and in place.",
+      "preview": "https://media.popnow.ai/effects/underwater-light-c9375f85.mp4",
+      "poster": "https://media.popnow.ai/effects/underwater-light-eed84e4c.webp"
+    },
+    {
+      "slug": "fog-roll",
+      "name": "Fog Roll",
+      "description": "A low bank of fog rolls in while you stay sharp.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A low bank of fog rolls in along the ground and drifts slowly through the scene, softening the background into pale layers while the main subject stays clear and sharp. The light turns soft and silvery as the camera pushes gently forward.",
+      "preview": "https://media.popnow.ai/effects/fog-roll-d0218a6f.mp4",
+      "poster": "https://media.popnow.ai/effects/fog-roll-5e250ec5.webp"
+    },
+    {
+      "slug": "aurora-sky",
+      "name": "Aurora",
+      "description": "Green and violet ribbons unfurl as day turns to night.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Ribbons of green and violet aurora spread across the sky above the main subject, rippling and folding slowly like curtains of light, and their glow washes softly over the scene. The main subject stays in the same place and pose, still facing the same way, while the camera tilts up slowly toward the sky in one continuous shot.",
+      "preview": "https://media.popnow.ai/effects/aurora-sky-9e928454.mp4",
+      "poster": "https://media.popnow.ai/effects/aurora-sky-c36d4469.webp"
+    },
+    {
+      "slug": "jellyfish-drift",
+      "name": "Jellyfish Drift",
+      "description": "Your scene sinks underwater as glowing jellyfish float by.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Glowing translucent jellyfish and a few small silver fish drift slowly through the air around the main subject, as if the whole scene had sunk underwater. Soft blue light ripples across everything while the camera floats gently sideways.",
+      "preview": "https://media.popnow.ai/effects/jellyfish-drift-d00371b9.mp4",
+      "poster": "https://media.popnow.ai/effects/jellyfish-drift-f482079a.webp"
+    },
+    {
+      "slug": "confetti-burst",
+      "name": "Confetti",
+      "description": "A glittering confetti shower for your big moment.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A shower of glittering confetti bursts from above and tumbles through the air around the main subject, who laughs and looks up into it. The camera eases slowly backward as the colorful flakes spin and catch the light.",
+      "preview": "https://media.popnow.ai/effects/confetti-burst-c9a36b0a.mp4",
+      "poster": "https://media.popnow.ai/effects/confetti-burst-89469cf1.webp"
+    },
+    {
+      "slug": "lanterns-rise",
+      "name": "Lanterns Rise",
+      "description": "Dozens of glowing lanterns float up into the evening sky.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Dozens of glowing paper lanterns rise slowly from behind the main subject into the evening sky, their warm light flickering against the dusk. The camera tilts up gently to follow them as they drift higher.",
+      "preview": "https://media.popnow.ai/effects/lanterns-rise-34ed3b9e.mp4",
+      "poster": "https://media.popnow.ai/effects/lanterns-rise-130dfac3.webp"
+    },
+    {
+      "slug": "bubbles",
+      "name": "Bubbles",
+      "description": "Rainbow soap bubbles drift around you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Iridescent soap bubbles float up into the frame and drift slowly around the main subject, catching rainbow reflections as a few pop softly near the lens. The camera eases gently forward in soft, dreamy light.",
+      "preview": "https://media.popnow.ai/effects/bubbles-1f52aa3c.mp4",
+      "poster": "https://media.popnow.ai/effects/bubbles-e31f0359.webp"
+    },
+    {
+      "slug": "day-to-night",
+      "name": "Day to Night",
+      "description": "Afternoon slides into night as the city lights blink on.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The light shifts smoothly from late afternoon through blue hour into night: shadows stretch and fade, windows and streetlights blink on one by one, and the sky deepens to indigo while the camera holds steady.",
+      "preview": "https://media.popnow.ai/effects/day-to-night-4fe222f3.mp4",
+      "poster": "https://media.popnow.ai/effects/day-to-night-fbaf6f23.webp"
+    },
+    {
+      "slug": "paint-bomb",
+      "name": "Paint Bomb",
+      "description": "Paint explodes from all sides into a living artwork.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Bright paint explodes into the frame from all four sides, electric blue, hot pink, yellow and orange, splashing over the person and the background in slow motion. Layer after layer hits until the person and the background are completely covered, and the final frame looks like a vivid abstract painting with the person's shape just readable.",
+      "preview": "https://media.popnow.ai/effects/paint-bomb-ccceb737.mp4",
+      "poster": "https://media.popnow.ai/effects/paint-bomb-ff29740d.webp"
+    },
+    {
+      "slug": "pet-talks",
+      "name": "Pet Talks",
+      "description": "Your pet finally says what it’s been thinking.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "bytedance/seedance-2.0-mini/image-to-video",
+      "modelName": "Seedance 2.0 Mini",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "aspect_ratio": "adaptive",
+        "duration_seconds": 5,
+        "generate_audio": true,
+        "resolution": "480p"
+      },
+      "prompt": "The pet talks to the camera as if telling a whole story. Within the first second its mouth starts moving in rapid, expressive jaw movements like speaking full sentences, brows lifting and eyes widening on the key words. It tilts its head side to side, pauses for a beat, then leans toward the lens and finishes with one big open-mouthed exclamation, ears perked. The camera holds close at the pet's eye level. The pet's face, markings and anything it wears stay the same throughout. It says these exact words, clearly and with expression, mouth moving in sync: \"Excuse me, it’s snack o’clock.\"",
+      "preview": "https://media.popnow.ai/effects/pet-talks-cat-d994f783.mp4",
+      "poster": "https://media.popnow.ai/effects/pet-talks-cat-37a6041d.webp"
+    },
+    {
+      "slug": "hand-heart",
+      "name": "Hand Heart",
+      "description": "Your hands make a heart that starts to glow.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject smiles warmly at the camera and forms a heart shape with both hands in front of the chest, holding it up toward the lens while the face stays clearly visible and in focus above it. A small glow of soft pink light shines through the gap between the fingers as the camera eases in gently.",
+      "preview": "https://media.popnow.ai/effects/hand-heart-ecb4477e.mp4",
+      "poster": "https://media.popnow.ai/effects/hand-heart-9759175a.webp"
+    },
+    {
+      "slug": "money-rain",
+      "name": "Money Rain",
+      "description": "Coins and bills pour down while you grin at the windfall.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A shower of shiny gold coins and long rectangular green paper bills with no printing on them begins to rain down from above in slow motion, spinning and glinting all around the main subject, who looks up with a delighted grin. The camera tilts up slightly to catch the coins and bills swirling against the light.",
+      "preview": "https://media.popnow.ai/effects/money-rain-0485b1ff.mp4",
+      "poster": "https://media.popnow.ai/effects/money-rain-cdc8958b.webp"
+    },
+    {
+      "slug": "giant-hand",
+      "name": "Giant Hand",
+      "description": "A building-sized hand scoops you up into the sky.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "An enormous hand, as big as a building, reaches down out of the sky into the frame, gently scoops up the main subject in its open palm and lifts them up and out of the scene. The camera stays wide and tilts up slightly to follow the lift.",
+      "preview": "https://media.popnow.ai/effects/giant-hand-bd7117c6.mp4",
+      "poster": "https://media.popnow.ai/effects/giant-hand-d577e555.webp"
+    },
+    {
+      "slug": "giant-creature",
+      "name": "Something Big",
+      "description": "A colossal creature rises from the mist behind you.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The ground trembles as a colossal creature rises slowly out of the mist far behind the main subject, towering over the landscape. The subject turns to look back while the camera pulls back and tilts up to reveal its full scale.",
+      "preview": "https://media.popnow.ai/effects/giant-creature-b632a42b.mp4",
+      "poster": "https://media.popnow.ai/effects/giant-creature-fe1d68f3.webp"
+    },
+    {
+      "slug": "desk-figurine",
+      "name": "Desk Figurine",
+      "description": "You become a glossy collectible on a tabletop.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject becomes a glossy collectible figurine standing on a plain round black base with no markings or lettering, on a wooden tabletop. A hand reaches in, lifts the figurine off the table and turns it gently toward the camera. The camera holds a close tabletop angle with shallow depth of field.",
+      "preview": "https://media.popnow.ai/effects/desk-figurine-e1963ab0.mp4",
+      "poster": "https://media.popnow.ai/effects/desk-figurine-d6ffa4ef.webp"
+    },
+    {
+      "slug": "sparkler",
+      "name": "Sparkler",
+      "description": "Draw a glowing heart in the air with a sparkler.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person holds a lit sparkler that blazes bright. Within the first second they sweep it through the air in a big arc, and the burning tip leaves a glowing golden light trail hanging in the air like a long exposure. By the third second they have drawn a large glowing heart in front of them, sparks spraying and lighting their face in gold. They look through the glowing heart into the lens and grin while it keeps shining. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/sparkler-d7f3ee93.mp4",
+      "poster": "https://media.popnow.ai/effects/sparkler-c4aa67e4.webp"
+    },
+    {
+      "slug": "groove-dance",
+      "name": "Groove",
+      "description": "Sharp footwork, a body wave, a spin and a hard pose.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person breaks into a high-energy street dance right away: within the first second they hit the beat with sharp footwork, then a full-body wave rolls from one arm through the shoulders to the other arm. By the third second they spin around in one quick full turn and snap into a hard freeze pose facing the lens, arms locked, chin up. The camera bounces and pushes in on each beat while keeping the whole body in frame, and holds on the freeze. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/groove-dance-69112af7.mp4",
+      "poster": "https://media.popnow.ai/effects/groove-dance-9d092b26.webp"
+    },
+    {
+      "slug": "hair-in-the-wind",
+      "name": "Hair in the Wind",
+      "description": "A strong gust whips your hair while you hold the stare.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second a strong gust hits from the side: the hair whips straight out sideways and streams across the frame, and strands sweep across the face. The wind keeps building through the whole shot, light flickering through the flying hair, while the person stands firm and keeps a steady gaze into the lens. The final frames hold on the hair flying fully out in the wind. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/hair-in-the-wind-17471bae.mp4",
+      "poster": "https://media.popnow.ai/effects/hair-in-the-wind-ccb73e5b.webp"
+    },
+    {
+      "slug": "live-portrait",
+      "name": "Live Portrait",
+      "description": "An old photo blinks, fills with color and smiles.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The old photograph comes alive. Within the first second the person in the picture blinks and draws a breath while the grain and paper texture stay. By the second second color starts flooding into the image from the center outward, everything warming into natural tones, until the whole picture is in full color by the fourth second. They turn their eyes to the lens and break into a warm smile, and the final frame is a living full-color portrait still inside its paper border. The face and hairstyle stay the same throughout.",
+      "preview": "https://media.popnow.ai/effects/live-portrait-2c28b04d.mp4",
+      "poster": "https://media.popnow.ai/effects/live-portrait-cc9f416b.webp"
+    },
+    {
+      "slug": "slow-turn-to-camera",
+      "name": "The Turn",
+      "description": "Look away, then turn to the lens with a confident gaze.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second the person turns their head and shoulders from where they were looking around toward the camera in one smooth, decisive move, light sliding across the face as it turns. By the second second they face the lens straight on and settle into a direct, confident gaze with a hint of a smile while the camera pushes in to a close-up. It holds on that direct look to the end, the background melting into blur. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/slow-turn-to-camera-822461c9.mp4",
+      "poster": "https://media.popnow.ai/effects/slow-turn-to-camera-c42ee904.webp"
+    },
+    {
+      "slug": "glance-over-shoulder",
+      "name": "Over the Shoulder",
+      "description": "A glance back at the camera with a half-smile.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject looks away for a moment, then turns their head to glance back over the shoulder toward the camera with a relaxed half-smile and holds the look. Hair follows the turn naturally as soft light slides across the face.",
+      "preview": "https://media.popnow.ai/effects/glance-over-shoulder-3a181ffc.mp4",
+      "poster": "https://media.popnow.ai/effects/glance-over-shoulder-ade042fa.webp"
+    },
+    {
+      "slug": "laugh-out-loud",
+      "name": "Burst of Laughter",
+      "description": "A calm smile breaks into a real laugh.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject's expression breaks into genuine, unguarded laughter, eyes crinkling and head tipping back slightly before settling into a wide smile at the camera. The camera holds close with a faint natural sway.",
+      "preview": "https://media.popnow.ai/effects/laugh-out-loud-6a2e4e50.mp4",
+      "poster": "https://media.popnow.ai/effects/laugh-out-loud-228b3ef8.webp"
+    },
+    {
+      "slug": "wink",
+      "name": "Peace & Wink",
+      "description": "Peace sign, a playful wink, then a big grin.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject looks straight into the lens, gives a slow, playful wink and flashes a peace sign beside the face before breaking into a grin. The camera pushes in slightly on the beat.",
+      "preview": "https://media.popnow.ai/effects/wink-a7c0d608.mp4",
+      "poster": "https://media.popnow.ai/effects/wink-65181ed0.webp"
+    },
+    {
+      "slug": "speed-ramp",
+      "name": "Speed Ramp",
+      "description": "Normal speed sinks into dreamy slow motion.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The moment plays at normal speed for a beat, then drops into deep slow motion: hair, fabric, dust and droplets hang and drift through the air, before snapping back to real time.",
+      "preview": "https://media.popnow.ai/effects/speed-ramp-fcdf95f1.mp4",
+      "poster": "https://media.popnow.ai/effects/speed-ramp-92f9e3c4.webp"
+    },
+    {
+      "slug": "bouquet-surprise",
+      "name": "Bouquet Surprise",
+      "description": "Someone hands you flowers and your face lights up.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A hand reaches in from outside the frame holding a big bouquet of fresh flowers toward the main subject, who lights up with surprise, takes it with both hands and holds it at chest height below the chin, beaming at the camera. The camera eases in slightly as the petals tremble in the light.",
+      "preview": "https://media.popnow.ai/effects/bouquet-surprise-11927f99.mp4",
+      "poster": "https://media.popnow.ai/effects/bouquet-surprise-db620aac.webp"
+    },
+    {
+      "slug": "cover-shot",
+      "name": "Cover Shot",
+      "description": "Studio flashes, three sharp poses, one magazine cover.",
+      "category": "fashion",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Studio flashes fire in a steady rhythm. With each flash the person snaps into a new pose, hand on hip, chin up, then a look over the shoulder, three sharp poses in a row. On the final flash the image freezes and turns into a high-contrast black-and-white editorial photograph with no text. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/cover-shot-67ed62db.mp4",
+      "poster": "https://media.popnow.ai/effects/cover-shot-d7b3a866.webp"
+    },
+    {
+      "slug": "red-carpet-flashes",
+      "name": "Red Carpet",
+      "description": "Camera flashes and confetti as you own the carpet.",
+      "category": "fashion",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Dozens of camera flashes erupt from every side, and the whole frame strobes white again and again, flash after flash lighting up the person. The camera sweeps halfway around them in slow motion while silver confetti and glitter rain down through the flashes, and they turn to land a confident look in the lens. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/red-carpet-flashes-404d92fc.mp4",
+      "poster": "https://media.popnow.ai/effects/red-carpet-flashes-09e4296f.webp"
+    },
+    {
+      "slug": "runway-walk",
+      "name": "Runway Walk",
+      "description": "Strobes, a runway stride and a hard final pose.",
+      "category": "fashion",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Low tracking shot: the person strides straight toward the camera with long, confident runway steps while strobe lights fire in rapid sequence on both sides. They stop abruptly in front of the lens, snap into a hard pose and lock eyes with the camera as the last strobe flashes. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/runway-walk-732133da.mp4",
+      "poster": "https://media.popnow.ai/effects/runway-walk-24242852.webp"
+    },
+    {
+      "slug": "outfit-check",
+      "name": "Outfit Check",
+      "description": "A full turn to show the look, then a hand-on-hip finish.",
+      "category": "fashion",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera holds a full-length framing at eye level the whole time. Within the first second the person pivots on the spot to show their outfit in profile, keeps turning to show the back, then the other side, the clothes swinging out with the turn. By the fourth second they land facing the camera again and snap into a hand-on-hip pose with chin up, holding a confident look into the lens to the end. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/outfit-check-947e4c1a.mp4",
+      "poster": "https://media.popnow.ai/effects/outfit-check-b2480dd9.webp"
+    },
+    {
+      "slug": "skirt-twirl",
+      "name": "Twirl",
+      "description": "One spin and the dress flares into a perfect circle.",
+      "category": "fashion",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject does one quick, graceful twirl on the spot so the hem of the skirt or dress flares out in a circle, then lands facing the camera with a smile. The camera holds a full-length framing as the fabric settles in slow motion.",
+      "preview": "https://media.popnow.ai/effects/skirt-twirl-f57a546c.mp4",
+      "poster": "https://media.popnow.ai/effects/skirt-twirl-8e605cee.webp"
+    },
+    {
+      "slug": "sunglasses-on",
+      "name": "Shades On",
+      "description": "Slide on sunglasses and give the camera a cool look.",
+      "category": "fashion",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject slides on a pair of plain, completely unmarked dark sunglasses with one hand, tilts the chin up and gives the camera a cool, unbothered look. The camera snaps in slightly on the moment as light glints across the smooth lenses.",
+      "preview": "https://media.popnow.ai/effects/sunglasses-on-5c91caf9.mp4",
+      "poster": "https://media.popnow.ai/effects/sunglasses-on-23248c18.webp"
+    },
+    {
+      "slug": "light-leak",
+      "name": "Film Burn",
+      "description": "Warm light floods in, flashes white and fades to amber.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Shot on old film. Within the first second a burst of red and orange light leaks in from the edge of the frame and floods across the cool scene, heavy grain and flicker crawling over the picture. By the third second the burn swallows half the frame in blazing orange and red, then flares to pure white for an instant like the film burning through, and fades back to the person, now washed in warm amber, looking into the lens. Grain and flicker stay to the end. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/light-leak-d9e86514.mp4",
+      "poster": "https://media.popnow.ai/effects/light-leak-9feba7b1.webp"
+    },
+    {
+      "slug": "vhs-home-video",
+      "name": "VHS Home Video",
+      "description": "Scan lines, tracking noise and a wave from the past.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Within the first second the footage turns into a worn VHS home-video tape: the picture drops to blurry low-resolution video squeezed into a 4:3 frame with dark side bars, thick horizontal scan lines, colors bleeding sideways in red and blue fringes, blown-out highlights and a constant tape warble. Bands of tracking noise roll up through the frame every second, and once the whole picture jumps and tears sideways before snapping back. The person laughs and waves at the camera while the handheld shot bobs and wobbles. No on-screen text or date stamp. The person stays exactly as they appear in the photo.",
+      "preview": "https://media.popnow.ai/effects/vhs-home-video-214fbe92.mp4",
+      "poster": "https://media.popnow.ai/effects/vhs-home-video-ec344859.webp"
+    },
+    {
+      "slug": "16mm-film",
+      "name": "16mm Film",
+      "description": "Grain, halation and a gentle handheld drift.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The scene plays like vintage 16mm film footage: visible film grain, warm faded colors, soft halation around the highlights, slight gate weave and a gentle flicker, with a handheld camera drifting slowly. The subject moves naturally and subtly, as if captured on an old documentary reel.",
+      "preview": "https://media.popnow.ai/effects/16mm-film-61fc1d4c.mp4",
+      "poster": "https://media.popnow.ai/effects/16mm-film-4000150b.webp"
+    },
+    {
+      "slug": "noir-blinds",
+      "name": "Noir Blinds",
+      "description": "Black and white, with blind-slat light sliding across.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The image turns to high-contrast black and white as hard slatted light from window blinds slides slowly across the scene through a curl of haze. Deep shadows pool at the edges while the main subject holds still and the camera drifts in.",
+      "preview": "https://media.popnow.ai/effects/noir-blinds-6e0b42cc.mp4",
+      "poster": "https://media.popnow.ai/effects/noir-blinds-4233e692.webp"
+    },
+    {
+      "slug": "anamorphic-flare",
+      "name": "Blockbuster Flare",
+      "description": "A long blue lens flare streaks across the frame.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A widescreen blockbuster look: a long horizontal blue lens flare streaks across the frame as a bright light passes behind the main subject, with oval bokeh glowing in the background. The camera pushes in slowly with a smooth cinematic glide.",
+      "preview": "https://media.popnow.ai/effects/anamorphic-flare-871e76c9.mp4",
+      "poster": "https://media.popnow.ai/effects/anamorphic-flare-25d978e0.webp"
+    },
+    {
+      "slug": "flash-snapshot",
+      "name": "Flash Snapshot",
+      "description": "On-camera flash pops while you break into a laugh.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The scene plays like a late-night point-and-shoot snapshot in the same place: every second a harsh on-camera flash fires, each pop hitting the main subject with a burst of hard white light that blows out the highlights and throws a sharp shadow right behind them, then drops back to the dim ambient light, with a cool, grainy cast. The main subject breaks into a spontaneous laugh as the handheld camera jostles close.",
+      "preview": "https://media.popnow.ai/effects/flash-snapshot-8b46d0d9.mp4",
+      "poster": "https://media.popnow.ai/effects/flash-snapshot-03942e9e.webp"
+    },
+    {
+      "slug": "color-returns",
+      "name": "Color Returns",
+      "description": "A faded black-and-white photo blinks and fills with color.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The image starts as a faded black-and-white print, then color gradually floods back into the scene as the main subject begins to move, blinking and turning slightly toward the camera. The camera holds still with a faint film flicker.",
+      "preview": "https://media.popnow.ai/effects/color-returns-0acb5789.mp4",
+      "poster": "https://media.popnow.ai/effects/color-returns-4da6016c.webp"
+    },
+    {
+      "slug": "digital-glitch",
+      "name": "Glitch",
+      "description": "Red-and-cyan glitches tear through, then snap back clean.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The image stutters with digital glitches: horizontal bands tear and shift, color channels split into red and cyan ghosts, and blocks of pixels smear across the main subject for a split second before snapping back. The camera holds steady between the bursts.",
+      "preview": "https://media.popnow.ai/effects/digital-glitch-b4b61815.mp4",
+      "poster": "https://media.popnow.ai/effects/digital-glitch-9c7d3114.webp"
+    },
+    {
+      "slug": "miniature-world",
+      "name": "Miniature World",
+      "description": "Your wide shot turns into a busy toy-model town.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The scene turns into a toy-model world: strong blur at the top and bottom of the frame, saturated colors, and distant cars and people moving in quick little bursts, while the camera looks down from a high angle.",
+      "preview": "https://media.popnow.ai/effects/miniature-world-5dee977f.mp4",
+      "poster": "https://media.popnow.ai/effects/miniature-world-82ff9616.webp"
+    },
+    {
+      "slug": "ingredients-burst",
+      "name": "Ingredients Burst",
+      "description": "Fruit and droplets explode around your product in slow motion.",
+      "category": "product",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The product sits at the center as its key ingredients burst outward around it in slow motion, fruit, leaves, drops and splashes hanging suspended in the air. The camera orbits slowly around the product while the pieces spin in the light.",
+      "preview": "https://media.popnow.ai/effects/ingredients-burst-b94e12d5.mp4",
+      "poster": "https://media.popnow.ai/effects/ingredients-burst-88f873e1.webp"
+    },
+    {
+      "slug": "liquid-splash",
+      "name": "Liquid Splash",
+      "description": "A glossy wave swirls around your product, then a crisp push-in.",
+      "category": "product",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A wave of liquid rises and wraps around the product in a glossy slow-motion swirl, droplets spraying outward and catching the studio light. The camera pushes in slowly to end on a crisp hero framing as the splash settles.",
+      "preview": "https://media.popnow.ai/effects/liquid-splash-be0fb41d.mp4",
+      "poster": "https://media.popnow.ai/effects/liquid-splash-a961f487.webp"
+    },
+    {
+      "slug": "turntable-360",
+      "name": "360 Turntable",
+      "description": "Your product or pet spins a full circle on the spot.",
+      "category": "product",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The main subject turns slowly on the spot through one full rotation, like an item on a display turntable, while the camera and the background stay perfectly still under soft, even studio light.",
+      "preview": "https://media.popnow.ai/effects/turntable-360-066b30a2.mp4",
+      "poster": "https://media.popnow.ai/effects/turntable-360-71a76829.webp"
+    },
+    {
+      "slug": "pumpkin-head-dance",
+      "name": "Pumpkin Head Dance",
+      "description": "Hold up a glowing jack-o'-lantern and dance like the pumpkin is your head.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The person lifts a big carved jack-o'-lantern with a warm candle glowing inside and holds it right in front of their face, lined up so it looks like their head has become the pumpkin. They do a goofy little dance, shoulders bopping side to side and stepping in place, while the candle glow flickers through the carved smile and a few autumn leaves drift by. Playful and funny, not scary. Their clothes stay the same.",
+      "preview": "https://media.popnow.ai/effects/pumpkin-head-dance-cca84ae3.mp4",
+      "poster": "https://media.popnow.ai/effects/pumpkin-head-dance-c0bd9d28.webp"
+    },
+    {
+      "slug": "vampire-flash",
+      "name": "Y2K Vampire Party",
+      "description": "An early-2000s flash camera catches you as a vampire at a Halloween house party.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The photo turns into an early-2000s digital camera party clip: the person is now dressed as a glamorous vampire in a long black high-collared cape over a dark, buttoned-up velvet outfit, with dark red lipstick, at a busy Halloween house party with orange string lights and paper bats on the walls. A harsh on-camera flash fires twice, the footage has slight motion blur and a low-resolution compact-camera look, and they laugh and raise a paper cup toward the lens. No fangs, no blood, no text. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/vampire-flash-ddbcce7a.mp4",
+      "poster": "https://media.popnow.ai/effects/vampire-flash-13b74a8a.webp"
+    },
+    {
+      "slug": "full-moon-howl",
+      "name": "Full Moon Howl",
+      "description": "Pull on a fluffy wolf hood and howl at a huge full moon over a misty forest.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Night falls quickly behind the person and a huge glowing full moon rises over a misty pine forest. They pull up the hood of a cozy faux-fur wolf costume with soft pointed ears, grin at the camera, then tilt their head back and give a playful howl at the moon while silver mist swirls around them. Gentle, fun and a little spooky, not scary. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/full-moon-howl-3a805aae.mp4",
+      "poster": "https://media.popnow.ai/effects/full-moon-howl-98b7bde3.webp"
+    },
+    {
+      "slug": "bedsheet-ghost",
+      "name": "Bedsheet Ghost",
+      "description": "A white sheet drops over you and you float off as a cute little ghost.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A plain white bedsheet drops from above onto the person and turns them into a cute classic bedsheet ghost with two round black eye holes, the same height as them. The little ghost sways, waves one corner of the sheet at the camera and floats a few inches off the ground, while the light dims to a soft purple glow and a few warm fairy lights float in the air. Cute and funny, not scary.",
+      "preview": "https://media.popnow.ai/effects/bedsheet-ghost-c21da2a1.mp4",
+      "poster": "https://media.popnow.ai/effects/bedsheet-ghost-93d23cff.webp"
+    },
+    {
+      "slug": "broom-flight",
+      "name": "Broom Flight",
+      "description": "A witch hat pops on and you take off on a broom over a moonlit village.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A wooden witch's broom appears beside the person and a pointed black witch hat pops onto their head. They hop onto the broom and lift off, rising high above a moonlit village of glowing windows and crooked rooftops while their hair and scarf flutter in the wind. The camera follows them up toward a huge full moon. Joyful and magical. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/broom-flight-f5957614.mp4",
+      "poster": "https://media.popnow.ai/effects/broom-flight-845653e6.webp"
+    },
+    {
+      "slug": "mirror-twin",
+      "name": "Mirror Twin",
+      "description": "Your reflection lags a beat behind, then turns and winks at the camera.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera slowly drifts sideways to reveal a tall antique mirror with an ornate dark carved frame beside the person, lit by flickering candles. At first the reflection copies them exactly, then it lags a beat behind, slowly turns its head to the camera and gives a knowing smile and a wink while the real person looks at the mirror, surprised. Moody candlelight, eerie but playful. The person and the reflection have exactly the same face and clothes.",
+      "preview": "https://media.popnow.ai/effects/mirror-twin-8a679a9b.mp4",
+      "poster": "https://media.popnow.ai/effects/mirror-twin-4c4fab99.webp"
+    },
+    {
+      "slug": "autumn-turn",
+      "name": "Autumn Turn",
+      "description": "A gust of wind turns everything gold and red with leaves swirling around you.",
+      "category": "weather",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A warm gust of wind sweeps through and the whole scene turns to peak autumn: the trees and surroundings shift to deep orange, red and gold, and a swirl of falling leaves spirals around the person in warm golden-hour light. They smile, look up at the falling leaves and reach out to catch one. Cozy fall mood. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/autumn-turn-e3e28a8d.mp4",
+      "poster": "https://media.popnow.ai/effects/autumn-turn-72cdc08c.webp"
+    },
+    {
+      "slug": "party-freestyle",
+      "name": "Party Freestyle",
+      "description": "You break into a high-energy freestyle while the house party cheers.",
+      "category": "moves",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The scene becomes a lively house party at night with colorful LED lights and friends cheering in the background. The person breaks into a confident, high-energy freestyle dance with bouncy footwork, shoulder shimmies and quick spins, ending in a cool pose toward the camera. Handheld phone video, the camera bobbing with the rhythm. Their face stays exactly the same. Their clothes stay the same.",
+      "preview": "https://media.popnow.ai/effects/party-freestyle-a4dab5a4.mp4",
+      "poster": "https://media.popnow.ai/effects/party-freestyle-0a880828.webp"
+    },
+    {
+      "slug": "balloon-lift",
+      "name": "Balloon Lift",
+      "description": "More and more balloons appear until they lift you up into the sky.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "A small bunch of colorful helium balloons appears in the person's hand, then more and more balloons pop into existence until a huge bright bunch gently lifts them off the ground. They laugh in surprise and float upward, feet dangling, as the camera tilts up and follows them into a clear blue sky. Whimsical and joyful. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/balloon-lift-d97cdf92.mp4",
+      "poster": "https://media.popnow.ai/effects/balloon-lift-67b48e50.webp"
+    },
+    {
+      "slug": "clay-morph",
+      "name": "Clay Morph",
+      "description": "You and the scene turn into handmade stop-motion clay, then you wave.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "kling/3.0/image-to-video",
+      "modelName": "Kling 3.0",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "generate_audio": false,
+        "resolution": "720p"
+      },
+      "prompt": "The person and everything around them smoothly turn into handmade stop-motion claymation: plasticine textures with visible fingerprints and slightly choppy stop-motion movement. The clay version of the person keeps the same hairstyle, clothes and colors, blinks, smiles and gives a cheerful wave. Charming, handcrafted look.",
+      "preview": "https://media.popnow.ai/effects/clay-morph-sd-grace-b5106911.mp4",
+      "poster": "https://media.popnow.ai/effects/clay-morph-sd-grace-1f0d2df1.webp"
+    },
+    {
+      "slug": "tiny-critters",
+      "name": "Tiny Critters",
+      "description": "A palm-sized elephant, fox and bunnies wander in and climb onto you.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Tiny cute animals start appearing around the person: a palm-sized baby elephant, a little red fox, two bunnies and a miniature giraffe walk in from the edges of the frame. One climbs onto their shoulder and another sits in their open hand. The person laughs with delight and looks down at them. Bright, whimsical, realistic miniature animals. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/tiny-critters-2cb1e3d3.mp4",
+      "poster": "https://media.popnow.ai/effects/tiny-critters-f013c154.webp"
+    },
+    {
+      "slug": "cloud-surf",
+      "name": "Cloud Surf",
+      "description": "The ground falls away and you surf across pink sunset clouds.",
+      "category": "fun",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The ground falls away and the person is now surfing on a glossy surfboard across a sea of fluffy pink and peach clouds at sunset, knees bent and arms out for balance, hair blowing in the wind. The camera glides alongside them. Dreamy pastel sky, joyful mood. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/cloud-surf-c51a8795.mp4",
+      "poster": "https://media.popnow.ai/effects/cloud-surf-20e88d43.webp"
+    },
+    {
+      "slug": "billboard-reveal",
+      "name": "Billboard Reveal",
+      "description": "The camera pulls back to show your photo on a giant city billboard.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The camera pulls back fast and rises: the photo is revealed to be a giant illuminated billboard high above a busy city intersection at dusk, with traffic streaming below and people on the sidewalk stopping to look up. The person on the billboard smiles and waves. No brand names, no logos, no readable text.",
+      "preview": "https://media.popnow.ai/effects/billboard-reveal-ebdf29e4.mp4",
+      "poster": "https://media.popnow.ai/effects/billboard-reveal-5ee8f004.webp"
+    },
+    {
+      "slug": "game-select",
+      "name": "Game Character Select",
+      "description": "You become a 3D game character spinning on a neon select screen.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The scene turns into a video game character select screen: the person becomes a stylized 3D game character with the same face, hair and outfit, standing on a glowing rotating platform against a dark neon grid background. They shift from an idle stance into a confident ready pose and give a nod, while abstract glowing bars pulse beside them. No text, no letters, no numbers, no logos.",
+      "preview": "https://media.popnow.ai/effects/game-select-073ea5ce.mp4",
+      "poster": "https://media.popnow.ai/effects/game-select-dbf087f9.webp"
+    },
+    {
+      "slug": "pop-up-book",
+      "name": "Pop-Up Book",
+      "description": "Your scene folds into a paper pop-up book and you spring up from the page.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The scene folds into a giant pop-up paper book lying open on a wooden table: the surroundings become layered colorful paper cutouts, and the person becomes a paper pop-up figure with the same face, hair and outfit. The camera pulls back as the pages open and the paper person springs up, waves, and paper clouds and trees unfold around them. Handcrafted papercraft look, no text.",
+      "preview": "https://media.popnow.ai/effects/pop-up-book-abd690f3.mp4",
+      "poster": "https://media.popnow.ai/effects/pop-up-book-6238df2e.webp"
+    },
+    {
+      "slug": "lofi-loop",
+      "name": "Lo-Fi Loop",
+      "description": "A cozy hand-painted loop: you, headphones, rain on the window.",
+      "category": "film",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "The photo becomes a cozy lo-fi anime-style animated scene with soft hand-painted colors: the person, drawn with the same face, hair and clothes, sits at a desk by a rainy window wearing headphones, gently nodding along, steam rising from a mug and raindrops sliding down the glass while city lights glow outside. Calm, gentle, looping motion. No text.",
+      "preview": "https://media.popnow.ai/effects/lofi-loop-bce6b72e.mp4",
+      "poster": "https://media.popnow.ai/effects/lofi-loop-76731361.webp"
+    },
+    {
+      "slug": "knit-world",
+      "name": "Knit World",
+      "description": "Everything turns into soft knitted yarn and you become a cozy knit plush.",
+      "category": "transform",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Everything slowly turns into soft knitted yarn: the background, the ground and the person's clothes become chunky colorful knit textures with visible stitches, and a little knitted sun bobs in the sky. The person becomes a cute knitted plush version of themselves with the same hair color and outfit colors, then waves and smiles. Cozy, handmade look.",
+      "preview": "https://media.popnow.ai/effects/knit-world-39dbbb09.mp4",
+      "poster": "https://media.popnow.ai/effects/knit-world-e0587f21.webp"
+    },
+    {
+      "slug": "snow-globe",
+      "name": "Snow Globe",
+      "description": "Snow starts to fall, then the camera pulls back: you are inside a snow globe.",
+      "category": "camera",
+      "popular": false,
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "modelName": "MiniMax H3",
+      "imageField": "image_url",
+      "imageArray": false,
+      "input": {
+        "duration_seconds": 5,
+        "resolution": "768p"
+      },
+      "prompt": "Snow starts to fall around the person, then the camera pulls back to reveal they are standing inside a glass snow globe sitting on a wooden mantel beside warm string lights. A hand-sized swirl of snow spins inside the globe and the tiny person looks up and waves at the camera. Cozy winter mood, no text. Their face stays exactly the same.",
+      "preview": "https://media.popnow.ai/effects/snow-globe-566923fc.mp4",
+      "poster": "https://media.popnow.ai/effects/snow-globe-9f7dd49a.webp"
+    },
+    {
+      "slug": "figure-photo",
+      "name": "Mini Figure",
+      "description": "You as a glossy 1/7 scale collectible figure, standing right on your desk.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "bytedance/seedream-5.0-flash/edit",
+      "modelName": "Seedream 5.0 Flash",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "2k"
+      },
+      "prompt": "Turn the person in the photo into a 1/7 scale collectible figure standing on a clear round acrylic base on a tidy wooden desk, beside a keyboard and a coffee mug, soft window light. Glossy hand-painted finish, the same outfit and outfit colors as the photo, a confident pose. Photorealistic product photo with shallow depth of field. Keep the person's face, hairstyle and hair color exactly the same. No text, no logos, no watermark.",
+      "preview": "https://media.popnow.ai/effects/figure-photo-620cf1e6.webp",
+      "poster": "https://media.popnow.ai/effects/figure-photo-620cf1e6.webp"
+    },
+    {
+      "slug": "sticker-pack",
+      "name": "Sticker Pack",
+      "description": "Six cute die-cut stickers of you: waving, laughing, sleepy and more.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "google/nano-banana-2.1/edit",
+      "modelName": "Nano Banana 2.1",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "1k"
+      },
+      "prompt": "Turn the person into a sheet of six cute die-cut vinyl stickers in a chibi cartoon style: waving, thumbs up, laughing, heart hands, sleepy and surprised, each with a thick white border and a soft drop shadow, neatly arranged on a light grey backing sheet. The same outfit colors in every sticker. Keep the person's face, hairstyle and hair color exactly the same. No text, no logos, no watermark.",
+      "preview": "https://media.popnow.ai/effects/sticker-pack-a63e758e.webp",
+      "poster": "https://media.popnow.ai/effects/sticker-pack-a63e758e.webp"
+    },
+    {
+      "slug": "clay-figure",
+      "name": "Clay You",
+      "description": "You and your scene, remade in squishy handmade clay.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "bytedance/seedream-5.0-flash/edit",
+      "modelName": "Seedream 5.0 Flash",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "2k"
+      },
+      "prompt": "Recreate the photo as a handmade claymation scene: everything, including the person's face, skin, hair and clothes and the whole background, is sculpted from matte plasticine with soft rounded shapes, visible fingerprints and tool marks, like a stop-motion film set. The person becomes a smiling clay figure in the same pose and outfit colours. Keep them recognizable: the same hairstyle and hair colour, skin tone, facial hair and glasses if they have them. Warm stop-motion studio lighting, shallow depth of field. No text, no logos, no watermark.",
+      "preview": "https://media.popnow.ai/effects/clay-figure-ruben-ae09186d.webp",
+      "poster": "https://media.popnow.ai/effects/clay-figure-ruben-ae09186d.webp"
+    },
+    {
+      "slug": "pixel-art",
+      "name": "Pixel Art",
+      "description": "A 16-bit video game version of you and the place you’re in.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "bytedance/seedream-5.0-flash/edit",
+      "modelName": "Seedream 5.0 Flash",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "2k"
+      },
+      "prompt": "Redraw the entire photo as 16-bit pixel art from a retro video game: every part of the image, including the person's face, hair, skin and clothes and the whole background, is made of chunky visible square pixels with a limited bright palette and crisp dark outlines, with no photographic detail left anywhere. The person becomes a cute pixel-art character in the same pose and outfit colours, standing in a pixel version of the same place. Keep them recognizable: the same hairstyle and hair colour, skin tone, facial hair and glasses if they have them. No text, no game interface, no logos, no watermark.",
+      "preview": "https://media.popnow.ai/effects/pixel-art-ruben-325290d1.webp",
+      "poster": "https://media.popnow.ai/effects/pixel-art-ruben-325290d1.webp"
+    },
+    {
+      "slug": "id-photo",
+      "name": "ID Photo",
+      "description": "A clean head-and-shoulders shot on light blue, blazer included.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "bytedance/seedream-5.0-flash/edit",
+      "modelName": "Seedream 5.0 Flash",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "2k"
+      },
+      "prompt": "Turn this into a clean professional ID photo: head and shoulders, facing the camera straight on, a calm friendly expression, wearing a neat plain white collared shirt under a dark navy blazer, hair tidy, glasses only if they already wear them, even soft studio lighting on a plain light blue background, sharp focus. Keep the person's face, hairstyle and hair color exactly the same. No text, no logos, no watermark.",
+      "preview": "https://media.popnow.ai/effects/id-photo-3b359719.webp",
+      "poster": "https://media.popnow.ai/effects/id-photo-3b359719.webp"
+    },
+    {
+      "slug": "comic-cover",
+      "name": "Comic Cover",
+      "description": "You as the caped hero on a 1960s comic book cover.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "google/nano-banana-2.1/edit",
+      "modelName": "Nano Banana 2.1",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "1k"
+      },
+      "prompt": "Turn the photo into a vintage 1960s comic book cover: the person drawn in bold ink lines and halftone dots as the hero, leaping forward with a flowing red cape over the same outfit, bright primary colors and speed lines over a city skyline. One big hand-lettered title across the top reads THE AMAZING YOU. No other words, no logos, no price box, no barcode. Keep the person's face and hairstyle the same.",
+      "preview": "https://media.popnow.ai/effects/comic-cover-ruben-bd539d4f.webp",
+      "poster": "https://media.popnow.ai/effects/comic-cover-ruben-bd539d4f.webp"
+    },
+    {
+      "slug": "postage-stamp",
+      "name": "Postage Stamp",
+      "description": "Your portrait engraved on a vintage stamp, perforated edges and all.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "google/nano-banana-2.1/edit",
+      "modelName": "Nano Banana 2.1",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "1k"
+      },
+      "prompt": "Turn the photo into a vintage postage stamp lying on an old cream envelope: the person's head-and-shoulders portrait in fine engraved line art printed in two-tone ink, inside an ornate frame with perforated zigzag paper edges, the number 50 small in one corner and a faint round postmark across one edge. No country name and no other words. Keep the person's face and hairstyle the same.",
+      "preview": "https://media.popnow.ai/effects/postage-stamp-fd1dd34f.webp",
+      "poster": "https://media.popnow.ai/effects/postage-stamp-fd1dd34f.webp"
+    },
+    {
+      "slug": "retro-poster",
+      "name": "Retro Poster",
+      "description": "You on a sunny 1960s travel poster by the sea.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "google/nano-banana-2.1/edit",
+      "modelName": "Nano Banana 2.1",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "1k"
+      },
+      "prompt": "Turn the photo into a 1960s mid-century travel poster: flat screen-printed shapes, a warm limited palette of coral, teal, mustard and cream, subtle paper grain. The person is large in the foreground in the same outfit, looking out over a stylized sunny coastline with sailboats and a lighthouse. Keep the person's face, hairstyle and hair color exactly the same. No text, no logos, no watermark.",
+      "preview": "https://media.popnow.ai/effects/retro-poster-f9591b15.webp",
+      "poster": "https://media.popnow.ai/effects/retro-poster-f9591b15.webp"
+    },
+    {
+      "slug": "felt-doll",
+      "name": "Felt Doll",
+      "description": "A fuzzy needle-felted wool doll of you, embroidered smile included.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "bytedance/seedream-5.0-flash/edit",
+      "modelName": "Seedream 5.0 Flash",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "2k"
+      },
+      "prompt": "Turn the person into a needle-felted wool doll: soft fuzzy wool fibers, tiny embroidered eyes and smile, rosy felt cheeks, the same hairstyle in wool of the same hair color, and the same outfit in felted wool of the same colors, sitting on a knitted blanket in warm window light. Handmade and cozy, macro photo. No text.",
+      "preview": "https://media.popnow.ai/effects/felt-doll-60f6abc6.webp",
+      "poster": "https://media.popnow.ai/effects/felt-doll-60f6abc6.webp"
+    },
+    {
+      "slug": "disco-bust",
+      "name": "Disco Ball Bust",
+      "description": "You rebuilt from hundreds of mirror tiles, throwing sparkles across the room.",
+      "category": "photo",
+      "popular": false,
+      "kind": "image",
+      "model": "google/nano-banana-2.1/edit",
+      "modelName": "Nano Banana 2.1",
+      "imageField": "image_urls",
+      "imageArray": true,
+      "input": {
+        "aspect_ratio": "auto",
+        "output_format": "jpeg",
+        "resolution": "1k"
+      },
+      "prompt": "Rebuild the person in the photo as a bust sculpture made of hundreds of small mirrored disco-ball tiles, keeping their face shape and hairstyle recognizable. The tiles catch colorful spotlights and scatter sparkles of light across a dark velvet backdrop. Glossy, glittering, high-contrast party photograph. No text, no logos.",
+      "preview": "https://popnow.ai/trending/disco-mosaic-7986a9f6.webp",
+      "poster": "https://popnow.ai/trending/disco-mosaic-7986a9f6.webp"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Outputs and local data
+popnow-output/
+*.part
+*.zip
+.env
+.env.*
+
+# Node, build output
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
+
+# Repository metadata kept out of version control
+REPO_META.json

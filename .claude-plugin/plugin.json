@@ -1,0 +1,14 @@
+{
+  "name": "popnow",
+  "displayName": "PopNow",
+  "version": "1.0.0",
+  "description": "Agent Skills for the PopNow AI API: generate videos (text-to-video, image-to-video), images, music and speech, and apply trending video effects, with the credit price quoted before anything runs.",
+  "author": {
+    "name": "PopNow",
+    "url": "https://popnow.ai"
+  },
+  "homepage": "https://popnow.ai/docs",
+  "repository": "https://github.com/popnow-ai/popnow-skills",
+  "license": "MIT",
+  "keywords": ["ai-video", "text-to-video", "image-to-video", "ai-image", "ai-music", "text-to-speech", "video-effects", "popnow", "agent-skills"]
+}
