@@ -16,7 +16,7 @@ then run `create --confirm-credits <that number>`.
 Typical flow:
   popnow.py quote  --model minimax/h3/text-to-video --prompt "A paper boat on a lake"
   popnow.py create --model minimax/h3/text-to-video --prompt "A paper boat on a lake" \
-      --confirm-credits 28 --download ./out
+      --confirm-credits 185 --download ./out
   popnow.py wait job_...          # resume waiting on an existing task
   popnow.py download job_... --out ./out
 

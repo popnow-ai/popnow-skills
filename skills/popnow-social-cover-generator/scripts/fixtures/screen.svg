@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1950" width="900" height="1950">
+  <!-- Local placeholder for an app screenshot (self-test only). -->
+  <rect width="900" height="1950" fill="#FFFFFF"/>
+  <rect x="60" y="180" width="420" height="44" rx="10" fill="#1B1A17"/>
+  <rect x="60" y="270" width="780" height="420" rx="36" fill="#D9472B"/>
+  <rect x="60" y="740" width="780" height="150" rx="28" fill="#EFEAE2"/>
+  <rect x="60" y="920" width="780" height="150" rx="28" fill="#EFEAE2"/>
+  <rect x="60" y="1100" width="780" height="150" rx="28" fill="#EFEAE2"/>
+  <rect x="0" y="1790" width="900" height="160" fill="#F6F3EE"/>
+</svg>

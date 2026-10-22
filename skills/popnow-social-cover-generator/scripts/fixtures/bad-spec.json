@@ -1,0 +1,13 @@
+{
+  "name": "Self-test failures",
+  "design": false,
+  "theme": { "bg": "#FFFFFF", "ink": "#E6E6E6", "accent": "#C8402A" },
+  "copy": { "title": "A headline that is far too long to ever fit on a small video thumbnail at a readable size no matter how hard the layout tries, because it keeps going with clause after clause about features, pricing, availability, compatibility and everything else that belongs in the description instead", "cta": "under the badge" },
+  "images": { "background": { "src": "missing-background.png", "prompt": "a quiet harbor at dawn" } },
+  "outputs": [
+    { "id": "too-long", "platform": "youtube", "layout": "minimal-mono" },
+    { "id": "in-badge", "platform": "youtube", "layout": "minimal-mono", "copy": { "title": "Short", "cta": "under the badge" }, "safe": { "right": 8, "bottom": 8 } },
+    { "id": "missing-image", "platform": "og", "layout": "split-photo", "copy": { "title": "Fine title" } },
+    { "id": "no-such-layout", "platform": "og", "layout": "cubist" }
+  ]
+}

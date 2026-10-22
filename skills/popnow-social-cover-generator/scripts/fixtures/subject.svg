@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <!-- Local placeholder for a cut-out subject on transparency (self-test only). -->
+  <g transform="translate(300 320)">
+    <rect x="-150" y="-170" width="300" height="340" rx="40" fill="#F6C945"/>
+    <rect x="-110" y="-120" width="220" height="150" rx="16" fill="#FFF8E6"/>
+    <circle cx="-50" cy="-50" r="22" fill="#2B2B2B"/><circle cx="50" cy="-50" r="22" fill="#2B2B2B"/>
+    <rect x="-60" y="80" width="120" height="30" rx="15" fill="#E0533D"/>
+  </g>
+</svg>

@@ -1,0 +1,62 @@
+{
+  "title": "Memoleaf 2.0 launch",
+  "fps": 30,
+  "presets": ["wide", "vertical"],
+  "userFacts": [
+    { "id": "f1", "text": "Memoleaf turns a voice memo into tidy meeting notes." },
+    { "id": "f2", "text": "It transcribes 9 languages on the laptop, with no upload." },
+    { "id": "f3", "text": "Notes export to Markdown and PDF." },
+    { "id": "f4", "text": "Install with npm install -g memoleaf." }
+  ],
+  "beats": [
+    {
+      "id": "hook", "role": "hook", "start": 0, "end": 3.4,
+      "onScreen": ["Your meeting ended.", "The notes didn't."],
+      "voice": "Your meeting ended. The notes didn't.",
+      "visual": "A laptop lid closing on a messy notepad; the second line lands as it shuts",
+      "motion": "Slow push from frame 1; second line rises word by word",
+      "media": ["hero-desk"],
+      "keyFrames": [2.6]
+    },
+    {
+      "id": "pain", "role": "problem", "start": 3.4, "end": 7.6,
+      "onScreen": ["Forty minutes of audio", "nobody will replay."],
+      "visual": "A long audio file on a timeline, the playhead not moving",
+      "motion": "The waveform scrolls past, the playhead stays at zero"
+    },
+    {
+      "id": "drop", "role": "moment", "start": 7.6, "end": 13.2,
+      "onScreen": ["Drop in the memo.", "Get the notes."],
+      "voice": "Drop in the memo. Get the notes.",
+      "visual": "The product's own window: a memo file dropped in, headings and action items appear",
+      "motion": "File lands, progress line, notes build top to bottom",
+      "facts": ["f1"]
+    },
+    {
+      "id": "offline", "role": "moment", "start": 13.2, "end": 18.4,
+      "onScreen": ["In 9 languages,", "on your laptop."],
+      "visual": "Language chips switch while the same note re-renders; an offline badge stays lit",
+      "motion": "Chips step across, the note crossfades text in place",
+      "facts": ["f2"]
+    },
+    {
+      "id": "proof", "role": "proof", "start": 18.4, "end": 23.6,
+      "onScreen": ["Markdown or PDF,", "ready to share."],
+      "visual": "The finished note exported side by side as Markdown and PDF",
+      "motion": "Two documents slide apart from one",
+      "facts": ["f3"],
+      "keyFrames": [22.0]
+    },
+    {
+      "id": "cta", "role": "cta", "start": 23.6, "end": 28,
+      "onScreen": ["npm install -g memoleaf"],
+      "voice": "Memoleaf. Install it today.",
+      "visual": "The command alone on the brand colour, a cursor blinking after it",
+      "facts": ["f4"],
+      "keyFrames": [26.5]
+    }
+  ],
+  "holds": [
+    { "start": 25.2, "end": 28, "why": "End card: the command must be readable and copyable" }
+  ]
+}

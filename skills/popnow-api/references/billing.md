@@ -1,7 +1,7 @@
 # Credits and billing
 
 - API and popnow.ai spend the same credits at the same prices. No separate API plan, no subscription, no minimum; buy credit packs at https://popnow.ai/pricing (credits are bought on the website, not through the API).
-- 1 credit = $0.01 at the base rate; larger packs include bonus credits.
+- 1 credit = $0.001 (1,000 credits = $1). Packs run from Starter ($9, 9,000 credits) to Pro ($99, 120,000 credits including bonus); larger packs include bonus credits, and a custom amount from $10 to $2,000 buys 1,000 credits per $1.
 - Prices are per model and option: per image, per second of video or audio, per request, or per 1,000 characters of speech.
 - Every amount appears twice: whole credits (`credits`, `maxCredits`, `availableCredits`...) and a USD string (`cost`, `maxCharge`, `available`...). Use the credit fields.
 

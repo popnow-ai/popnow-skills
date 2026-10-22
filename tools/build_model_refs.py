@@ -65,7 +65,7 @@ def price(m):
 
 def render(skill, items, snapshot):
     out = ["# %s" % TITLES[skill], ""]
-    out += ["Snapshot of `GET /api/v1/models` taken %s. Prices are in credits (1 credit = $0.01) and are the "
+    out += ["Snapshot of `GET /api/v1/models` taken %s. Prices are in credits (1 credit = $0.001) and are the "
                "starting price per unit; the exact amount of one request comes from `popnow.py quote`. The live list "
                "is always the source of truth: `popnow.py models --modality %s`." % (snapshot, skill.split("-")[1]), ""]
     out.append("Model IDs follow `<maker>/<model>/<task>`. Read a model's input fields with `popnow.py model <id>`.")

@@ -1,0 +1,32 @@
+{
+  "product": "Product name",
+  "oneLiner": "What it is in one plain sentence.",
+  "audience": "Who it is for, in the words they use about themselves",
+  "category": "productivity",
+  "tone": ["calm", "precise"],
+  "keywords": ["local-first", "writing"],
+  "headline": "The promise in six words or fewer",
+  "subhead": "One sentence on how it keeps the promise.",
+  "primaryCta": "Verb + object, for example Download for Mac",
+  "secondaryCta": "Optional quieter link, for example See how it works",
+  "nav": ["Features", "Pricing", "Changelog"],
+  "heroSubject": "What the hero picture shows, for example a notebook and a laptop on a desk at dusk",
+  "features": [
+    { "title": "Short title", "body": "One or two sentences with a specific detail." },
+    { "title": "Short title", "body": "One or two sentences with a specific detail." },
+    { "title": "Short title", "body": "One or two sentences with a specific detail." }
+  ],
+  "proof": {
+    "kind": "facts",
+    "items": [{ "text": "A true, checkable fact about the product" }]
+  },
+  "pricing": [
+    { "name": "Free", "price": "$0", "note": "What is included" },
+    { "name": "Pro", "price": "$8 / month", "note": "What is included" }
+  ],
+  "closingCta": "A last line that restates the promise",
+  "mustAvoid": ["anything the user dislikes, in their words"],
+  "directions": [],
+  "avoidDirections": [],
+  "framework": "html"
+}

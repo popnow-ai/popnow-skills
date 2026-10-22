@@ -12,7 +12,7 @@ Uses popnow.py from the same folder for the HTTP calls.
   effects.py list [--category weather] [--search zombie] [--popular]
   effects.py show "Zombie Turn"
   effects.py quote zombie-turn --image ./me.jpg
-  effects.py create zombie-turn --image ./me.jpg --confirm-credits 28 --download ./out
+  effects.py create zombie-turn --image ./me.jpg --confirm-credits 336 --download ./out
 
 Always quote first, tell the user the credit price and create only after they
 agree. `create` refuses to start when the price is above --confirm-credits.

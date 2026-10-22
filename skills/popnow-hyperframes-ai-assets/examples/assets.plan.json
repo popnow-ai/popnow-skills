@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "title": "Memoleaf launch film - media pass",
+  "project": ".",
+  "defaults": { "aspectRatio": "16:9" },
+  "assets": [
+    {
+      "id": "hero-notes",
+      "kind": "image",
+      "model": "google/nano-banana-2.1/text-to-image",
+      "resolution": "1k",
+      "prompt": "Morning meeting table after the meeting, a closed laptop, a paper notebook with loose handwritten notes and a phone recording, soft window light from the left, sage green and warm paper tones, the right third empty for a headline, 35 mm, shallow depth of field, no text, no logos, no people",
+      "use": "Beat 1 backdrop behind the hook line"
+    },
+    {
+      "id": "hero-move",
+      "kind": "video",
+      "model": "minimax/h3/image-to-video",
+      "image": "@hero-notes",
+      "duration": 5,
+      "prompt": "Very slow push in towards the notebook, light steady, camera smooth, nothing new enters the frame",
+      "use": "Beat 1, under the hook line"
+    },
+    {
+      "id": "bed",
+      "kind": "bgm",
+      "model": "suno/v6/text-to-audio",
+      "title": "Memoleaf bed",
+      "prompt": "Light acoustic and electronic instrumental, 96 BPM, soft brushed drums, warm upright bass, a gentle marimba motif, quiet first 4 seconds, builds a little at 12 seconds, ends on a clean chord at about 28 seconds, no vocals, no risers",
+      "use": "Whole film, ducked under the voice"
+    },
+    {
+      "id": "vo-en",
+      "kind": "voice",
+      "model": "google/gemini-3.8-flash-tts/text-to-speech",
+      "text": "Your meeting ended. The notes didn't. Drop in the memo, and get the notes.",
+      "voice": "Kore",
+      "lang": "en",
+      "set": { "style": "vocal_smile" },
+      "use": "English cut, beats 1 and 3"
+    },
+    {
+      "id": "vo-de",
+      "kind": "voice",
+      "model": "google/gemini-3.8-flash-tts/text-to-speech",
+      "text": "Das Meeting ist vorbei. Die Notizen nicht. Memo rein, Notizen raus.",
+      "voice": "Kore",
+      "lang": "de",
+      "set": { "style": "vocal_smile" },
+      "use": "German cut, beats 1 and 3"
+    },
+    {
+      "id": "sfx-pages",
+      "kind": "sfx",
+      "model": "popnow/foley-v1/video-to-audio",
+      "video": "@hero-move",
+      "duration": 5,
+      "prompt": "Quiet room, a soft page turn, faint paper rustle",
+      "use": "Under beat 1, very low"
+    }
+  ]
+}

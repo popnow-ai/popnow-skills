@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explainer</title>
+<link rel="stylesheet" href="assets/explainer.css">
+<style>
+/* Project-specific pieces go here (illustrations, brand tokens from DESIGN.md).
+   Override tokens on the style, never inline colours:
+   [data-style="paper-collage"] { --accent: #...; } */
+</style>
+</head>
+<body>
+<!-- One root carries the clock. beats --html keeps data-duration in step with the narration. -->
+<div id="root" class="x-root" data-style="paper-collage"
+     data-composition-id="explainer" data-start="0" data-duration="60" data-width="1920" data-height="1080" data-fps="30">
+  <div class="x-bg"></div>
+
+  <div class="x-stage">
+    <!-- Each section id is a storyboard beat id (or a shared "scene" id). Components: references/components.md -->
+    <section class="x-scene" id="b1">
+      <p class="x-kicker">A one-minute explainer</p>
+      <h1 class="x-h1"><span class="x-w">Your</span> <span class="x-w">title</span> <span class="x-w">here</span></h1>
+      <svg class="x-underline" viewBox="0 0 600 30" preserveAspectRatio="none"><path d="M8 18 C 150 6, 420 26, 592 12"/></svg>
+    </section>
+
+    <section class="x-scene" id="b2">
+      <h2 class="x-h2">Three things to know</h2>
+      <ol class="x-list">
+        <li class="x-item x-cut"><div class="x-face" data-tear="tb"><span class="x-mark">1</span><span class="x-text">First point, said in a few words</span></div></li>
+        <li class="x-item x-cut"><div class="x-face" data-tear="tb"><span class="x-mark">2</span><span class="x-text">Second point</span></div></li>
+        <li class="x-item x-cut"><div class="x-face" data-tear="tb"><span class="x-mark">3</span><span class="x-text">Third point</span></div></li>
+      </ol>
+    </section>
+
+    <section class="x-scene x-end" id="b3">
+      <p class="x-takeaway">The one sentence to remember.</p>
+      <ol class="x-sources x-cut">
+        <li><b>Sources</b></li>
+        <li>1. Title of the source, publisher, year - example.org/page</li>
+      </ol>
+    </section>
+  </div>
+
+  <div class="x-captions" id="captions" aria-hidden="true"></div>
+  <div class="x-grain"></div>
+
+  <!-- Every audio element needs an id or the mixer skips it. -->
+  <audio id="vo" src="assets/voiceover.wav" data-start="0.6" data-duration="56" data-track-index="10" data-volume="1"></audio>
+  <!-- Optional bed: paste the attribute printed by `explainer.py duck` as data-automation.
+  <audio id="music" src="assets/bed.wav" data-start="0" data-duration="60" data-track-index="11" data-fade-in="0.8" data-fade-out="2.5"></audio>
+  -->
+</div>
+
+<!-- Byte-for-byte copy of captions.vtt, kept in sync by `explainer.py inline-vtt`. -->
+<script type="text/vtt" id="captions-vtt">
+WEBVTT
+</script>
+<script src="assets/gsap.min.js"></script>
+<script src="assets/timing.js"></script>
+<script src="assets/explainer-runtime.js"></script>
+<script src="assets/explainer-components.js"></script>
+<script>
+(function () {
+  var T = window.EXPLAINER_TIMING;
+  var root = document.getElementById("root");
+  XR.fit(root);
+  window.__duration = T.duration;
+  gsap.ticker.lagSmoothing(0);
+  var tl = gsap.timeline({ paused: true, defaults: { immediateRender: false } });
+
+  function build() {
+    XC.paper(root);                 // torn edges for collage faces (no-op in other styles)
+    XC.auto(tl, T, {
+      // Custom builds go here, keyed by beat id or component name:
+      // b2: function (tl, el, beat, timing) { ... }
+    });
+    var src = XR.captionText();
+    var layer = document.getElementById("captions");
+    var capTl = XR.mountCaptions(tl, layer, XR.parseVTT(src.inline), { words: T.words, highlight: false });
+    src.file.then(function (text) {
+      if (text && text.trim() !== src.inline.trim()) XR.remountCaptions(capTl, layer, XR.parseVTT(text), { words: T.words });
+    });
+    tl.set({}, {}, T.duration);     // pad to the exact film length
+  }
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines[root.getAttribute("data-composition-id")] = tl;
+  window.__seek = function (s) { tl.pause(); tl.seek(s, false); };
+  XR.ready().then(function () {
+    build();
+    var q = new URLSearchParams(location.search);
+    if (q.has("t")) window.__seek(parseFloat(q.get("t")) || 0);
+    else if (!navigator.webdriver || q.has("play")) tl.play(0);  // a renderer seeks; a person watches
+  });
+})();
+</script>
+</body>
+</html>

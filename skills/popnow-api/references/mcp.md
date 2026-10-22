@@ -8,7 +8,7 @@ PopNow runs a remote MCP server, an alternative to calling the REST API from scr
 | Transport | Streamable HTTP, stateless (`POST` only) |
 | Sign-in | OAuth 2.1 with PKCE and dynamic client registration (scopes `generate`, `read`), or `Authorization: Bearer sk-popnow-...` |
 | Tools | `create_image`, `edit_image`, `create_video`, `create_music`, `create_speech`, `apply_effect`, `remove_background`, `upscale`, `get_job`, `list_my_creations`, `check_balance`, `list_models` |
-| Price | Same credits as the website. Jobs up to 30 credits start at once; anything above returns "Needs confirmation" and runs only when called again with `max_credits` |
+| Price | Same credits as the website. Jobs up to 300 credits start at once; anything above returns "Needs confirmation" and runs only when called again with `max_credits` |
 
 Claude Code:
 

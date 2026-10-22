@@ -13,7 +13,11 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CANONICAL = os.path.join(ROOT, "skills", "popnow-api", "scripts", "popnow.py")
-TARGETS = ("popnow-video", "popnow-image", "popnow-audio", "popnow-effects")
+TARGETS = (
+    "popnow-video", "popnow-image", "popnow-audio", "popnow-effects",
+    "popnow-launch-film", "popnow-narrated-explainer", "popnow-hyperframes-ai-assets",
+    "popnow-landing-page-from-mockup", "popnow-social-cover-generator", "popnow-brand-kit-design-md",
+)
 
 
 def main():

@@ -1,10 +1,10 @@
 # PopNow Skills
 
-> Open-source Agent Skills (SKILL.md folders) that let Claude Code, Claude.ai, Codex and other skill-compatible agents generate AI videos, images, music and speech, and apply trending video effects, through the PopNow API (https://api.popnow.ai). Every skill quotes the credit price and waits for the user's confirmation before spending. Scripts are Python 3.8+ standard library only. MIT license.
+> Open-source Agent Skills (SKILL.md folders) that let Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Claude.ai and other skill-compatible agents generate AI videos, images, music and speech, apply trending video effects, make finished work (product launch films, narrated explainer videos, landing pages from AI mockups, social covers and thumbnails, brand kits with DESIGN.md, AI assets for HyperFrames videos), and find free ready-made style presets (launch videos, slide decks, web pages) through the PopNow API (https://api.popnow.ai). Skills are free; generations spend PopNow credits and every skill quotes the price and waits for the user's confirmation before spending. Scripts are Python 3.8+ standard library only; the make-things skills add Node.js 22+ scripts with no npm dependencies and use local Chrome, FFmpeg and HyperFrames (npx, Apache-2.0). MIT license; bundled fonts are SIL OFL 1.1 (THIRD_PARTY_NOTICES.md); GSAP is not bundled.
 
-PopNow (https://popnow.ai) is a browser-based AI studio for videos, images and music: image-to-video, text-to-video, AI images, music and speech, one-tap trending video effects and image styles. Models include Kling, Seedance, Wan, Vidu, MiniMax, Nano Banana, GPT Image, Flux and Suno. Credit packs, no subscription; 1 credit = $0.01; failed runs refunded.
+PopNow (https://popnow.ai) is a browser-based AI studio for videos, images and music: image-to-video, text-to-video, AI images, music and speech, one-tap trending video effects and image styles. Models include Kling, Seedance, Wan, Vidu, MiniMax, Nano Banana, GPT Image, Flux and Suno. Credit packs, no subscription (Starter $9 = 9,000 credits up to Pro $99 = 120,000; custom $10-$2,000 at 1,000 credits per $1); 1 credit = $0.001; failed runs refunded. Typical prices: 5-second video about 125-340 credits, image about 10-50, song about 72.
 
-Install in Claude Code: `/plugin marketplace add popnow-ai/popnow-skills` then `/plugin install popnow@popnow-skills`. Or copy `skills/popnow-*` into `~/.claude/skills/` (Claude Code) or `~/.agents/skills/` (Codex). Requires `POPNOW_API_KEY` (sk-popnow-..., from https://popnow.ai/api/console/keys).
+Install in Claude Code: `/plugin marketplace add popnow-ai/popnow-skills` then `/plugin install popnow@popnow-skills`. Any agent: `npx skills add popnow-ai/popnow-skills` (skills CLI), or clone and run `./setup --host claude|codex|cursor|gemini|copilot|opencode [--project] [--copy] [--dry-run]` (offline; links skills into ~/.claude/skills, ~/.agents/skills, ~/.cursor/skills, ~/.gemini/skills, ~/.copilot/skills or ~/.config/opencode/skills). Plugin manifests: .claude-plugin/, .codex-plugin/, .cursor-plugin/. Agent-readable install steps: INSTALL_FOR_AGENTS.md. Requires `POPNOW_API_KEY` (sk-popnow-..., from https://popnow.ai/api/console/keys), exported in the agent's environment.
 
 Flow used by every skill: `POST /api/v1/jobs/quote` -> user confirms credits -> `POST /api/v1/jobs/createTask` with quoteId, expectedCredits and Idempotency-Key -> poll `GET /api/v1/jobs/recordInfo` -> download `output.assets[].url`.
 
@@ -14,18 +14,29 @@ Flow used by every skill: `POST /api/v1/jobs/quote` -> user confirms credits -> 
 - [popnow-image](skills/popnow-image/SKILL.md): text-to-image, photo editing, background removal, upscaling, layers
 - [popnow-audio](skills/popnow-audio/SKILL.md): music, text-to-speech, transcription, video sound effects
 - [popnow-effects](skills/popnow-effects/SKILL.md): 143 trending effects and photo styles (catalog in references/effects.json)
+- [popnow-launch-film](skills/popnow-launch-film/SKILL.md): 20-40 s product launch film (16:9, 9:16, 1:1) from a URL, README or repo, built in HTML/CSS/GSAP and rendered with HyperFrames; facts read from the product, contact sheet approved before rendering, loudness-checked mix, X and LinkedIn post copy; optional PopNow stills, B-roll, music and voiceover (about 72-500 credits)
+- [popnow-narrated-explainer](skills/popnow-narrated-explainer/SKILL.md): 45-120 s narrated explainer video in paper-collage, whiteboard or data-story style; voiceover in 12 languages, captions timed to the words, sourced facts, QA for sync, pace and loudness (about 21 credits lite, up to about 440)
+- [popnow-landing-page-from-mockup](skills/popnow-landing-page-from-mockup/SKILL.md): landing page designed as 2-3 AI mockups first, built in HTML/CSS or the user's framework, screenshot-compared with the mockup and linted for generic AI design habits (about 275 credits, lite about 35)
+- [popnow-social-cover-generator](skills/popnow-social-cover-generator/SKILL.md): exact-size share images for Open Graph, X, LinkedIn, RedNote, YouTube, Instagram and App Store with real HTML text in bundled OFL fonts; checks for fit, contrast, safe areas and file weight (about 100-200 credits per set, free without pictures)
+- [popnow-brand-kit-design-md](skills/popnow-brand-kit-design-md/SKILL.md): brand kit from a brief: three directions, contrast-checked palette, open-licence type, W3C design tokens, voice, outlined SVG wordmark, mockups and brand board, delivered as DESIGN.md (about 190-220 credits, lite free)
+- [popnow-hyperframes-ai-assets](skills/popnow-hyperframes-ai-assets/SKILL.md): photoreal stills, B-roll, music beds, voiceover and sound effects for a HyperFrames project from one JSON plan; one quoted total, files land in assets/ with provenance and the HyperFrames media ledger
+- [popnow-skill-finder](skills/popnow-skill-finder/SKILL.md): finds a free style preset in the PopNow skills catalog (https://popnow.ai/skills/agent-skills), shows previews, installs the chosen one and follows it; uses PopNow MCP find_skills/use_skill, else `popnow skills search|add`, else GET /api/v1/agent-skills, /api/v1/agent-skills/{slug}, /api/v1/agent-skills/{slug}/download (302 to a signed link fetched without the API key)
 - [popnow-api](skills/popnow-api/SKILL.md): auth, models, tasks, billing, errors, webhooks, idempotency, media, assets, OpenAI-compatible /v1/videos, MCP
 
 ## Scripts
 
 - [popnow.py](skills/popnow-api/scripts/popnow.py): balance, models, model, quote, create --confirm-credits N, status, wait, download, upload, jobs, usage, retry, purge
 - [effects.py](skills/popnow-effects/scripts/effects.py): list, show, quote, create
+- [find_skills.py](skills/popnow-skill-finder/scripts/find_skills.py): search, info, install --agent ID [--project] [--dir] [--force] [--dry-run]
+- Make-things tools (offline self-tests, no credits): launch-film scripts/*.mjs --self-test; narrated-explainer scripts/explainer.py selftest and scripts/kit-selftest.mjs; hyperframes-ai-assets scripts/popnow-assets.mjs --dry-run|--quote|--confirm-credits N|--self-test; landing-page-from-mockup and social-cover-generator scripts/selftest.mjs; brand-kit-design-md scripts/selftest.py
+- [setup](setup): offline installer for six agents
 
 ## PopNow links
 
 - Docs: https://popnow.ai/docs
 - OpenAPI: https://popnow.ai/docs/openapi.yaml
 - llms.txt: https://popnow.ai/llms.txt
-- MCP server: https://api.popnow.ai/mcp (setup: https://popnow.ai/mcp)
+- MCP server: https://api.popnow.ai/mcp (setup: https://popnow.ai/mcp; free tools find_skills and use_skill for style presets)
+- Skills catalog: https://popnow.ai/skills/agent-skills
 - Pricing: https://popnow.ai/pricing
 - Other repos: https://github.com/popnow-ai/popnow-mcp, https://github.com/popnow-ai/popnow-python, https://github.com/popnow-ai/popnow-js, https://github.com/popnow-ai/popnow-api, https://github.com/popnow-ai/popnow-blender

@@ -12,7 +12,9 @@ import sys
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SKILLS = ("popnow-api", "popnow-video", "popnow-image", "popnow-audio", "popnow-effects")
+SKILLS = ("popnow-api", "popnow-video", "popnow-image", "popnow-audio", "popnow-effects",
+          "popnow-launch-film", "popnow-narrated-explainer", "popnow-hyperframes-ai-assets",
+          "popnow-landing-page-from-mockup", "popnow-social-cover-generator", "popnow-brand-kit-design-md")
 sys.path.insert(0, os.path.join(ROOT, "skills", "popnow-effects", "scripts"))
 
 import effects  # noqa: E402
@@ -49,8 +51,8 @@ def client_with(routes):
     return client, fake
 
 
-QUOTE = {"quoteId": "q_1", "model": "minimax/h3/image-to-video", "maxCredits": 28, "expectedCredits": 28,
-         "estimatedCost": "0.28", "maxCharge": "0.28", "currency": "USD", "quantity": "5", "unit": "per_second",
+QUOTE = {"quoteId": "q_1", "model": "minimax/h3/image-to-video", "maxCredits": 185, "expectedCredits": 185,
+         "estimatedCost": "0.185", "maxCharge": "0.185", "currency": "USD", "quantity": "5", "unit": "per_second",
          "expiresAt": "2026-10-19T10:00:00Z"}
 
 SCHEMA_SINGLE = {"model": "minimax/h3/image-to-video", "inputSchema": {"properties": {
@@ -126,26 +128,26 @@ class InputTests(unittest.TestCase):
 
 class CreateTests(unittest.TestCase):
     def test_price_above_confirmation_starts_nothing(self):
-        client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(dict(QUOTE, maxCredits=56))})
+        client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(dict(QUOTE, maxCredits=370))})
         body = popnow.task_body("minimax/h3/image-to-video", {"prompt": "x", "image_url": "https://x.test/a.jpg"})
         with self.assertRaises(popnow.ConfirmationNeeded) as ctx:
-            popnow.create(client, body, 28)
-        self.assertIn("--confirm-credits 56", str(ctx.exception))
+            popnow.create(client, body, 185)
+        self.assertIn("--confirm-credits 370", str(ctx.exception))
         self.assertEqual(fake.paths(), ["/api/v1/jobs/quote"])
 
     def test_confirmed_create_locks_quote_and_sends_idempotency_key(self):
-        accepted = {"taskId": "job_1", "state": "queued", "estimatedCredits": 28, "estimatedCost": "0.28",
+        accepted = {"taskId": "job_1", "state": "queued", "estimatedCredits": 185, "estimatedCost": "0.185",
                     "deadlineAt": "2026-10-19T10:30:00Z"}
         client, fake = client_with({
             ("POST", "/api/v1/jobs/quote"): ok(QUOTE),
             ("POST", "/api/v1/jobs/createTask"): ok(accepted, status=202),
         })
         body = popnow.task_body("minimax/h3/image-to-video", {"prompt": "x"}, callback="https://hooks.test/p")
-        q, status, data, key = popnow.create(client, body, 28, idempotency_key="order-1", retention=3600)
+        q, status, data, key = popnow.create(client, body, 185, idempotency_key="order-1", retention=3600)
         self.assertEqual((status, data["taskId"], key), (202, "job_1", "order-1"))
         sent = fake.calls[1]
         self.assertEqual(sent["body"]["quoteId"], "q_1")
-        self.assertEqual(sent["body"]["expectedCredits"], 28)
+        self.assertEqual(sent["body"]["expectedCredits"], 185)
         self.assertEqual(sent["body"]["callBackUrl"], "https://hooks.test/p")
         self.assertEqual(fake.calls[0]["body"]["callBackUrl"], "https://hooks.test/p")
         self.assertEqual(sent["headers"]["Idempotency-Key"], "order-1")
@@ -159,13 +161,13 @@ class CreateTests(unittest.TestCase):
             attempts.append(1)
             if len(attempts) == 1:
                 return 503, {"code": 503, "msg": "busy"}
-            return ok({"taskId": "job_2", "state": "queued", "estimatedCredits": 28}, status=202)
+            return ok({"taskId": "job_2", "state": "queued", "estimatedCredits": 185}, status=202)
 
         client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(QUOTE), ("POST", "/api/v1/jobs/createTask"): flaky})
         orig_sleep = popnow.time.sleep
         popnow.time.sleep = lambda s: None
         try:
-            popnow.create(client, popnow.task_body("m/n/t", {"prompt": "x"}), 30)
+            popnow.create(client, popnow.task_body("m/n/t", {"prompt": "x"}), 300)
         finally:
             popnow.time.sleep = orig_sleep
         keys = [c["headers"]["Idempotency-Key"] for c in fake.calls if c["path"].endswith("createTask")]

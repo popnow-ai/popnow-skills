@@ -1,0 +1,23 @@
+{
+  "title": "Your explainer title",
+  "style": "paper-collage",
+  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
+  "beats": [
+    {
+      "id": "b1", "chapter": "hook", "component": "title-card", "anchor": "@start",
+      "visual": "Title card: headline words on paper slips, kicker in handwriting",
+      "onScreen": ["Your title here"]
+    },
+    {
+      "id": "b2", "chapter": "one", "component": "bullet-build", "anchor": "@start",
+      "marks": ["One idea", "One example"],
+      "visual": "Three torn strips, each lands as its phrase is spoken",
+      "onScreen": ["First point", "Second point", "Third point"]
+    },
+    {
+      "id": "b3", "chapter": "close", "component": "end-card", "anchor": "@end",
+      "visual": "Takeaway line and the sources list",
+      "onScreen": ["The one sentence to remember.", "Sources"]
+    }
+  ]
+}

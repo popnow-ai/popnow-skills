@@ -1,0 +1,176 @@
+#!/bin/sh
+# Install the PopNow skills from this checkout into an AI agent's skills folder.
+# Works offline: it only links (default) or copies folders that are already here.
+#
+#   ./setup --host claude                 # ~/.claude/skills
+#   ./setup --host codex --project        # ./.agents/skills in the current directory
+#   ./setup --host cursor --copy --dry-run
+#
+# Run ./setup --help for every option.
+
+set -eu
+
+usage() {
+  cat <<'EOF'
+Usage: setup --host AGENT [--project] [--copy] [--skill NAME]... [--force] [--dry-run]
+
+Links (or copies) every skill folder in skills/ into the agent's skills folder.
+
+  --host AGENT   claude, codex, cursor, gemini, copilot or opencode
+                 (claude-code, gemini-cli and github-copilot also work)
+  --project      install into the current directory's project folder
+                 instead of your personal folder (run it from your project root)
+  --copy         copy the folders instead of linking them (use this when the
+                 project folder is committed to git)
+  --skill NAME   only this skill, for example popnow-video (repeatable)
+  --force        replace an existing folder or link of the same name
+  --dry-run      print what would happen and change nothing
+  -h, --help     show this help
+
+Agent        personal folder              project folder
+claude       ~/.claude/skills             .claude/skills
+codex        ~/.agents/skills             .agents/skills
+cursor       ~/.cursor/skills             .cursor/skills
+gemini       ~/.gemini/skills             .gemini/skills
+copilot      ~/.copilot/skills            .github/skills
+opencode     ~/.config/opencode/skills    .opencode/skills
+
+The skills read your API key from POPNOW_API_KEY:
+  export POPNOW_API_KEY="sk-popnow-..."   # https://popnow.ai/api/console/keys
+EOF
+}
+
+die() {
+  printf 'setup: %s\n' "$1" >&2
+  exit 2
+}
+
+host=""
+project=0
+mode="link"
+force=0
+dry=0
+only=""
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --host)
+      [ $# -ge 2 ] || die "--host needs a value"
+      host=$2
+      shift 2
+      ;;
+    --host=*)
+      host=${1#--host=}
+      shift
+      ;;
+    --project) project=1; shift ;;
+    --copy) mode="copy"; shift ;;
+    --link) mode="link"; shift ;;
+    --force) force=1; shift ;;
+    --dry-run) dry=1; shift ;;
+    --skill)
+      [ $# -ge 2 ] || die "--skill needs a value"
+      only="$only $2"
+      shift 2
+      ;;
+    --skill=*)
+      only="$only ${1#--skill=}"
+      shift
+      ;;
+    -h|--help) usage; exit 0 ;;
+    *) die "unknown option: $1 (see --help)" ;;
+  esac
+done
+
+[ -n "$host" ] || { usage >&2; exit 2; }
+
+case "$host" in
+  claude|claude-code) personal=".claude/skills"; proj=".claude/skills" ;;
+  codex) personal=".agents/skills"; proj=".agents/skills" ;;
+  cursor) personal=".cursor/skills"; proj=".cursor/skills" ;;
+  gemini|gemini-cli) personal=".gemini/skills"; proj=".gemini/skills" ;;
+  copilot|github-copilot) personal=".copilot/skills"; proj=".github/skills" ;;
+  opencode) personal=".config/opencode/skills"; proj=".opencode/skills" ;;
+  *) die "unknown host: $host (use claude, codex, cursor, gemini, copilot or opencode)" ;;
+esac
+
+repo=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+src_root="$repo/skills"
+[ -d "$src_root" ] || die "no skills/ folder next to this script ($repo)"
+
+if [ "$project" -eq 1 ]; then
+  here=$(pwd -P)
+  [ "$here" != "$repo" ] || die "--project installs into the current directory; run it from your project, not from this checkout"
+  dest="$here/$proj"
+else
+  [ -n "${HOME:-}" ] || die "HOME is not set"
+  dest="$HOME/$personal"
+fi
+
+run() {
+  if [ "$dry" -eq 1 ]; then
+    printf '  would run: %s\n' "$*"
+  else
+    "$@"
+  fi
+}
+
+wanted() {
+  [ -z "$only" ] && return 0
+  for w in $only; do
+    [ "$w" = "$1" ] && return 0
+  done
+  return 1
+}
+
+[ "$dry" -eq 1 ] && printf 'Dry run: nothing will be changed.\n'
+printf 'Installing PopNow skills for %s into %s (%s)\n' "$host" "$dest" "$mode"
+run mkdir -p "$dest"
+
+done_count=0
+skip_count=0
+for src in "$src_root"/*; do
+  [ -f "$src/SKILL.md" ] || continue
+  name=$(basename -- "$src")
+  wanted "$name" || continue
+  target="$dest/$name"
+
+  if [ -L "$target" ] && [ "$mode" = "link" ] && [ "$(readlink "$target")" = "$src" ]; then
+    printf '  ok      %s (already linked)\n' "$name"
+    done_count=$((done_count + 1))
+    continue
+  fi
+  if [ -e "$target" ] || [ -L "$target" ]; then
+    if [ "$force" -ne 1 ]; then
+      printf '  skip    %s (exists at %s; use --force to replace)\n' "$name" "$target"
+      skip_count=$((skip_count + 1))
+      continue
+    fi
+    if [ -L "$target" ] || [ -f "$target" ]; then
+      run rm -f "$target"
+    elif [ -f "$target/SKILL.md" ]; then
+      run rm -rf "$target"
+    else
+      printf '  skip    %s (%s is not a skill folder; not touching it)\n' "$name" "$target"
+      skip_count=$((skip_count + 1))
+      continue
+    fi
+  fi
+
+  if [ "$mode" = "copy" ]; then
+    run cp -R "$src" "$target"
+    printf '  copied  %s\n' "$name"
+  else
+    run ln -s "$src" "$target"
+    printf '  linked  %s\n' "$name"
+  fi
+  done_count=$((done_count + 1))
+done
+
+[ -n "$only" ] && [ "$done_count" -eq 0 ] && [ "$skip_count" -eq 0 ] && die "no skill matched:$only"
+
+printf 'Done: %s installed, %s skipped.\n' "$done_count" "$skip_count"
+if [ -z "${POPNOW_API_KEY:-}" ]; then
+  printf 'Next: export POPNOW_API_KEY="sk-popnow-..." (create a key at https://popnow.ai/api/console/keys).\n'
+fi
+printf 'Restart your agent if it only discovers skills at startup.\n'

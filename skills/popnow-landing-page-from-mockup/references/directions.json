@@ -1,0 +1,717 @@
+{
+  "_about": "Art directions for landing page mockups. Each one is a complete visual position, not a color swap. axes are used to keep a set of 2-3 directions genuinely different: type (serif | grotesk | mono | condensed | humanist), value (light | dark | color), layout (editorial | grid | bands | collage | canvas | gallery), imagery (photo | illustration | product-ui | type | render | paper). kinds lists the product kinds a direction suits (software | physical | service | content | event); a brief's kind filters the pool.",
+  "directions": [
+    {
+      "id": "warm-editorial",
+      "name": "Warm editorial",
+      "axes": {
+        "type": "serif",
+        "value": "light",
+        "layout": "editorial",
+        "imagery": "photo"
+      },
+      "kinds": [
+        "software",
+        "service",
+        "content",
+        "physical"
+      ],
+      "fits": [
+        "calm",
+        "literate",
+        "warm",
+        "writing",
+        "notes",
+        "books",
+        "education",
+        "wellbeing",
+        "food",
+        "craft",
+        "consumer",
+        "productivity",
+        "personal"
+      ],
+      "palette": {
+        "bg": "#F3EDE2",
+        "surface": "#FBF8F2",
+        "ink": "#1E1B16",
+        "muted": "#6B6358",
+        "accent": "#B4532A",
+        "line": "#D9CFBF"
+      },
+      "paletteWords": "cream paper background, warm near-black ink, one rust accent used for links and a single button",
+      "type": "a high-contrast serif for headlines set large with tight leading, a quiet humanist sans for body text, small caps for labels",
+      "fontSuggestions": {
+        "display": [
+          "Fraunces",
+          "Newsreader",
+          "Source Serif 4",
+          "Instrument Serif"
+        ],
+        "text": [
+          "Source Sans 3",
+          "Instrument Sans",
+          "Public Sans"
+        ],
+        "mono": [
+          "IBM Plex Mono"
+        ]
+      },
+      "layout": "asymmetric two-column hero with the headline on the left and a tall photographic plate on the right, hairline rules between sections, wide outer margins, one full-width image band in the middle of the page",
+      "imagery": "natural-light still-life photography with real texture (paper, wood, linen), shot from slightly above",
+      "heroVisual": "a tall natural-light photograph of {subject}, framed like a magazine plate with a thin caption underneath",
+      "featureLayout": "one large feature with a cropped product screenshot spanning two columns, followed by two smaller text-led features with short captions",
+      "proofLayout": {
+        "quotes": "a single large pull quote in serif italic with the person's name and role in small caps",
+        "facts": "a row of three plain facts set in large serif numerals or short phrases, separated by hairline rules"
+      },
+      "pricingLayout": "plans set as a calm table with hairline dividers, the recommended plan marked by a small rust label rather than a colored card",
+      "avoid": [
+        "drop shadows on cards",
+        "rounded pill buttons everywhere",
+        "illustrated mascots"
+      ],
+      "notFor": [
+        "developer infrastructure",
+        "gaming",
+        "high-energy consumer launches"
+      ]
+    },
+    {
+      "id": "swiss-grid",
+      "name": "Swiss grid",
+      "axes": {
+        "type": "grotesk",
+        "value": "light",
+        "layout": "grid",
+        "imagery": "product-ui"
+      },
+      "kinds": [
+        "software",
+        "service"
+      ],
+      "fits": [
+        "precise",
+        "professional",
+        "b2b",
+        "saas",
+        "analytics",
+        "finance",
+        "design",
+        "architecture",
+        "tools",
+        "productivity",
+        "data"
+      ],
+      "palette": {
+        "bg": "#FFFFFF",
+        "surface": "#F2F2F0",
+        "ink": "#111111",
+        "muted": "#5E5E5A",
+        "accent": "#E4412B",
+        "line": "#DADAD6"
+      },
+      "paletteWords": "white page, black type, pale grey modules, a single signal red-orange used only for the primary button and key numbers",
+      "type": "a neutral grotesk set very large and flush left for headlines, the same family in regular weight for body, small monospaced captions",
+      "fontSuggestions": {
+        "display": [
+          "Archivo",
+          "Hanken Grotesk",
+          "Schibsted Grotesk"
+        ],
+        "text": [
+          "Archivo",
+          "Hanken Grotesk"
+        ],
+        "mono": [
+          "JetBrains Mono",
+          "IBM Plex Mono"
+        ]
+      },
+      "layout": "a visible 12-column grid, flush-left headline spanning eight columns, square-cornered modules of different widths, captions aligned to the grid, no centered blocks",
+      "imagery": "the product interface shown at true scale inside plain rectangular frames, with real labels and numbers",
+      "heroVisual": "a wide, true-scale screenshot of {subject} in a plain rectangular frame that bleeds off the right edge",
+      "featureLayout": "an asymmetric module grid: one wide module with a product crop, two narrow modules with a number and a sentence each",
+      "proofLayout": {
+        "quotes": "one short quote in a narrow grid column next to the person's name and company in mono",
+        "facts": "three large numerals or short facts with one-line labels, sitting on the grid"
+      },
+      "pricingLayout": "plans as columns of a ruled comparison table with the recommended column outlined in black",
+      "avoid": [
+        "rounded corners larger than 4px",
+        "soft shadows",
+        "decorative illustrations"
+      ],
+      "notFor": [
+        "children's products",
+        "lifestyle brands that need warmth"
+      ]
+    },
+    {
+      "id": "dark-instrument",
+      "name": "Dark instrument panel",
+      "axes": {
+        "type": "mono",
+        "value": "dark",
+        "layout": "canvas",
+        "imagery": "product-ui"
+      },
+      "kinds": [
+        "software"
+      ],
+      "fits": [
+        "technical",
+        "developer",
+        "infrastructure",
+        "security",
+        "data",
+        "ai",
+        "devtools",
+        "monitoring",
+        "api",
+        "cli",
+        "hardware"
+      ],
+      "palette": {
+        "bg": "#0E1013",
+        "surface": "#161A1F",
+        "ink": "#E8E6E1",
+        "muted": "#8C918F",
+        "accent": "#C8F169",
+        "line": "#2A2F35"
+      },
+      "paletteWords": "near-black graphite page, warm off-white text, one phosphor-lime accent reserved for live data and the primary button, 1px hairline borders",
+      "type": "a monospaced face for labels, numbers and code, a compact grotesk for headlines in medium weight, nothing bold",
+      "fontSuggestions": {
+        "display": [
+          "Space Grotesk",
+          "Geist",
+          "Hanken Grotesk"
+        ],
+        "text": [
+          "Geist",
+          "Hanken Grotesk"
+        ],
+        "mono": [
+          "JetBrains Mono",
+          "Geist Mono",
+          "IBM Plex Mono"
+        ]
+      },
+      "layout": "a wide product canvas directly under a short headline, dense panels with real numbers, code samples in bordered blocks, sections separated by thin rules rather than color changes",
+      "imagery": "the real product interface and terminal output; at most one macro photograph of hardware",
+      "heroVisual": "a wide dark interface of {subject} with live charts, logs and status rows, framed edge to edge",
+      "featureLayout": "a split layout alternating code block and live interface panel, each with a two-line explanation",
+      "proofLayout": {
+        "quotes": "one short quote set in mono inside a bordered panel",
+        "facts": "a log-style list of facts, each line prefixed with a small status mark and a timestamp"
+      },
+      "pricingLayout": "plans as bordered panels with usage limits in mono, the recommended one with a lime top rule",
+      "avoid": [
+        "neon glows",
+        "purple or blue gradients",
+        "floating orbs",
+        "glass panels"
+      ],
+      "notFor": [
+        "consumer lifestyle products",
+        "audiences that dislike technical density"
+      ]
+    },
+    {
+      "id": "color-block",
+      "name": "Color-block poster",
+      "axes": {
+        "type": "condensed",
+        "value": "color",
+        "layout": "bands",
+        "imagery": "illustration"
+      },
+      "kinds": [
+        "software",
+        "service",
+        "content",
+        "physical",
+        "event"
+      ],
+      "fits": [
+        "playful",
+        "bold",
+        "young",
+        "consumer",
+        "events",
+        "music",
+        "community",
+        "food",
+        "creator",
+        "social",
+        "launch",
+        "education"
+      ],
+      "palette": {
+        "bg": "#FFE9A8",
+        "surface": "#FFF6DC",
+        "ink": "#1B1B1B",
+        "muted": "#4A4A44",
+        "accent": "#E8452C",
+        "second": "#2F5BD3",
+        "line": "#1B1B1B"
+      },
+      "paletteWords": "flat butter-yellow, tomato red and cobalt fields in full-width bands, black type, no gradients",
+      "type": "an extra-bold condensed sans in uppercase for headlines, set huge and tight, a sturdy sans for body",
+      "fontSuggestions": {
+        "display": [
+          "Anton",
+          "Archivo Black",
+          "Bricolage Grotesque"
+        ],
+        "text": [
+          "Bricolage Grotesque",
+          "Archivo"
+        ],
+        "mono": [
+          "Space Mono"
+        ]
+      },
+      "layout": "full-width color bands, each section a different flat color, oversized numbers, sticker-style labels set at slight angles, generous black outlines",
+      "imagery": "flat cut-paper illustrations with visible paper edges, two or three colors each",
+      "heroVisual": "a large flat cut-paper illustration of {subject} overlapping the headline block",
+      "featureLayout": "alternating left-right bands, each with one illustration and one big statement",
+      "proofLayout": {
+        "quotes": "two or three short quotes on sticker labels across a colored band",
+        "facts": "a colored band with three oversized statements on sticker labels"
+      },
+      "pricingLayout": "plans as thick-outlined cards on a colored band, the recommended card rotated two degrees",
+      "avoid": [
+        "photography mixed with illustration",
+        "thin grey text",
+        "soft shadows"
+      ],
+      "notFor": [
+        "regulated finance",
+        "enterprise security",
+        "luxury"
+      ]
+    },
+    {
+      "id": "soft-photographic",
+      "name": "Soft photographic",
+      "axes": {
+        "type": "humanist",
+        "value": "light",
+        "layout": "bands",
+        "imagery": "photo"
+      },
+      "kinds": [
+        "service",
+        "software",
+        "physical",
+        "event"
+      ],
+      "fits": [
+        "human",
+        "friendly",
+        "health",
+        "wellbeing",
+        "travel",
+        "home",
+        "family",
+        "local",
+        "service",
+        "hospitality",
+        "consumer",
+        "marketplace"
+      ],
+      "palette": {
+        "bg": "#F7F5F0",
+        "surface": "#FFFFFF",
+        "ink": "#22261F",
+        "muted": "#626A5D",
+        "accent": "#3F6B4F",
+        "line": "#E2E0D8"
+      },
+      "paletteWords": "soft off-white, deep moss-green accent, earthy neutrals taken from the photography",
+      "type": "a rounded humanist sans for headlines in semibold, the same family for body, comfortable line length",
+      "fontSuggestions": {
+        "display": [
+          "Figtree",
+          "Nunito Sans",
+          "Outfit"
+        ],
+        "text": [
+          "Figtree",
+          "Nunito Sans"
+        ],
+        "mono": [
+          "DM Mono"
+        ]
+      },
+      "layout": "a full-bleed photographic hero with the headline on a calm area of the photo, then alternating photo and text bands with large rounded image crops",
+      "imagery": "natural-light documentary photography of real places and hands using the product, no posed stock smiles",
+      "heroVisual": "a full-bleed natural-light photograph of {subject}, with a calm, uncluttered area for the headline",
+      "featureLayout": "three alternating photo-and-text rows with different crop shapes",
+      "proofLayout": {
+        "quotes": "two longer quotes with small portraits and full names, set beside a wide photo",
+        "facts": "three short facts set beside a wide photograph, each with a small line drawing"
+      },
+      "pricingLayout": "two or three soft cards on a white band, the recommended one with a moss outline",
+      "avoid": [
+        "people pointing at laptops",
+        "corporate handshakes",
+        "fake smiles at camera"
+      ],
+      "notFor": [
+        "developer tools",
+        "abstract infrastructure"
+      ]
+    },
+    {
+      "id": "paper-collage",
+      "name": "Paper collage",
+      "axes": {
+        "type": "serif",
+        "value": "light",
+        "layout": "collage",
+        "imagery": "paper"
+      },
+      "kinds": [
+        "software",
+        "content",
+        "service",
+        "event"
+      ],
+      "fits": [
+        "creative",
+        "handmade",
+        "education",
+        "kids",
+        "notes",
+        "journaling",
+        "community",
+        "nonprofit",
+        "craft",
+        "learning",
+        "playful"
+      ],
+      "palette": {
+        "bg": "#EFE7D6",
+        "surface": "#FAF5EA",
+        "ink": "#232019",
+        "muted": "#6A6152",
+        "accent": "#D9482B",
+        "second": "#2E6E8E",
+        "line": "#C9BCA3"
+      },
+      "paletteWords": "textured kraft and cream papers, ink black, a red pencil accent and a blue ballpoint accent",
+      "type": "a soft old-style serif for headlines, a typewriter-like mono for labels, handwritten annotations used sparingly",
+      "fontSuggestions": {
+        "display": [
+          "Fraunces",
+          "Young Serif",
+          "DM Serif Display"
+        ],
+        "text": [
+          "Literata",
+          "Source Serif 4"
+        ],
+        "mono": [
+          "Courier Prime",
+          "IBM Plex Mono"
+        ]
+      },
+      "layout": "overlapping paper pieces, taped photos and cards at slight angles, margin notes with hand-drawn arrows, but body text kept on straight, readable paper",
+      "imagery": "scanned paper textures, cut-out photographs with white borders, hand-drawn marker marks",
+      "heroVisual": "a collage of torn paper, a taped photograph of {subject} and a handwritten note",
+      "featureLayout": "index cards pinned at different angles, each holding one feature with a small cut-out image",
+      "proofLayout": {
+        "quotes": "quotes handwritten on paper scraps with names, pinned around a short headline",
+        "facts": "facts typed on index cards and taped at slight angles"
+      },
+      "pricingLayout": "plans as paper tickets with perforated edges, the recommended one stamped",
+      "avoid": [
+        "perfect digital gradients",
+        "glossy 3D",
+        "glass panels"
+      ],
+      "notFor": [
+        "enterprise infrastructure",
+        "fintech compliance"
+      ]
+    },
+    {
+      "id": "mono-document",
+      "name": "Mono document",
+      "axes": {
+        "type": "mono",
+        "value": "light",
+        "layout": "gallery",
+        "imagery": "type"
+      },
+      "kinds": [
+        "software"
+      ],
+      "fits": [
+        "developer",
+        "open-source",
+        "minimal",
+        "honest",
+        "cli",
+        "api",
+        "privacy",
+        "writing",
+        "local-first",
+        "technical",
+        "indie"
+      ],
+      "palette": {
+        "bg": "#FAFAF7",
+        "surface": "#F0EFEA",
+        "ink": "#151514",
+        "muted": "#6C6C66",
+        "accent": "#1F5FD1",
+        "line": "#D8D7D0"
+      },
+      "paletteWords": "plain off-white page, black monospaced text, a single blue for links like a well-kept document",
+      "type": "a monospaced face for everything except a slightly larger proportional headline, strict sizes, no bold except headings",
+      "fontSuggestions": {
+        "display": [
+          "IBM Plex Sans",
+          "Instrument Sans"
+        ],
+        "text": [
+          "IBM Plex Mono",
+          "JetBrains Mono"
+        ],
+        "mono": [
+          "IBM Plex Mono",
+          "JetBrains Mono"
+        ]
+      },
+      "layout": "a single narrow reading column like a README, with wide inline code blocks and diagrams breaking out of the column, ASCII-style separators",
+      "imagery": "code samples, terminal captures and simple line diagrams; no photographs",
+      "heroVisual": "a terminal or code block showing {subject} in use, set right under the headline",
+      "featureLayout": "a numbered list in prose, each item with a short code or output sample",
+      "proofLayout": {
+        "quotes": "a quote set as a block quote with the author's handle",
+        "facts": "a plain bulleted list of facts, like a README"
+      },
+      "pricingLayout": "a simple text table with plan, price and limits",
+      "avoid": [
+        "illustrations",
+        "big rounded cards",
+        "color backgrounds"
+      ],
+      "notFor": [
+        "consumer apps for non-technical people",
+        "visual products"
+      ]
+    },
+    {
+      "id": "studio-product",
+      "name": "Studio product",
+      "axes": {
+        "type": "grotesk",
+        "value": "color",
+        "layout": "canvas",
+        "imagery": "render"
+      },
+      "kinds": [
+        "physical"
+      ],
+      "fits": [
+        "hardware",
+        "physical",
+        "ecommerce",
+        "beauty",
+        "audio",
+        "consumer",
+        "premium",
+        "launch",
+        "device",
+        "lifestyle"
+      ],
+      "palette": {
+        "bg": "#DCD6CB",
+        "surface": "#ECE8E0",
+        "ink": "#161513",
+        "muted": "#5D5A54",
+        "accent": "#161513",
+        "line": "#C4BDB0"
+      },
+      "paletteWords": "a seamless warm clay studio backdrop, black type, accent is the product's own color",
+      "type": "a tight grotesk in heavy weight for big two-line headlines, small medium-weight body",
+      "fontSuggestions": {
+        "display": [
+          "Bricolage Grotesque",
+          "Archivo",
+          "Schibsted Grotesk"
+        ],
+        "text": [
+          "Archivo",
+          "Hanken Grotesk"
+        ],
+        "mono": [
+          "Space Mono"
+        ]
+      },
+      "layout": "a centered product render dominating the hero, then modular tiles with macro detail crops of materials and parts, specs in a clean two-column list",
+      "imagery": "studio product photography or renders on seamless paper with one soft key light and a real contact shadow",
+      "heroVisual": "a studio photograph of {subject} on a seamless clay backdrop with one soft key light",
+      "featureLayout": "a bento of macro detail crops, each with a two-word label and one line",
+      "proofLayout": {
+        "quotes": "two review excerpts with the reviewer's name in small type",
+        "facts": "a row of honest spec numbers with units"
+      },
+      "pricingLayout": "configurations shown as product variants with prices, not SaaS cards",
+      "avoid": [
+        "floating abstract shapes",
+        "neon",
+        "busy backgrounds"
+      ],
+      "notFor": [
+        "pure software without a physical form",
+        "dense B2B tools"
+      ]
+    },
+    {
+      "id": "type-led",
+      "name": "Type-led statement",
+      "axes": {
+        "type": "grotesk",
+        "value": "dark",
+        "layout": "bands",
+        "imagery": "type"
+      },
+      "kinds": [
+        "software",
+        "service",
+        "content",
+        "event"
+      ],
+      "fits": [
+        "bold",
+        "confident",
+        "agency",
+        "launch",
+        "manifesto",
+        "creator",
+        "media",
+        "brand",
+        "events",
+        "newsletter"
+      ],
+      "palette": {
+        "bg": "#111111",
+        "surface": "#1C1C1C",
+        "ink": "#F4F1EA",
+        "muted": "#9A968E",
+        "accent": "#FF5A1F",
+        "line": "#333333"
+      },
+      "paletteWords": "black page, bone-white type, one hot orange used for a single word per section",
+      "type": "a very large grotesk in mixed weights, some headline words in italic or a contrasting serif, massive size contrast between headline and body",
+      "fontSuggestions": {
+        "display": [
+          "Bricolage Grotesque",
+          "Familjen Grotesk",
+          "Instrument Serif"
+        ],
+        "text": [
+          "Instrument Sans",
+          "Hanken Grotesk"
+        ],
+        "mono": [
+          "JetBrains Mono"
+        ]
+      },
+      "layout": "each section led by one oversized statement that runs edge to edge, short supporting text in a narrow column, minimal imagery, strong vertical rhythm changes",
+      "imagery": "almost none: typography carries the page, with one small product crop where needed",
+      "heroVisual": "only typography: the headline set across the full width, with one small crop of {subject} tucked into the line",
+      "featureLayout": "three stacked statements, each with a one-line explanation and a tiny product crop",
+      "proofLayout": {
+        "quotes": "one huge quote across the full width with the attribution in small type",
+        "facts": "one huge statement per fact, stacked, each followed by a small line of detail"
+      },
+      "pricingLayout": "plans as large type lines with price set at the same size as the plan name",
+      "avoid": [
+        "icons",
+        "cards",
+        "stock imagery"
+      ],
+      "notFor": [
+        "products that need to show a lot of interface",
+        "conservative audiences"
+      ]
+    },
+    {
+      "id": "ink-lamplight",
+      "name": "Ink and lamplight",
+      "axes": {
+        "type": "serif",
+        "value": "dark",
+        "layout": "gallery",
+        "imagery": "photo"
+      },
+      "kinds": [
+        "software",
+        "content",
+        "physical"
+      ],
+      "fits": [
+        "calm",
+        "focus",
+        "reading",
+        "writing",
+        "night",
+        "audio",
+        "sleep",
+        "premium",
+        "literate",
+        "notes",
+        "journaling"
+      ],
+      "palette": {
+        "bg": "#14110D",
+        "surface": "#1D1914",
+        "ink": "#EFE6D6",
+        "muted": "#A39785",
+        "accent": "#E3A452",
+        "line": "#3A3229"
+      },
+      "paletteWords": "deep warm brown-black, parchment-colored text, a single lamp-amber accent",
+      "type": "a book serif for headlines and body, generous leading, italics for emphasis, small spaced capitals for labels",
+      "fontSuggestions": {
+        "display": [
+          "Newsreader",
+          "Cormorant Garamond",
+          "Fraunces"
+        ],
+        "text": [
+          "Newsreader",
+          "Literata"
+        ],
+        "mono": [
+          "IBM Plex Mono"
+        ]
+      },
+      "layout": "a quiet centered reading column for text, with wide low-key photographs that break out to full width, lots of dark space",
+      "imagery": "low-light photography lit by a single warm lamp, real shadows",
+      "heroVisual": "a low-light photograph of {subject} lit by a single warm desk lamp",
+      "featureLayout": "two wide photographs, each followed by a short paragraph and a small product crop",
+      "proofLayout": {
+        "quotes": "one long quote in italic serif with the person's name",
+        "facts": "three short facts in italic serif, separated by thin amber rules"
+      },
+      "pricingLayout": "two plans described in sentences with prices, separated by a thin amber rule",
+      "avoid": [
+        "glowing gradients",
+        "neon accents",
+        "busy grids"
+      ],
+      "notFor": [
+        "bright playful consumer products",
+        "data-dense dashboards"
+      ]
+    }
+  ]
+}

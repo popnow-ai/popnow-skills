@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" width="900" height="1200">
+  <!-- Local placeholder for a generated portrait background (self-test only). -->
+  <rect width="900" height="1200" fill="#2F4858"/>
+  <circle cx="620" cy="360" r="170" fill="#F2B880"/>
+  <path d="M0 800 L260 600 L520 780 L900 560 L900 1200 L0 1200 Z" fill="#1F3340"/>
+  <path d="M0 980 L420 820 L900 960 L900 1200 L0 1200 Z" fill="#162631"/>
+</svg>

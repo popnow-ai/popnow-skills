@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <!-- Local placeholder for a generated background (self-test only). -->
+  <rect width="1600" height="900" fill="#2F4858"/>
+  <rect y="560" width="1600" height="340" fill="#3E5C6B"/>
+  <circle cx="1220" cy="330" r="190" fill="#F2B880"/>
+  <path d="M0 620 L380 420 L700 600 L1040 380 L1600 640 L1600 900 L0 900 Z" fill="#1F3340"/>
+  <path d="M0 760 L520 600 L980 760 L1600 620 L1600 900 L0 900 Z" fill="#162631"/>
+</svg>

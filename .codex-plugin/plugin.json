@@ -1,0 +1,35 @@
+{
+  "name": "popnow",
+  "version": "1.0.0",
+  "description": "Agent Skills for the PopNow AI API: generate videos, images, music and speech, apply trending video effects, make launch films, explainer videos, landing pages, social covers and brand kits, and find free ready-made style presets. Every paid generation is quoted first.",
+  "author": {
+    "name": "PopNow",
+    "email": "support@popnow.ai",
+    "url": "https://popnow.ai"
+  },
+  "homepage": "https://popnow.ai/skills/agent-skills",
+  "repository": "https://github.com/popnow-ai/popnow-skills",
+  "license": "MIT",
+  "keywords": ["popnow", "agent-skills", "ai-video", "text-to-video", "image-to-video", "ai-image", "ai-music", "text-to-speech", "video-effects", "slide-deck", "landing-page", "launch-video", "explainer-video", "social-media-images", "brand-kit", "design-md", "hyperframes"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "PopNow",
+    "shortDescription": "AI video, image and music generation, launch films, explainers, landing pages and brand kits",
+    "longDescription": "Generate AI videos (text-to-video and image-to-video), images, music and speech with the PopNow API, apply trending video effects to a photo, and let your agent make finished work: a product launch film from a README, a narrated explainer video with timed captions, a landing page designed from AI mockups, exact-size social covers and thumbnails, and a brand kit delivered as a DESIGN.md. You can also find free ready-made style presets. Skills are free; generations spend PopNow credits and are always quoted and confirmed first. Needs a PopNow API key in POPNOW_API_KEY for generation.",
+    "developerName": "PopNow",
+    "category": "Creativity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "websiteURL": "https://popnow.ai",
+    "privacyPolicyURL": "https://popnow.ai/privacy",
+    "termsOfServiceURL": "https://popnow.ai/terms",
+    "defaultPrompt": [
+      "Turn this photo into a 5-second video with a slow camera push-in",
+      "Find a style for a product launch video and make it with me",
+      "Make an upbeat synth-pop track for my intro"
+    ],
+    "brandColor": "#E65A2F",
+    "composerIcon": "./assets/popnow-logo.png",
+    "logo": "./assets/popnow-logo.png",
+    "screenshots": []
+  }
+}

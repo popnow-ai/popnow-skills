@@ -41,10 +41,10 @@ List filters: `modality` (`image`, `video`, `audio`), `provider`, `task` (`edit`
 ## Prices
 
 ```json
-"credits": { "unit": "per_second", "perUnit": 6.75,
-  "rules": [ { "when": { "*": "480p" }, "perUnit": 6.75 },
-             { "when": { "*": "720p" }, "perUnit": 13.5 },
-             { "when": { "*": "1080p" }, "perUnit": 27 } ] }
+"credits": { "unit": "per_second", "perUnit": 45,
+  "rules": [ { "when": { "*": "480p" }, "perUnit": 45 },
+             { "when": { "*": "720p" }, "perUnit": 90 },
+             { "when": { "*": "1080p" }, "perUnit": 180 } ] }
 ```
 
 `unit` is `per_image`, `per_second`, `per_request` or `per_1k_characters`; `perUnit` is the starting price; each rule applies when the request matches its `when` values (`*` stands for the setting that decides the tier, usually `resolution`). Final charges are rounded up to whole credits. For one request's exact amount use `jobs/quote`.

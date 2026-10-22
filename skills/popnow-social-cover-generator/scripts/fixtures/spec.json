@@ -1,0 +1,31 @@
+{
+  "name": "Self-test covers",
+  "design": false,
+  "theme": { "bg": "#F4EFE6", "surface": "#FFFFFF", "ink": "#1B1A17", "accent": "#C8402A", "accentInk": "#FFFFFF" },
+  "brand": { "name": "Fieldkit" },
+  "copy": {
+    "kicker": "Release 2.0",
+    "title": "Field notes that *sync* themselves",
+    "subtitle": "Offline maps, photos and notes in one place, ready when you are back in range.",
+    "cta": "fieldkit.example/2",
+    "caption": "Fig. 1, ridge trail at dusk",
+    "badge": "Free update",
+    "note": "works offline",
+    "stat": { "value": "3.4", "unit": "h", "label": "saved per survey day on average in our beta", "source": "Fieldkit beta, 41 crews, 2026", "series": [1.1, 1.8, 2.6, 3.4] }
+  },
+  "images": {
+    "background": { "src": "bg-wide.svg", "portrait": "bg-tall.svg", "tall": "bg-tall.svg", "focus": "70% 40%" },
+    "subject": "subject.svg",
+    "screens": ["screen.svg"]
+  },
+  "outputs": [
+    { "id": "og", "platform": "og", "layout": "editorial-serif" },
+    { "id": "x", "platform": "x", "layout": "bold-sans" },
+    { "id": "linkedin", "platform": "linkedin", "layout": "split-photo" },
+    { "id": "rednote", "platform": "rednote", "layout": "sticker-collage" },
+    { "id": "youtube", "platform": "youtube", "layout": "bold-sans", "copy": { "title": "Maps that *wait* for you", "subtitle": "" } },
+    { "id": "instagram", "platform": "instagram", "layout": "data-callout" },
+    { "id": "appstore", "platform": "appstore", "layout": "device-showcase", "background": false, "copy": { "title": "Your survey, *offline*", "subtitle": "Maps, photos and notes travel with you." } },
+    { "id": "square", "platform": "square", "layout": "minimal-mono", "thumb": true }
+  ]
+}

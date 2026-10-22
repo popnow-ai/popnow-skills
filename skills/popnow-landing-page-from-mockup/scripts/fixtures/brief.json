@@ -1,0 +1,26 @@
+{
+  "product": "Tallyroom",
+  "oneLiner": "a shared expense tracker for households that splits bills and settles up monthly.",
+  "audience": "flatmates and young families",
+  "category": "consumer finance",
+  "tone": ["friendly", "human", "calm"],
+  "keywords": ["home", "family"],
+  "headline": "Split the bills, keep the peace",
+  "subhead": "Log a cost in two taps and Tallyroom keeps everyone's share straight until settle-up day.",
+  "primaryCta": "Start a household",
+  "secondaryCta": "See a sample month",
+  "nav": ["How it works", "Pricing", "Help"],
+  "heroSubject": "three flatmates' hands sorting receipts on a kitchen table",
+  "features": [
+    { "title": "Two-tap logging", "body": "Amount, who paid, done." },
+    { "title": "Fair splits", "body": "Even, by share, or by usage." },
+    { "title": "Settle-up day", "body": "One transfer each, once a month." }
+  ],
+  "proof": { "kind": "facts", "items": [{ "text": "No ads, ever" }, { "text": "Data export any time" }, { "text": "Works offline" }] },
+  "pricing": [
+    { "name": "Home", "price": "$0", "note": "Up to 4 people" },
+    { "name": "Home Plus", "price": "$3 / month", "note": "Unlimited people and receipts" }
+  ],
+  "closingCta": "Money talk, minus the awkward part",
+  "mustAvoid": ["piggy banks", "dollar-sign icons"]
+}

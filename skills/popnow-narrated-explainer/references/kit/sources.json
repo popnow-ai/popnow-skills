@@ -1,0 +1,18 @@
+{
+  "claims": [
+    {
+      "id": "c1",
+      "text": "The sentence or on-screen line that makes the claim",
+      "values": ["42%", "2025"],
+      "status": "unverified",
+      "source": {
+        "title": "Title of the page, paper or dataset",
+        "publisher": "Who published it",
+        "url": "https://example.org/page",
+        "date": "2025-06",
+        "accessed": "2026-10-22"
+      },
+      "note": "status is verified (you read the source and it says this), user-provided (the user supplied the figure), first-party (the user's own product facts) or unverified (QA fails until resolved)."
+    }
+  ]
+}
