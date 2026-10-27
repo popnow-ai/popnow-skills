@@ -23,6 +23,12 @@ Each skill is a folder with a `SKILL.md` (instructions the agent loads when the 
 
 Make it pop.
 
+## OpenClaw / ClawHub and current API USD billing
+
+[`popnow-media`](skills/popnow-media/SKILL.md) is the self-contained OpenClaw skill for the current API USD contract. It discovers model schemas, quotes exact USD amounts, requires explicit budget approval and a stable idempotency key before creating, and reads task results. It uses Python 3.8+ with no dependencies. The skill is free; a separate prepaid API USD balance is required for generation. Website credits do not fund API-key requests.
+
+The older helpers and credit examples elsewhere in this repository describe the legacy API flow and have not all been migrated. For current API-key generation, use `popnow-media` and the [current API documentation](https://popnow.ai/docs/tasks). The new skill directory is MIT-0 to meet ClawHub's publishing format; the existing repository license remains applicable to the other files. ClawHub submission status is separate from source availability.
+
 ## Quickstart
 
 1. **Get an API key** at [popnow.ai/api/console/keys](https://popnow.ai/api/console/keys) and export it in the shell your agent runs in:
