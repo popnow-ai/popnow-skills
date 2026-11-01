@@ -28,7 +28,7 @@ see the current voice list and fields before quoting.
 
 **Audition (optional, recommended for 90 s and up).** One line of about 6 s from the hook, read by
 each of the three voices. Quote the three together, tell the user the total, create after a yes, and
-let them listen. About 2 credits each.
+let them listen. About $0.002 each.
 
 **Delivery.** Put the script's `delivery:` line in `instructions` ("Warm, clear and unhurried, like
 explaining something to a curious friend"). Keep it about the reading, not the content. Do not change
@@ -43,10 +43,10 @@ even. A single take of the whole script (up to 5,000 characters) is fine for lit
 python3 $SKILL/scripts/explainer.py plan script.md --tts-dir vo        # vo/<chapter>.txt
 python3 $SKILL/scripts/popnow.py quote --model google/gemini-3.8-flash-tts/text-to-speech \
   --voice Charon --text "$(cat vo/hook.txt)" --set "instructions=Warm, clear and unhurried."
-# Tell the user: "up to <max> held, usually <expected> credits" and the balance. On a clear yes:
+# Tell the user: "up to $<maxChargeUsd> held, usually $<expectedChargeUsd>" and the API balance. On a clear yes:
 python3 $SKILL/scripts/popnow.py create --model google/gemini-3.8-flash-tts/text-to-speech \
   --voice Charon --text "$(cat vo/hook.txt)" --set "instructions=Warm, clear and unhurried." \
-  --confirm-credits <max from the quote> --download vo/raw
+  --confirm-usd <maxChargeUsd from the quote> --download vo/raw
 mv vo/raw/<taskId>-0.wav vo/hook.wav
 ```
 
@@ -86,7 +86,7 @@ times. Supported here: en, de, fr, es, it, pt, pl, ru, ja, ko.
 ```bash
 python3 $SKILL/scripts/popnow.py quote --model xai/grok-stt/speech-to-text --audio vo/voiceover.wav \
   --set language=en --set 'keyterms=[{"term":"SKILL.md"},{"term":"PopNow"}]'
-# on a yes, same flags plus --confirm-credits <max> --wait, then save the full task:
+# on a yes, same flags plus --confirm-usd <maxChargeUsd> --wait, then save the full task:
 python3 $SKILL/scripts/popnow.py status <taskId> --json > vo/stt.json
 python3 $SKILL/scripts/explainer.py align script.json vo/stt.json --takes vo/takes.json --offset 0.6 --out timing.json
 ```

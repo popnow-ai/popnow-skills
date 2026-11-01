@@ -37,11 +37,11 @@
 
 - [ ] `prompts.json` has three directions; every pair differs on at least two axes; none is `studio-product`.
 - [ ] Every prompt quotes the headline, the call to action, the feature titles and both plans exactly.
-- [ ] The user was given one credit total and their balance before any `create`.
+- [ ] The user was given one USD total and their API balance before any `create`.
 - [ ] No page code was written before the user picked a direction.
 - [ ] The page has no testimonials, ratings or user counts; proof is product facts.
 - [ ] `node scripts/ai-tells.mjs site/` passes with no errors and a score of 80 or more.
 - [ ] `shoot-diff.mjs review` shows no sideways scroll at 390 px, no contrast failures, one `h1`.
 - [ ] The compare image has no red sections; first-screen background and alignment match the mockup.
 - [ ] Hero image has `width`, `height` and a WebP `srcset`; below-the-fold images are lazy.
-- [ ] The delivery note lists credits spent, drafted sentences and any stand-in images.
+- [ ] The delivery note lists USD spent, drafted sentences and any stand-in images.

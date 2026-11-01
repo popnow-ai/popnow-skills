@@ -12,7 +12,7 @@ render, not only in the files.
 | `3-brief.md` | Dataset (CSV) | data-story | zh-CN | 120 s | Chart honesty, timing without a transcript, Chinese captions, music ducking |
 | `4-brief.md` | Product note | any | en | 60 s lite | Lite mode, cost, no key fallback |
 
-How to run without spending credits: stop each run at the voice step and score the plan, storyboard,
+How to run without spending anything: stop each run at the voice step and score the plan, storyboard,
 contact sheet, captions (from rate-based timing) and silent render. Score the audio items on a run
 where the user approves the quotes, or against the sample video at
 https://popnow.ai/skills/narrated-explainer.
@@ -26,7 +26,7 @@ Must:
       the end card lists the sources.
 - [ ] Script planned with `plan`: total length inside the target band, no chapter over 30 s.
 - [ ] A 6-9 frame contact sheet and the script were shown and approved before any paid call.
-- [ ] Every paid call was quoted first, the credits and balance were stated, and `create` ran only
+- [ ] Every paid call was quoted first, the USD price and API balance were stated, and `create` ran only
       after an explicit yes. No automatic retry after a failure.
 - [ ] Word timing came from the real voiceover (`align` or `estimate --audio`), not from a rate.
 - [ ] Captions are generated from that timing; QA `caption-sync` passes (within 150 ms).
@@ -40,7 +40,7 @@ Should:
 - [ ] Three voices offered, with an audition on request.
 - [ ] Every beat lands on the word it illustrates (check three beats by eye in the render).
 - [ ] Visual change at least every 6 s; no idle wobble.
-- [ ] Handoff note with models, credits, timing source, sources and the QA summary.
+- [ ] Handoff note with models, USD charged, timing source, sources and the QA summary.
 
 ## Typical without-skill failures (seen across briefs)
 

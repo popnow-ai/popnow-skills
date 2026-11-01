@@ -34,4 +34,4 @@
 - [ ] Each headline is eight words or fewer and passes contrast; accent-colored small text is at least 4.5:1.
 - [ ] One `og` output at 1200 x 630 with the docs title; `render.mjs` exits 0.
 - [ ] Theme colors match the brief; no font fallback warnings.
-- [ ] The delivery note says no credits were spent and lists nothing as a placeholder.
+- [ ] The delivery note says nothing was spent and lists nothing as a placeholder.

@@ -116,9 +116,9 @@ To feed an earlier run's result into a new item, keep the `@id`: finished items 
 node scripts/popnow-assets.mjs assets.plan.json --dry-run            # free, offline
 node scripts/popnow-assets.mjs assets.plan.json --dry-run --preview-out plan.preview.json
 node scripts/popnow-assets.mjs assets.plan.json --quote              # free, needs the key
-node scripts/popnow-assets.mjs assets.plan.json --confirm-credits 500
-node scripts/popnow-assets.mjs assets.plan.json --only bed,vo-en --confirm-credits 82
-node scripts/popnow-assets.mjs assets.plan.json --regenerate bed --confirm-credits 72
+node scripts/popnow-assets.mjs assets.plan.json --confirm-usd 0.5
+node scripts/popnow-assets.mjs assets.plan.json --only bed,vo-en --confirm-usd 0.082
+node scripts/popnow-assets.mjs assets.plan.json --regenerate bed --confirm-usd 0.072
 node scripts/popnow-assets.mjs --self-test
 ```
 
@@ -132,11 +132,14 @@ node scripts/popnow-assets.mjs --self-test
 | `--ledger none` | Only write `assets/popnow-provenance.json` |
 | `--popnow FILE`, `--python BIN` | Where `popnow.py` and Python 3 are |
 | `--timeout SECONDS` | How long to wait per task (default 1200) |
-| `--json` | Machine-readable summary |
+| `--json` | Machine-readable summary (USD amounts as decimal strings) |
+| `--confirm-usd X` | Generate, never spending more than `X` USD in total (the quoted total, a decimal string such as `0.314`) |
+| `--confirm-credits N` | Deprecated alias of `--confirm-usd`: `N` legacy credits = `N` x $0.001 |
 
-Without `--confirm-credits`, a run in a terminal asks the user to type the total; anywhere else it
-prints the total and exits with code 3. An agent should always quote, ask in the conversation, then
-pass `--confirm-credits`.
+Generation is paid from the separate API USD balance behind `POPNOW_API_KEY`; add funds in
+https://popnow.ai/api/console/billing. Without `--confirm-usd`, a run in a terminal asks the user to type
+the USD total; anywhere else it prints the total and exits with code 3. An agent should always quote,
+ask in the conversation, then pass `--confirm-usd`.
 
 ## Exit codes
 
@@ -146,5 +149,5 @@ pass `--confirm-credits`.
 | 1 | API or network error | Read the message; nothing more was started |
 | 2 | Plan or usage problem | Fix the plan; nothing was sent |
 | 3 | Needs confirmation, or the next item would pass the confirmed total | Tell the user the new number and ask |
-| 4 | A task is still running (its credits are held) | Run the same command again later: it collects the task with `wait` and does not pay again |
-| 5 | A task failed (refunded) | Report it; change the prompt only with the user, then `--only <id>` |
+| 4 | A task is still running (its USD hold stays reserved) | Run the same command again later: it collects the task with `wait` and does not pay again |
+| 5 | A task failed (hold released, nothing charged) | Report it; change the prompt only with the user, then `--only <id>` |

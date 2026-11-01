@@ -97,6 +97,7 @@ await test("generation plan: shapes in use, subject + cut-out, lite, nothing whe
   assert.equal(p.jobs[0].input.aspect_ratio, "16:9");
   assert.equal(p.jobs[1].input.aspect_ratio, "3:4");
   assert.equal(p.jobs[3].model, "popnow/background-remover-v1/edit");
+  assert.deepEqual(p.estimateUsd, ["0.097", "0.197"], "USD estimate summed exactly from the per-job ranges");
   const lite = plan(spec, FX, { lite: true, draft: true });
   assert.deepEqual(lite.jobs.map((j) => j.name), ["background-landscape", "subject-raw", "subject"]);
   assert.equal(lite.jobs[0].model, "alibaba/z-image-turbo/text-to-image");

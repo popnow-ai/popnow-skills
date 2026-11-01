@@ -7,18 +7,18 @@ backgrounds, scenes, objects and characters.
 
 ## What gets generated
 
-| Picture | Model | Settings | About (credits) |
+| Picture | Model | Settings | About (USD) |
 | --- | --- | --- | --- |
-| Background, one per canvas shape in use | `google/nano-banana-2.1/text-to-image` | 16:9 (landscape), 3:4 (portrait), 9:16 (tall), `resolution 2k` | 35-72 each |
-| Lite background, reused for every shape | same | 16:9, `resolution 1k` | 22-48 |
-| Look-finding drafts | `alibaba/z-image-turbo/text-to-image` | same ratios | about 10 each |
-| Subject for a cut-out | `google/nano-banana-2.1/text-to-image` | 1:1, `resolution 1k`, plain grey backdrop | 22-48 |
-| Cut-out (transparent PNG) | `popnow/background-remover-v1/edit` | `--image <subject>` | about 5 |
-| Optional sharper background | `popnow/image-upscaler-v1/upscale` | `--image <file>`, `resolution 4k` | about 12 |
+| Background, one per canvas shape in use | `google/nano-banana-2.1/text-to-image` | 16:9 (landscape), 3:4 (portrait), 9:16 (tall), `resolution 2k` | $0.035-$0.072 each |
+| Lite background, reused for every shape | same | 16:9, `resolution 1k` | $0.022-$0.048 |
+| Look-finding drafts | `alibaba/z-image-turbo/text-to-image` | same ratios | about $0.01 each |
+| Subject for a cut-out | `google/nano-banana-2.1/text-to-image` | 1:1, `resolution 1k`, plain grey backdrop | $0.022-$0.048 |
+| Cut-out (transparent PNG) | `popnow/background-remover-v1/edit` | `--image <subject>` | about $0.005 |
+| Optional sharper background | `popnow/image-upscaler-v1/upscale` | `--image <file>`, `resolution 4k` | about $0.012 |
 | A background with readable lettering in the scene (a shop sign, a poster) | `openai/gpt-image-2/text-to-image` | only when the lettering is part of the picture, never for the headline | quote it |
 
 Typical full set (six platforms): two backgrounds and one subject cut-out, about
-100-200 credits. Lite: one background at 1k, about 22-48. Rendering, checks and the
+$0.10-$0.20 from the separate API USD balance. Lite: one background at 1k, about $0.022-$0.048. Rendering, checks and the
 contact sheet run locally and cost nothing. These ranges set expectations only; the
 quote is the price, and models change (`python3 scripts/popnow.py models --modality image`).
 
@@ -42,10 +42,10 @@ already on disk.
 ## Spending
 
 For each job: `model` (free, check field names once) -> `quote` -> add up -> tell the
-user the total and their balance -> after a clear yes, `create --confirm-credits <quoted>
+user the USD total and their API balance -> after a clear yes, `create --confirm-usd <maxChargeUsd>
 --download <folder>`. Run dependent jobs (cut-out after subject, upscale after
 background) only after the first finishes, replacing `<downloaded file>` with the real
-path. A failed task is refunded; do not retry it automatically.
+path. A failed task releases its hold; do not retry it automatically.
 
 ## Writing the background prompt
 

@@ -14,7 +14,7 @@ exact repeat of a prompt, and to adopt files already sitting in `assets/`.
 The script writes records in the same shape media-use writes for a file it recorded in place:
 
 ```json
-{"id":"image_003","type":"image","path":"assets/images/hero-desk.png","source":"generated","description":"Beat 1 backdrop, behind the hook line","width":1376,"height":768,"provenance":{"provider":"popnow","prompt":"Early-morning studio desk by a tall window, ...","model":"google/nano-banana-2.1/text-to-image","taskId":"job_...","credits":48,"plan_item":"hero-desk","license":"see assets/popnow-provenance.json"}}
+{"id":"image_003","type":"image","path":"assets/images/hero-desk.png","source":"generated","description":"Beat 1 backdrop, behind the hook line","width":1376,"height":768,"provenance":{"provider":"popnow","prompt":"Early-morning studio desk by a tall window, ...","model":"google/nano-banana-2.1/text-to-image","taskId":"job_...","costUsd":"0.048","plan_item":"hero-desk","license":"see assets/popnow-provenance.json"}}
 ```
 
 | Field | Value |
@@ -27,7 +27,7 @@ The script writes records in the same shape media-use writes for a file it recor
 | `duration`, `width`, `height` | Filled from `ffprobe` when it is installed |
 | `provenance.provider` | `popnow` |
 | `provenance.prompt` | The exact prompt or spoken text. media-use matches future intents against this field, so an identical request later reuses the file instead of fetching |
-| `provenance.model`, `taskId`, `credits`, `plan_item` | Extra keys; media-use keeps and ignores them |
+| `provenance.model`, `taskId`, `costUsd`, `plan_item` | Extra keys; media-use keeps and ignores them. `costUsd` is the exact USD charged, as a decimal string |
 
 ### Rules the script keeps, so the ledger never breaks
 
@@ -62,7 +62,7 @@ npx --yes hyperframes media-use resolve --type <type> --from <assets/... path> -
 ```
 
 For a file already inside the project, media-use records it in place with provenance
-`{ provider: "local", from, prompt }`. The PopNow details (model, task, credits, licence) then live only
+`{ provider: "local", from, prompt }`. The PopNow details (model, task, USD cost, licence) then live only
 in the provenance file below. This mode needs the HyperFrames CLI reachable through `npx`.
 
 `--ledger none` skips the HyperFrames ledger entirely; `media-use resolve --adopt` can pick the files
@@ -88,8 +88,8 @@ Owned by this skill, rewritten atomically after every item, kept with the projec
       "use": "Beat 1 backdrop, behind the hook line",
       "params": { "resolution": "1k", "aspectRatio": "16:9" },
       "taskId": "job_...",
-      "credits": 48,
-      "quotedCredits": 48,
+      "costUsd": "0.048",
+      "quotedMaxUsd": "0.048",
       "requestHash": "3f1c...",
       "generatedAt": "2026-10-22T09:14:03.000Z",
       "license": "PopNow output (google/nano-banana-2.1/text-to-image). Under https://popnow.ai/terms you own it to the extent the law allows and may use it commercially; you remain responsible for the prompt and any inputs."
@@ -98,14 +98,18 @@ Owned by this skill, rewritten atomically after every item, kept with the projec
 }
 ```
 
-- `state` is `done`, `failed` (refunded, not retried) or `running` (collected on the next run).
+- `state` is `done`, `failed` (hold released, nothing charged, not retried) or `running` (collected on
+  the next run).
+- `costUsd` is the exact USD charged to the API balance and `quotedMaxUsd` the quoted maximum it was
+  confirmed against, both as decimal strings with up to nine decimal places. Entries written by older
+  versions carry `credits` and `quotedCredits` instead (1 credit = $0.001).
 - `requestHash` identifies the exact request. A re-run skips an item whose last `done` entry has the
   same hash and whose files still exist; `--regenerate <id>` makes a new take and keeps the old one.
 - `consent` is copied from the plan when an item needed it, so the record of who allowed a likeness or
   voice travels with the file.
-- Sum the `credits` of `done` entries for the handoff.
+- Sum the `costUsd` of `done` entries for the handoff, as decimals (not binary floats).
 
 ## What to tell the user at the end
 
-The list of files with their `use`, the credits charged against the confirmed total, any failed or
+The list of files with their `use`, the USD charged to the API balance against the confirmed total, any failed or
 running items, and where the two ledgers are. If a file will be published, mention the licence note.

@@ -8,15 +8,22 @@ Authentication: export POPNOW_API_KEY="sk-popnow-..." (create one at
 https://popnow.ai/api/console/keys). Optional: POPNOW_BASE_URL (default
 https://api.popnow.ai).
 
-Spending rule: `create` never spends credits the user has not confirmed. It
+Billing: API keys spend the separate API balance, in USD (add funds at
+https://popnow.ai/api/console/billing). Website credits cannot pay for API calls.
+Amounts are exact decimal strings (maxChargeUsd, costUsd, availableUsd) and are
+compared as decimals, never as floats.
+
+Spending rule: `create` never spends money the user has not confirmed. It
 quotes the exact request first and refuses to start when the price is above
---confirm-credits. Always run `quote`, tell the user the credit price, and only
-then run `create --confirm-credits <that number>`.
+--confirm-usd. Always run `quote`, tell the user the USD price (maxChargeUsd),
+and only then run `create --confirm-usd <that amount>`. The task is created with
+the quote's quoteId and expectedCostUsd, so the amount held is the amount shown.
+`--confirm-credits N` still works but is deprecated (N credits = N x $0.001).
 
 Typical flow:
   popnow.py quote  --model minimax/h3/text-to-video --prompt "A paper boat on a lake"
   popnow.py create --model minimax/h3/text-to-video --prompt "A paper boat on a lake" \
-      --confirm-credits 185 --download ./out
+      --confirm-usd 0.185 --download ./out
   popnow.py wait job_...          # resume waiting on an existing task
   popnow.py download job_... --out ./out
 
@@ -32,19 +39,28 @@ import json
 import mimetypes
 import os
 import random
+import re
 import sys
 import time
 import uuid
+from decimal import Decimal, InvalidOperation
 from urllib import error as urlerror
 from urllib import parse as urlparse
 from urllib import request as urlrequest
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 DEFAULT_BASE_URL = "https://api.popnow.ai"
 USER_AGENT = "popnow-skills/" + __version__ + " (python)"
-PRICING_URL = "https://popnow.ai/pricing"
+BILLING_URL = "https://popnow.ai/api/console/billing"
+PRICING_URL = "https://popnow.ai/api/pricing"
 KEYS_URL = "https://popnow.ai/api/console/keys"
+
+# Deprecated display projection still carried by older fields: 1 credit = $0.001.
+CREDIT_USD = Decimal("0.001")
+# API USD amounts are decimal strings (balances may be negative); approvals are nonnegative with up to 9 decimals.
+USD_PATTERN = re.compile(r"^-?[0-9]+(\.[0-9]+)?$")
+CONFIRM_USD_PATTERN = re.compile(r"^[0-9]+(\.[0-9]{1,9})?$")
 
 TERMINAL_STATES = ("succeeded", "failed", "canceled", "expired")
 # Business codes that can succeed on a second attempt (see the Errors docs).
@@ -114,8 +130,8 @@ class UsageError(Exception):
 def hint_for(code):
     hints = {
         401: " Hint: set POPNOW_API_KEY to a valid sk-popnow- key from " + KEYS_URL + ".",
-        40201: " Hint: not enough credits. Top up at " + PRICING_URL + ".",
-        40202: " Hint: a spend cap on this API key was reached; raise it in the API console.",
+        40201: " Hint: not enough API balance. Add funds at " + BILLING_URL + " (website credits cannot pay for API calls).",
+        40202: " Hint: a USD spend cap on this API key was reached; raise it in the API console.",
         40301: " Hint: this key is not allowed to call this model; check the key's allowed models.",
         40310: " Hint: verify the account's email address first.",
         40901: " Hint: the quote expired or the price changed. Quote again and re-confirm with the user.",
@@ -377,48 +393,165 @@ def quote(client, body):
 
 
 def balance(client):
+    """GET /api/v1/chat/credit: the API balance in USD (the path name is historical)."""
     return client.get("/api/v1/chat/credit")
 
 
-def credits_text(n):
-    return "1 credit" if n == 1 else "%s credits" % n
+# ---------------------------------------------------------------------------
+# USD amounts
+# ---------------------------------------------------------------------------
+
+
+def to_decimal(value):
+    """An API USD decimal string (or an integer) as a Decimal; None when missing or malformed. Never via float."""
+    if value is None or isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return Decimal(value)
+    if isinstance(value, str) and USD_PATTERN.match(value.strip()):
+        return Decimal(value.strip())
+    return None
+
+
+def usd_string(amount):
+    """A Decimal as a plain decimal string without exponent or trailing zeros: "0.185", "2", "0.00032"."""
+    text = format(amount, "f")
+    if "." in text:
+        text = text.rstrip("0").rstrip(".")
+    return "0" if text in ("", "-0") else text
+
+
+def usd_text(amount):
+    """How an exact USD string is shown to the user: every digit kept, e.g. "$0.185"."""
+    if amount is None:
+        return "-"
+    amount = str(amount)
+    return "-$" + amount[1:] if amount.startswith("-") else "$" + amount
+
+
+def legacy_credits_usd(value):
+    """Deprecated credit amounts (integer credits or a credit-scale decimal string) as an exact USD string."""
+    if isinstance(value, float):
+        value = repr(value)  # only the deprecated model `credits` block uses JSON numbers with fractions
+    amount = to_decimal(value)
+    return None if amount is None else usd_string(amount * CREDIT_USD)
+
+
+def first_usd(record, *names):
+    """The first of `names` in `record` that holds a USD decimal string, returned exactly as sent."""
+    if not isinstance(record, dict):
+        return None
+    for name in names:
+        value = record.get(name)
+        if isinstance(value, str) and to_decimal(value) is not None:
+            return value.strip()
+    return None
+
+
+def quote_max_usd(q):
+    """A quote's exact maximum hold: maxChargeUsd, its older USD aliases, then the deprecated maxCredits."""
+    return first_usd(q, "maxChargeUsd", "maxCharge", "estimatedCost") or legacy_credits_usd((q or {}).get("maxCredits"))
+
+
+def quote_expected_usd(q):
+    """A quote's typical charge (informational): expectedChargeUsd, expectedCharge, then expectedCredits."""
+    return first_usd(q, "expectedChargeUsd", "expectedCharge") or legacy_credits_usd((q or {}).get("expectedCredits"))
+
+
+def available_usd(bal):
+    return first_usd(bal, "availableUsd", "available") or legacy_credits_usd((bal or {}).get("availableCredits"))
+
+
+def held_usd(bal):
+    return first_usd(bal, "heldUsd", "held") or legacy_credits_usd((bal or {}).get("heldCredits"))
+
+
+def total_usd(bal):
+    return first_usd(bal, "totalUsd", "total") or legacy_credits_usd((bal or {}).get("totalCredits"))
+
+
+def accepted_usd(data):
+    """The USD held when createTask (or retry) accepted a task."""
+    return first_usd(data, "estimatedCostUsd", "estimatedCost") or legacy_credits_usd((data or {}).get("estimatedCredits"))
+
+
+def task_cost_usd(task):
+    """A task's USD cost: the final charge once settled, otherwise the hold."""
+    task = task or {}
+    return (first_usd(task, "costUsd", "cost") or legacy_credits_usd(task.get("exactCredits"))
+            or legacy_credits_usd(task.get("credits")))
+
+
+def parse_confirm_usd(value):
+    """The USD amount the user approved: a nonnegative decimal string with up to nine decimals ("0.185" or "$0.185")."""
+    if isinstance(value, Decimal):
+        if not value.is_finite() or value < 0:
+            raise UsageError("The approved USD amount must be a nonnegative number.")
+        return value
+    text = value.strip() if isinstance(value, str) else ""
+    if text.startswith("$"):
+        text = text[1:].strip()
+    if not CONFIRM_USD_PATTERN.match(text):
+        raise UsageError("--confirm-usd takes the approved USD amount as a decimal string with up to nine decimals, "
+                         "for example 0.185 (the maxChargeUsd from `quote`).")
+    try:
+        return Decimal(text)
+    except InvalidOperation:  # pragma: no cover - the pattern already guarantees a valid decimal
+        raise UsageError("--confirm-usd is not a valid amount: %r" % value)
 
 
 def describe_quote(q, bal=None):
-    max_c, exp_c = q.get("maxCredits"), q.get("expectedCredits")
+    max_usd, exp_usd = quote_max_usd(q), quote_expected_usd(q)
     lines = [
         "Model:      %s" % q.get("model"),
-        "Price:      %s max (usually %s), $%s USD"
-        % (credits_text(max_c), credits_text(exp_c), q.get("maxCharge") or q.get("estimatedCost")),
+        "Price:      up to %s USD (usually %s), from the API balance" % (usd_text(max_usd), usd_text(exp_usd)),
         "Billed:     %s (%s)" % (q.get("quantity"), q.get("unit")),
         "Quote:      %s (valid until %s)" % (q.get("quoteId"), q.get("expiresAt")),
     ]
     if bal is not None:
-        lines.append("Balance:    %s available" % credits_text(bal.get("availableCredits")))
-        if isinstance(max_c, int) and isinstance(bal.get("availableCredits"), int) and bal["availableCredits"] < max_c:
-            lines.append("WARNING:    not enough credits for this request. Top up at %s" % PRICING_URL)
-    lines.append("Next:       tell the user the price; after they agree, run create with --confirm-credits %s" % max_c)
-    lines.append("            (failed or expired tasks are refunded automatically)")
+        avail = available_usd(bal)
+        lines.append("Balance:    %s USD available in the API balance" % usd_text(avail))
+        if to_decimal(avail) is not None and to_decimal(max_usd) is not None and to_decimal(avail) < to_decimal(max_usd):
+            lines.append("WARNING:    the API balance cannot cover this request. Add funds at %s" % BILLING_URL)
+    lines.append("Next:       tell the user the USD price; after they agree, run create with --confirm-usd %s" % max_usd)
+    lines.append("            (failed or expired tasks release their hold, so they cost nothing)")
     return "\n".join(lines)
 
 
-def create(client, body, confirm_credits, idempotency_key=None, wait_seconds=None, retention=None):
+def create(client, body, confirm_usd=None, idempotency_key=None, wait_seconds=None, retention=None,
+           confirm_credits=None):
     """Quote, check the price against what the user confirmed, then createTask.
+
+    `confirm_usd` is the USD amount the user approved, normally the quote's
+    maxChargeUsd, as a decimal string or Decimal. The task is created with the
+    quote's quoteId and expectedCostUsd, so the amount held is the amount shown.
+    `confirm_credits` is deprecated: N credits = N x $0.001 (an int passed in
+    place of `confirm_usd` is read the same way, as in version 1.0).
 
     Returns (quote, http_status, data, idempotency_key). `data` is the task
     record when `wait_seconds` was given and the task finished in time (HTTP
     200), otherwise the accepted task (HTTP 202). Raises ConfirmationNeeded when the price
-    is above `confirm_credits`; nothing is created or held in that case.
+    is above the confirmed amount; nothing is created or held in that case.
     """
-    if confirm_credits is None or confirm_credits < 0:
-        raise UsageError("--confirm-credits is required: quote first and pass the credit price the user agreed to.")
+    if isinstance(confirm_usd, int) and not isinstance(confirm_usd, bool) and confirm_credits is None:
+        confirm_usd, confirm_credits = None, confirm_usd
+    if confirm_usd is not None:
+        cap = parse_confirm_usd(confirm_usd)
+    elif isinstance(confirm_credits, int) and not isinstance(confirm_credits, bool) and confirm_credits >= 0:
+        cap = Decimal(confirm_credits) * CREDIT_USD
+    else:
+        raise UsageError("--confirm-usd is required: quote first and pass the USD price the user agreed to (maxChargeUsd).")
     q = quote(client, body)
-    max_c = q.get("maxCredits")
-    if not isinstance(max_c, int) or max_c > confirm_credits:
-        raise ConfirmationNeeded(q, confirm_credits)
+    max_usd = to_decimal(quote_max_usd(q))
+    if max_usd is None or max_usd > cap:
+        raise ConfirmationNeeded(q, cap)
     full = dict(body)
     full["quoteId"] = q.get("quoteId")
-    full["expectedCredits"] = max_c
+    exact = first_usd(q, "maxChargeUsd", "maxCharge", "estimatedCost")
+    if exact is not None:
+        full["expectedCostUsd"] = exact
+    elif isinstance(q.get("maxCredits"), int):
+        full["expectedCredits"] = q["maxCredits"]  # only for a server that predates the USD fields
     headers = {"Idempotency-Key": idempotency_key or new_idempotency_key()}
     if retention is not None:
         headers["X-PopNow-Retention"] = str(retention)
@@ -435,10 +568,13 @@ class ConfirmationNeeded(Exception):
         self.confirmed = confirmed
 
     def __str__(self):
+        price = quote_max_usd(self.quote)
+        if to_decimal(price) is None:
+            return "Not started, nothing was charged: the quote returned no USD price. Quote again before creating."
         return (
-            "Not started, nothing was charged: this request costs up to %s, more than the %s the user confirmed. "
-            "Tell the user the new price and, if they agree, run again with --confirm-credits %s."
-            % (credits_text(self.quote.get("maxCredits")), credits_text(self.confirmed), self.quote.get("maxCredits"))
+            "Not started, nothing was charged: this request costs up to %s USD, more than the %s USD the user confirmed. "
+            "Tell the user the new price and, if they agree, run again with --confirm-usd %s."
+            % (usd_text(price), usd_text(usd_string(self.confirmed)), price)
         )
 
 
@@ -579,9 +715,10 @@ def emit(obj):
 
 def summarize_task(task):
     lines = ["Task:       %s" % task.get("taskId"), "Model:      %s" % task.get("model"), "State:      %s" % task.get("state")]
-    if "credits" in task:
+    cost = task_cost_usd(task)
+    if cost is not None:
         settled = task.get("settled")
-        lines.append("Credits:    %s (%s)" % (task.get("credits"), "final charge" if settled else "held, not charged yet"))
+        lines.append("Cost:       %s USD (%s)" % (usd_text(cost), "final charge" if settled else "held, not charged yet"))
     if task.get("errorCode"):
         lines.append("Error:      %s: %s" % (task.get("errorCode"), task.get("errorMessage", "")))
         lines.append("            the hold was released, nothing was charged")
@@ -598,14 +735,35 @@ def summarize_task(task):
     return "\n".join(lines)
 
 
-def price_text(credits):
+def model_usd(rec):
+    """A model's USD rate snapshot (`usd`), or one rebuilt from the deprecated `credits` block of an older server."""
+    rec = rec or {}
+    usd = rec.get("usd")
+    if isinstance(usd, dict) and any(usd.get(k) is not None for k in ("perUnit", "input", "output", "rules")):
+        return usd
+    credits = rec.get("credits")
     if not isinstance(credits, dict):
+        return None
+    out = {"unit": credits.get("unit"), "currency": "USD"}
+    for key in ("perUnit", "input", "output", "cachedInput", "cacheWrite"):
+        if credits.get(key) is not None:
+            out[key] = legacy_credits_usd(credits[key])
+    if credits.get("rules"):
+        out["rules"] = [dict(rule, perUnit=legacy_credits_usd(rule.get("perUnit"))) for rule in credits["rules"]]
+    return out
+
+
+def price_text(usd):
+    """A USD rate snapshot as a short label: "from $0.037/second", or token prices for chat models."""
+    if not isinstance(usd, dict):
         return "-"
-    per = credits.get("perUnit")
-    unit = (credits.get("unit") or "").replace("per_", "/")
-    if isinstance(per, (int, float)):
-        per = ("%.2f" % per).rstrip("0").rstrip(".")
-    return "from %s cr%s" % (per, unit)
+    per = usd.get("perUnit")
+    unit = (usd.get("unit") or "").replace("per_", "/")
+    if per is None:
+        if usd.get("input") is not None or usd.get("output") is not None:
+            return "%s in, %s out per 1M tokens" % (usd_text(usd.get("input")), usd_text(usd.get("output")))
+        return "-"
+    return "from %s%s" % (usd_text(per), unit)
 
 
 # ---------------------------------------------------------------------------
@@ -638,8 +796,12 @@ def add_input_flags(p):
 
 
 def add_create_flags(p):
-    p.add_argument("--confirm-credits", dest="confirm_credits", type=int, required=True,
-                   help="The credit price the user agreed to (maxCredits from `quote`). The task is not started if the price is higher.")
+    confirm = p.add_mutually_exclusive_group(required=True)
+    confirm.add_argument("--confirm-usd", dest="confirm_usd", metavar="USD",
+                         help="The USD price the user agreed to: maxChargeUsd from `quote`, as a decimal string such as 0.185. "
+                         "The task is not started if the price is higher.")
+    confirm.add_argument("--confirm-credits", dest="confirm_credits", type=int, metavar="N",
+                         help="Deprecated: the same check in legacy credits (N credits = N x $0.001). Use --confirm-usd.")
     p.add_argument("--idempotency-key", dest="idempotency_key",
                    help="Reuse the same key when retrying the same request so it never runs twice (default: a new random key)")
     p.add_argument("--retention", type=int, help="X-PopNow-Retention: keep outputs at most this many seconds")
@@ -666,13 +828,18 @@ def finish_task(client, task, args):
 def run_create(client, body, args):
     """Create (after the price check), then optionally wait and download."""
     want_wait = bool(args.wait or args.download)
+    confirm_usd = getattr(args, "confirm_usd", None)
+    confirm_credits = getattr(args, "confirm_credits", None)
+    if confirm_usd is None and confirm_credits is not None:
+        log("Note: --confirm-credits is deprecated; pass the quoted USD price with --confirm-usd instead.")
     q, status, data, key = create(
-        client, body, args.confirm_credits, idempotency_key=args.idempotency_key,
-        wait_seconds=60 if want_wait else None, retention=args.retention,
+        client, body, confirm_usd, idempotency_key=args.idempotency_key,
+        wait_seconds=60 if want_wait else None, retention=args.retention, confirm_credits=confirm_credits,
     )
     task_id = data.get("taskId")
     if not args.json:
-        print("Started:    %s (up to %s held; Idempotency-Key %s)" % (task_id, credits_text(data.get("estimatedCredits", data.get("credits"))), key))
+        held = accepted_usd(data) or task_cost_usd(data)
+        print("Started:    %s (up to %s USD held; Idempotency-Key %s)" % (task_id, usd_text(held), key))
     if not want_wait:
         if args.json:
             emit(data)
@@ -695,10 +862,10 @@ def cmd_balance(client, args):
     bal = balance(client)
     if args.json:
         return emit(bal)
-    print("Available:  %s" % credits_text(bal.get("availableCredits")))
-    print("Held:       %s (reserved by running tasks)" % credits_text(bal.get("heldCredits")))
-    print("Total:      %s ($%s USD)" % (credits_text(bal.get("totalCredits")), bal.get("total")))
-    print("Top up:     %s" % PRICING_URL)
+    print("Available:  %s USD in the API balance" % usd_text(available_usd(bal)))
+    print("Held:       %s USD (reserved by running tasks)" % usd_text(held_usd(bal)))
+    print("Total:      %s USD" % usd_text(total_usd(bal)))
+    print("Add funds:  %s (website credits cannot pay for API calls)" % BILLING_URL)
 
 
 def cmd_models(client, args):
@@ -711,7 +878,7 @@ def cmd_models(client, args):
         return emit(data)
     for m in items:
         flag = "" if m.get("available", True) else "  [unavailable now]"
-        print("%-52s %-26s %-6s %s%s" % (m.get("model"), (m.get("displayName") or "")[:26], m.get("modality"), price_text(m.get("credits")), flag))
+        print("%-52s %-26s %-6s %s%s" % (m.get("model"), (m.get("displayName") or "")[:26], m.get("modality"), price_text(model_usd(m)), flag))
     print("%d models. Exact price of one request: popnow.py quote --model <id> ..." % len(items))
 
 
@@ -720,9 +887,10 @@ def cmd_model(client, args):
     if args.json:
         return emit(rec)
     print("Model:      %s (%s by %s)" % (rec.get("model"), rec.get("displayName"), rec.get("provider")))
-    print("Price:      %s" % price_text(rec.get("credits")))
-    for rule in (rec.get("credits") or {}).get("rules") or []:
-        print("            %s when %s" % (price_text(dict(rule, unit=rule.get("unit") or rec["credits"].get("unit"))), json.dumps(rule.get("when"))))
+    usd = model_usd(rec) or {}
+    print("Price:      %s (USD)" % price_text(usd))
+    for rule in usd.get("rules") or []:
+        print("            %s when %s" % (price_text(dict(rule, unit=rule.get("unit") or usd.get("unit"))), json.dumps(rule.get("when"))))
     print("Available:  %s" % rec.get("available"))
     schema = rec.get("inputSchema") or {}
     required = set(schema.get("required") or [])
@@ -801,7 +969,7 @@ def cmd_jobs(client, args):
         return emit(data)
     items = data.get("items") or []
     for t in items:
-        print("%-32s %-10s %-48s %s cr  %s" % (t.get("taskId"), t.get("state"), t.get("model"), t.get("credits"), t.get("createdAt")))
+        print("%-32s %-10s %-48s %-14s %s" % (t.get("taskId"), t.get("state"), t.get("model"), usd_text(task_cost_usd(t)), t.get("createdAt")))
     print("%d tasks%s" % (len(items), "; more with --cursor %s" % data.get("nextCursor") if data.get("hasMore") else ""))
 
 
@@ -812,14 +980,14 @@ def cmd_usage(client, args):
 def cmd_retry(client, args):
     if not args.yes:
         raise UsageError(
-            "retry creates a new, billed task at today's price (it cannot be quoted first). "
+            "retry creates a new task billed to the API balance at today's price (it cannot be quoted first). "
             "Check the original price with `status`, confirm with the user, then pass --yes."
         )
     headers = {"Idempotency-Key": args.idempotency_key or new_idempotency_key()}
     data = client.post("/api/v1/jobs/retry", {"taskId": args.task_id}, headers=headers)[1]
     if args.json:
         return emit(data)
-    print("Started:    %s (retry of %s, up to %s held)" % (data.get("taskId"), data.get("sourceTaskId"), credits_text(data.get("estimatedCredits"))))
+    print("Started:    %s (retry of %s, up to %s USD held)" % (data.get("taskId"), data.get("sourceTaskId"), usd_text(accepted_usd(data))))
 
 
 def cmd_purge(client, args):
@@ -833,7 +1001,8 @@ def build_parser():
     parser = argparse.ArgumentParser(
         prog="popnow.py",
         description="PopNow API helper: quote, create, wait and download AI video, image and audio generations. "
-        "Needs POPNOW_API_KEY. Always quote first and get the user's OK on the credit price before `create`.",
+        "Needs POPNOW_API_KEY; generations spend the separate API balance in USD. "
+        "Always quote first and get the user's OK on the USD price before `create`.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="Docs: https://popnow.ai/docs  API reference: https://popnow.ai/docs/openapi.yaml",
     )
@@ -848,22 +1017,22 @@ def build_parser():
         p.set_defaults(func=func)
         return p
 
-    add("balance", cmd_balance, "Show available and held credits")
+    add("balance", cmd_balance, "Show the API balance in USD: available and held")
 
-    p = add("models", cmd_models, "List callable models with starting prices")
+    p = add("models", cmd_models, "List callable models with starting prices in USD")
     p.add_argument("--modality", choices=("image", "video", "audio"))
     p.add_argument("--task", help="e.g. text-to-video, image-to-video, text-to-image, edit, text-to-audio, text-to-speech")
     p.add_argument("--provider", help="Exact model maker, e.g. google, kling")
     p.add_argument("--search", help="Free-text search")
     p.add_argument("--schema", action="store_true", help="Include input schemas (use with --json)")
 
-    p = add("model", cmd_model, "Show one model: price tiers and input fields")
+    p = add("model", cmd_model, "Show one model: USD price tiers and input fields")
     p.add_argument("model")
 
-    p = add("quote", cmd_quote, "Price one request exactly (creates nothing, charges nothing)")
+    p = add("quote", cmd_quote, "Price one request exactly in USD (creates nothing, charges nothing)")
     add_input_flags(p)
 
-    p = add("create", cmd_create, "Quote, check against --confirm-credits, then start the task")
+    p = add("create", cmd_create, "Quote, check against --confirm-usd, then start the task")
     add_input_flags(p)
     add_create_flags(p)
 
@@ -890,7 +1059,7 @@ def build_parser():
     p.add_argument("--limit", type=int)
     p.add_argument("--cursor")
 
-    p = add("usage", cmd_usage, "Usage and spend for this API key")
+    p = add("usage", cmd_usage, "Usage and USD spend for this API key")
     p.add_argument("--from", dest="date_from")
     p.add_argument("--to", dest="date_to")
 

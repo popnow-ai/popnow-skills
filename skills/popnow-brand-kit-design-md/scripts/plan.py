@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 """Check the brief and its PopNow generation plan before anything is quoted or paid.
 
-  python3 scripts/plan.py check brand/brief.json            validate brief + prompts, rough credit estimate
+  python3 scripts/plan.py check brand/brief.json            validate brief + prompts, rough USD estimate
   python3 scripts/plan.py commands brand/brief.json --stage directions          free quote commands
   python3 scripts/plan.py commands brand/brief.json --stage directions --create create commands (after a yes)
   python3 scripts/plan.py status brand/brief.json           which planned pictures exist on disk
 
 Nothing here calls the network. Exact prices only come from
-`python3 scripts/popnow.py quote ...`; the estimate is for planning the conversation.
+`python3 scripts/popnow.py quote ...` (USD, from the separate API balance); the estimate is
+for planning the conversation.
 Standard library only.
 """
 
 import argparse
 import json
+from decimal import Decimal
 import os
 import re
 import shlex
@@ -22,16 +24,23 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import brandkit_lib as bk  # noqa: E402
 
 STAGES = ("directions", "symbol", "mockups", "extras")
-# Rough per-image list prices in credits (Oct 2026). Planning only; always quote.
+# Rough per-image list prices in USD (Oct 2026), as exact decimals. Planning only; always quote.
 ESTIMATE = {
-    "alibaba/z-image-turbo/text-to-image": 10,
-    "google/nano-banana-2.1/text-to-image": 48,
-    "google/nano-banana-2.1/edit": 48,
-    "bytedance/seedream-5.0-flash/edit": 26,
+    "alibaba/z-image-turbo/text-to-image": Decimal("0.01"),
+    "google/nano-banana-2.1/text-to-image": Decimal("0.048"),
+    "google/nano-banana-2.1/edit": Decimal("0.048"),
+    "bytedance/seedream-5.0-flash/edit": Decimal("0.026"),
     "openai/gpt-image-2/text-to-image": None,
-    "popnow/background-remover-v1/edit": 5,
-    "popnow/image-upscaler-v1/upscale": 12,
+    "popnow/background-remover-v1/edit": Decimal("0.005"),
+    "popnow/image-upscaler-v1/upscale": Decimal("0.012"),
 }
+NANO_BANANA_2K = Decimal("0.072")
+
+
+def usd(amount):
+    """A Decimal as a plain USD string with at least cents: 0.09 -> "0.09", 0.048 -> "0.048", 0.1 -> "0.10"."""
+    whole, _, frac = format(amount.normalize(), "f").partition(".")
+    return "%s.%s" % (whole, frac.ljust(2, "0"))
 PEOPLE = re.compile(r"\b(person|people|woman|women|man|men|girl|boy|child|face|faces|portrait|model|customer|barista|founder)\b", re.I)
 SAFE_PEOPLE = re.compile(r"(no (identifiable )?faces?|faceless|hands only|only hands|from behind|back to camera|no people|out of frame|silhouette)", re.I)
 TEXT_ASK = re.compile(r"(text (that )?(says|reads)|with the words|lettering|typography reading|caption reading|\"[^\"]{3,}\" written)", re.I)
@@ -150,7 +159,7 @@ def estimate(g):
     n = int(g.get("count", 1) or 1)
     per = ESTIMATE.get(model)
     if per is not None and model.startswith("google/nano-banana") and str(g.get("resolution", "1k")).lower() == "2k":
-        per = 72
+        per = NANO_BANANA_2K
     return None if per is None else per * n
 
 
@@ -169,7 +178,7 @@ def command(g, create=False):
     line = " ".join(shlex.quote(x) for x in args)
     if create:
         out_dir = os.path.dirname(g.get("out", "assets/")) or "."
-        line += " --confirm-credits <QUOTED> --download %s/_raw/%s" % (shlex.quote(out_dir), shlex.quote(str(g.get("id"))))
+        line += " --confirm-usd <maxChargeUsd> --download %s/_raw/%s" % (shlex.quote(out_dir), shlex.quote(str(g.get("id"))))
     return line
 
 
@@ -223,21 +232,21 @@ def main(argv=None):
         if est is None:
             unknown.append(g.get("id"))
         else:
-            by_stage[g.get("stage")] = by_stage.get(g.get("stage"), 0) + est
+            by_stage[g.get("stage")] = by_stage.get(g.get("stage"), Decimal(0)) + est
     if a.json:
         print(json.dumps({"findings": [{"severity": s, "path": w, "message": m} for s, w, m in rep.rows],
-                          "estimate": by_stage, "quoteOnly": unknown}, indent=2))
+                          "estimateUsd": {k: usd(v) for k, v in by_stage.items()}, "quoteOnly": unknown}, indent=2))
         return 1 if rep.errors() else 0
     for sev, where, msg in rep.rows:
         print("%-7s %-28s %s" % (sev.upper(), where, msg))
-    print("\nRough estimate (planning only, always quote):")
+    print("\nRough USD estimate (planning only, always quote):")
     for stage in STAGES:
         if stage in by_stage:
-            print("  %-11s ~%d credits" % (stage, by_stage[stage]))
+            print("  %-11s ~$%s" % (stage, usd(by_stage[stage])))
     if unknown:
         print("  plus quote-only items: %s" % ", ".join(str(u) for u in unknown))
-    print("  total      ~%d credits (+ quote-only items)" % sum(by_stage.values()))
-    print("\nNext: python3 scripts/plan.py commands %s --stage <stage>  -> run each quote, add them up, ask the user." % a.brief)
+    print("  total      ~$%s (+ quote-only items), from the API balance" % usd(sum(by_stage.values(), Decimal(0))))
+    print("\nNext: python3 scripts/plan.py commands %s --stage <stage>  -> run each quote, add up the USD, ask the user." % a.brief)
     return 1 if rep.errors() else 0
 
 

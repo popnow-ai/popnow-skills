@@ -9,7 +9,7 @@
 The board reads only local files: tokens, prose and logo SVGs come from DESIGN.md,
 pictures from the brief's `generations` (or assets/mockups, assets/moodboard).
 A picture that has not been generated yet shows as a labelled placeholder with
-its prompt, so the board is complete without spending credits.
+its prompt, so the board is complete without spending anything.
 PDF and PNG use headless Chrome/Chromium/Edge (set CHROME_PATH if it is not found).
 Standard library only.
 """

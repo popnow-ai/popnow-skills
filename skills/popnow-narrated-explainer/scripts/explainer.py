@@ -5,7 +5,7 @@ Plans a narration script, joins voiceover takes, times every word (from a transc
 estimation against the audio), builds captions, resolves storyboard beats into a timing file for
 the composition, writes a music ducking envelope, renders a storyboard contact sheet and runs QA.
 
-Python 3.8+ standard library only. Nothing here touches the network or spends credits; paid
+Python 3.8+ standard library only. Nothing here touches the network or spends money; paid
 generation goes through scripts/popnow.py, which prices every request first.
 
     python3 scripts/explainer.py <command> --help
@@ -1842,7 +1842,7 @@ def cmd_scaffold(args):
 
 
 # ---------------------------------------------------------------------------
-# Self-test: exercises every command on synthetic data. No network, no credits.
+# Self-test: exercises every command on synthetic data. No network, nothing charged.
 # ---------------------------------------------------------------------------
 
 
@@ -2250,7 +2250,7 @@ def build_parser():
     s.add_argument("--out", help="Write qa.json")
     s.set_defaults(func=cmd_qa)
 
-    s = sub.add_parser("selftest", help="Run every command on synthetic data (no network, no credits)")
+    s = sub.add_parser("selftest", help="Run every command on synthetic data (no network, nothing charged)")
     s.add_argument("--keep", action="store_true", help="Keep the fixture folder")
     s.set_defaults(func=cmd_selftest)
     return p

@@ -7,15 +7,17 @@ the user's photo into an ordinary PopNow task (quote -> createTask -> poll), so
 the price and result are the same as on the website.
 
 Dependency-free (Python 3.8+ standard library). Needs POPNOW_API_KEY.
-Uses popnow.py from the same folder for the HTTP calls.
+Uses popnow.py from the same folder for the HTTP calls. Generations spend the
+separate API balance in USD (add funds at https://popnow.ai/api/console/billing).
 
   effects.py list [--category weather] [--search zombie] [--popular]
   effects.py show "Zombie Turn"
   effects.py quote zombie-turn --image ./me.jpg
-  effects.py create zombie-turn --image ./me.jpg --confirm-credits 336 --download ./out
+  effects.py create zombie-turn --image ./me.jpg --confirm-usd 0.336 --download ./out
 
-Always quote first, tell the user the credit price and create only after they
-agree. `create` refuses to start when the price is above --confirm-credits.
+Always quote first, tell the user the USD price and create only after they
+agree. `create` refuses to start when the price is above --confirm-usd
+(`--confirm-credits` still works but is deprecated).
 """
 
 from __future__ import annotations
@@ -110,7 +112,7 @@ def cmd_show(args):
     print("Settings:   %s" % json.dumps(fx["input"]))
     print("Sample:     %s" % fx.get("preview"))
     print("Page:       %s%s" % (PAGE_BASE, fx["slug"]))
-    print("Price:      run `effects.py quote %s --image <photo>` for the exact credits" % fx["slug"])
+    print("Price:      run `effects.py quote %s --image <photo>` for the exact USD price" % fx["slug"])
     return 0
 
 
@@ -149,7 +151,7 @@ def build_parser():
     parser = argparse.ArgumentParser(
         prog="effects.py",
         description="Apply PopNow trending video effects and photo styles (Tiny Planet, Zombie Turn, Clay Figure ...) "
-        "to a photo. Needs POPNOW_API_KEY. Quote first; create only after the user agrees to the credit price.",
+        "to a photo. Needs POPNOW_API_KEY. Quote first; create only after the user agrees to the USD price.",
         epilog="Browse with samples: https://popnow.ai/effects",
     )
     common = argparse.ArgumentParser(add_help=False)
@@ -169,8 +171,8 @@ def build_parser():
     p.set_defaults(func=cmd_show)
 
     for name, func, text in (
-        ("quote", cmd_quote, "Exact credit price of an effect on a photo (charges nothing)"),
-        ("create", cmd_create, "Start the effect after the price check against --confirm-credits"),
+        ("quote", cmd_quote, "Exact USD price of an effect on a photo (charges nothing)"),
+        ("create", cmd_create, "Start the effect after the price check against --confirm-usd"),
     ):
         p = sub.add_parser(name, parents=[common], help=text, description=text)
         p.add_argument("effect", help="Slug or name")

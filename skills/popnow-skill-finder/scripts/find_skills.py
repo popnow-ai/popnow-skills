@@ -9,7 +9,8 @@ https://api.popnow.ai). The key is sent only to the API base URL; the package
 download is a short-lived signed link that is fetched without it.
 
 Using a skill is free. Only the images, video, music or voice a skill makes
-through PopNow cost credits, and those are quoted before anything is spent.
+through PopNow cost money: they are quoted in USD and paid from the separate
+PopNow API balance (https://popnow.ai/api/console/billing) only after a yes.
 
   find_skills.py search "product launch video" --type video --limit 4
   find_skills.py info <slug>
@@ -33,10 +34,10 @@ import urllib.parse
 import urllib.request
 import zipfile
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 DEFAULT_BASE_URL = "https://api.popnow.ai"
 USER_AGENT = "popnow-skill-finder/%s (+https://github.com/popnow-ai/popnow-skills)" % VERSION
-CATALOG_URL = "https://popnow.ai/skills/agent-skills"
+CATALOG_URL = "https://popnow.ai/api/skills"
 KEYS_URL = "https://popnow.ai/api/console/keys"
 TYPES = ("video", "image", "slides", "web")
 MAX_ARCHIVE_BYTES = 100 * 1024 * 1024
@@ -268,7 +269,7 @@ def print_options(data, limit, out=print):
             out("   Needs locally: %s" % ", ".join(s["requires"]))
         if s.get("url"):
             out("   Page: %s" % s["url"])
-    out("\nSkills are free; only PopNow generations cost credits. Ask the user which one, then run: install <slug> --agent <id>")
+    out("\nSkills are free; only PopNow generations cost money (quoted in USD first). Ask the user which one, then run: install <slug> --agent <id>")
 
 
 def print_detail(d, out=print):

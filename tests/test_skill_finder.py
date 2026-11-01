@@ -1,4 +1,4 @@
-"""Offline tests for popnow-skill-finder, the setup script and the plugin manifests. No network, no credits.
+"""Offline tests for popnow-skill-finder, the setup script and the plugin manifests. No network, nothing charged.
 
 Run: python3 -m unittest discover -s tests -v
 """
@@ -201,9 +201,9 @@ class FinderSkillTests(unittest.TestCase):
         with open(os.path.join(FINDER, "SKILL.md"), encoding="utf-8") as fh:
             text = fh.read()
         self.assertLessEqual(len(text.splitlines()), 150)
-        for needle in ("find_skills", "use_skill", "popnow skills search", "popnow skills add",
-                       "scripts/find_skills.py", "/api/v1/agent-skills", "https://popnow.ai/skills/agent-skills",
-                       "POPNOW_API_KEY", "free"):
+        for needle in ("find_skills", "install_skill", "popnow skills search", "popnow skills add",
+                       "scripts/find_skills.py", "/api/v1/agent-skills", "https://popnow.ai/api/skills",
+                       "https://api.popnow.ai/api/v1/mcp", "max_usd", "POPNOW_API_KEY", "free"):
             self.assertIn(needle, text)
 
     def test_cli_help_and_missing_key(self):

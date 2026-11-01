@@ -1,5 +1,5 @@
 """Offline checks for the "make things" skills: launch film, narrated explainer, AI assets for
-HyperFrames, landing page from mockups, social covers and brand kit. No network, no credits.
+HyperFrames, landing page from mockups, social covers and brand kit. No network, nothing charged.
 
 Each skill's own self-tests run here when the tool they need is installed (Python always, Node.js 22+
 when present). Self-tests that drive a local Chrome only run with POPNOW_BROWSER_TESTS=1.
@@ -80,9 +80,10 @@ class MakeSkillMetadataTests(unittest.TestCase):
                 self.assertEqual(meta["license"], "MIT")
                 desc = meta["description"]
                 self.assertLessEqual(len(desc), 1024)
-                self.assertIn("quotes credits before any paid run", desc)
+                self.assertIn("quotes USD before any paid run", desc)
                 self.assertIn("free", desc)
-                self.assertIn("1 credit = $0.001", desc)
+                self.assertIn("from the separate API USD balance", desc)
+                self.assertNotIn("credit", desc)
 
     def test_readme_links_to_the_preview_page(self):
         for skill in MAKE:

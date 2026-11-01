@@ -180,7 +180,7 @@ export function buildPrompts(brief, { lite = false, count = 3, design = null, di
       commands: {
         fields: `python3 ${popnow} model ${MOCKUP_MODEL}`,
         quote: base.replace("%s", "quote"),
-        create: base.replace("%s", "create") + ` --confirm-credits <QUOTED> --download ${dir}`,
+        create: base.replace("%s", "create") + ` --confirm-usd <maxChargeUsd> --download ${dir}`,
       },
       heroArt: heroArt(brief, d, dir, popnow),
     };

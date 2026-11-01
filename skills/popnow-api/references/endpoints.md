@@ -12,7 +12,7 @@ Base URL `https://api.popnow.ai`. All require `Authorization: Bearer sk-popnow-.
 | POST | `/api/v1/jobs/purge` | Delete a final task's content; billing kept (`{"taskId"}`) |
 | GET | `/api/v1/models` | Callable models with prices (`modality`, `provider`, `task`, `search`, `includeSchema`, `includeExamples`) |
 | GET | `/api/v1/models/{model}` | One model with its input JSON Schema |
-| GET | `/api/v1/chat/credit` | Balance: available, held, total |
+| GET | `/api/v1/chat/credit` | API balance in USD: `availableUsd`, `heldUsd`, `totalUsd` |
 | GET | `/api/v1/usage` | Usage for this key (`from`, `to`) |
 | POST | `/api/v1/common/upload-url` | Upload ticket (`{"contentType", "bytes"}`) |
 | POST | `/api/v1/files/{fileId}/commit` | Commit an upload; returns `popnow://f/...` |
@@ -27,4 +27,4 @@ Base URL `https://api.popnow.ai`. All require `Authorization: Bearer sk-popnow-.
 | GET | `/v1/videos/{videoId}` | OpenAI-style video status |
 | GET | `/v1/videos/{videoId}/content` | `302` to the video file |
 
-There are no endpoints for chat or text models, for buying credits, or for named effects (effects are recipes over the image and video models; see the `popnow-effects` skill).
+There are no endpoints for chat or text models, for adding API funds (use API billing in the console), or for named effects (effects are recipes over the image and video models; see the `popnow-effects` skill).

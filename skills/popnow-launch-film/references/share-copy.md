@@ -24,9 +24,9 @@ and writes `share/share.md` with a thumbnail.
 You shipped it. Now the launch needs a deck, a site, a video and images.
 
 PopNow Agent Skills let your coding agent make them, with pictures, footage, music and voice from
-PopNow, quoted before you spend.
+PopNow, quoted in USD before you spend.
 
-https://popnow.ai/skills
+https://popnow.ai/api/skills
 ```
 
 ## LinkedIn

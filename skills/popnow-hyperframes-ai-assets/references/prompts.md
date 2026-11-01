@@ -99,7 +99,7 @@ lines short and spoken, not written: one idea per sentence, numbers as they are 
 - One item per language (`vo-en`, `vo-de`, ...), same voice, same style. Each language gets its own
   timing pass: `npx hyperframes transcribe assets/voice/vo-de.wav`.
 - Pace: about 2.5 words a second in English. A 30 s film holds roughly 60 to 70 spoken words with
-  breathing room; the script estimates the credits from the same rate.
+  breathing room; the script estimates the USD cost from the same rate.
 - Stock voices only. Cloning or imitating a real person's voice is out unless the person has given
   consent and the item records it.
 

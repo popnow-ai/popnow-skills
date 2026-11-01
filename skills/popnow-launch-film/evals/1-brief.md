@@ -26,7 +26,7 @@
 | --- | --- |
 | Invented proof | `read-product.mjs` lists facts with their source line; `plan-film.mjs` refuses any number or proof without a cited fact |
 | Generic look | Brand from `DESIGN.md` or the site's own CSS (`product.json` brand hints); beat-sheet.md's list of generated-reel patterns to avoid |
-| No review | Contact sheet of 6-9 key frames approved before motion, render or credits (workflow step 4) |
+| No review | Contact sheet of 6-9 key frames approved before motion, render or any spend (workflow step 4) |
 | Cropped vertical | Presets laid out separately; copy inside `.safe` from `presets.css`; `frame-audit.mjs --preset vertical` checks the 260/440 px margins |
 | Audio | Original bed (quoted), levelled and ducked by `mix.mjs`, -16 LUFS, peaks under -1.5 dBTP; sound-mix.md limits effects |
 | Unreadable CTA, freezes | CTA at least 2.5 s (`plan-film.mjs`), end card marked as a hold; `qa-check.mjs` flags any other still stretch over 1.2 s |
@@ -38,7 +38,7 @@
 - [ ] Beats in order hook, problem, 2-3 moments, proof, CTA; `plan-film.mjs` passes for `wide`,
       `vertical`, `square`.
 - [ ] The user approved a contact sheet before rendering and before any paid generation.
-- [ ] Any PopNow item was quoted and confirmed; credits charged are in the handoff.
+- [ ] Any PopNow item was quoted and confirmed in USD; the USD charged is in the handoff.
 - [ ] `renders/film-wide-mixed.mp4` and `film-vertical-mixed.mp4` pass `qa-check.mjs` (runtime, opening
       frame, holds, -16 LUFS within 1 LU, true peak at or below -1 dBTP).
 - [ ] `frame-audit.mjs` passes at every key frame for both presets.

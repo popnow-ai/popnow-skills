@@ -8,8 +8,8 @@ Thanks for helping improve PopNow Skills.
 - **Make-things skills** (launch film, narrated explainer, HyperFrames assets, landing page, social covers, brand kit): Node.js scripts use only built-in `node:` modules (Node.js 22+; Playwright is an optional fallback, never required), Python scripts only the standard library. Run each skill's self-test after a change (listed in its README; `POPNOW_BROWSER_TESTS=1` adds the ones that drive Chrome). Keep `SKILL.md` under 250 lines and details in `references/`.
 - **Third-party material:** only bundle code, fonts or media under OSI or font-specific open licenses (MIT, Apache-2.0, ISC, SIL OFL), keep the license file next to it and add it to `THIRD_PARTY_NOTICES.md`. Do not bundle GSAP or any file whose license is not open; document how to install it instead.
 - **Installer:** `setup` must stay POSIX `sh` (test with `sh` and `dash`) and must never use the network.
-- **Tests:** `python3 -m unittest discover -s tests` must pass. The tests are offline; do not add tests that call the live API or spend credits.
+- **Tests:** `python3 -m unittest discover -s tests` must pass. The tests are offline; do not add tests that call the live API or spend money.
 - **API accuracy:** request and response fields must match the published spec at https://popnow.ai/docs/openapi.yaml. Do not invent endpoints or fields.
-- **Cost safety:** anything that spends credits must quote first and require an explicit confirmation from the user.
+- **Cost safety:** anything that spends from the API balance must quote first (in USD) and require an explicit confirmation from the user. Keep money as exact decimal strings (`maxChargeUsd`, `costUsd`), never floats.
 - **Model tables:** regenerate `references/models.md` with `tools/build_model_refs.py` from a live `popnow.py models --json` export instead of editing by hand.
 - **Language:** code, comments and docs are in English.

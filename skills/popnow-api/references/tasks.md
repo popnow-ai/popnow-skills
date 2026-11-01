@@ -31,8 +31,9 @@ Body (`additionalProperties: false`):
 | `input` | yes | Validated against the model's `inputSchema`; unknown fields are rejected |
 | `callBackUrl` | no | Public HTTPS URL that receives the finished task (see webhooks.md) |
 | `quoteId` | no | From `jobs/quote` for the same account, key and request (valid 5 minutes) |
-| `expectedCredits` | no | The `maxCredits` you confirmed; a changed price returns `40901` before anything is held |
-| `expectedCost` | no | Same as `expectedCredits` in USD; `expectedCredits` wins if both are sent |
+| `expectedCostUsd` | no | The `maxChargeUsd` you confirmed, as the same decimal string (up to nine decimals, no exponent); a changed price returns `40901` before anything is held. Or send `quoteId` alone |
+| `expectedCost` | no | Legacy alias of `expectedCostUsd`; both must match when sent together |
+| `expectedCredits` | no | Deprecated integer credit projection (1 credit = $0.001); use `expectedCostUsd` |
 
 Headers: `Idempotency-Key` (strongly recommended, up to 128 chars), `X-PopNow-Retention` (seconds to keep outputs and prompt; can only shorten retention, `0` removes outputs as soon as the task is final), `Accept-Language` (language of error text).
 
@@ -41,11 +42,11 @@ Response `202`:
 ```json
 { "code": 200, "msg": "success",
   "data": { "taskId": "job_01JH8Z4Q5W2N7R3K9M6P1C0VXD", "state": "queued",
-            "estimatedCredits": 34, "estimatedCost": "0.34", "deadlineAt": "2026-10-16T09:40:00Z" },
+            "estimatedCostUsd": "0.34", "deadlineAt": "2026-10-16T09:40:00Z" },
   "request_id": "req_..." }
 ```
 
-`202` means accepted, not finished. `estimatedCredits` is the hold, the most the task can cost. If creation fails nothing is created or held.
+`202` means accepted, not finished. `estimatedCostUsd` is the USD hold, the most the task can cost (`estimatedCost` is the same value; `estimatedCredits` is deprecated). If creation fails nothing is created or held.
 
 ## States
 
@@ -75,7 +76,7 @@ Holds the `createTask` connection until the task is final or time runs out. Fina
 | `output.assets[]` | `url`, `expiresAt`, `mime`, `width`, `height`, `durationSeconds`, `bytes`, `role`, `key`, `pending`, `unavailable`, `layer` |
 | `output.text`, `output.transcript` | Speech-to-text results |
 | `errorCode`, `errorMessage` | Why it failed; branch on `errorCode` |
-| `credits`, `cost`, `settled` | While `settled` is false, `credits` is the hold; then the final charge |
+| `costUsd`, `settled` | While `settled` is false, `costUsd` is the USD hold; then the final USD charge (`cost` is the same value; `credits` and `exactCredits` are deprecated) |
 | `createdAt`, `completedAt`, `deadlineAt` | Timestamps |
 | `retention.outputsExpireAt`, `retention.promptsExpireAt`, `retention.source` | When content is removed and which layer decided |
 | `contentState` | `present`, `expired` (retention) or `purged` (you deleted it) |
@@ -92,11 +93,11 @@ Webhooks first, polling as a fallback. When polling: every 2-3 s for images, 10-
 
 ## Task list
 
-`GET /api/v1/jobs?state=failed&from=2026-10-01&limit=50` returns this key's tasks, newest first, metadata only (`taskId`, `requestId`, `model`, `state`, `cost`, `credits`, `settled`, `createdAt`, `deadlineAt`, `completedAt`). Filters: `from`/`to` (UTC dates, half-open, up to 92 days, default last 7 days), `state`, `model`, `limit` (1-100, default 20), `cursor` (from `nextCursor` while `hasMore` is true; keep all filters unchanged). Unknown, duplicate or empty query parameters are rejected.
+`GET /api/v1/jobs?state=failed&from=2026-10-01&limit=50` returns this key's tasks, newest first, metadata only (`taskId`, `requestId`, `model`, `state`, `cost` in USD, `settled`, `createdAt`, `deadlineAt`, `completedAt`; `credits` is deprecated). Filters: `from`/`to` (UTC dates, half-open, up to 92 days, default last 7 days), `state`, `model`, `limit` (1-100, default 20), `cursor` (from `nextCursor` while `hasMore` is true; keep all filters unchanged). Unknown, duplicate or empty query parameters are rejected.
 
 ## Retry
 
-`POST /api/v1/jobs/retry` with `{"taskId": "..."}` creates a **new** task from a `failed` or `expired` one using its original input at today's price (current schema, pricing, balance and availability are evaluated again). The source task is never modified. `409` while the source is not final; a succeeded task cannot be retried. Accepts an `Idempotency-Key` scoped to the source task. The source must belong to the same key.
+`POST /api/v1/jobs/retry` with `{"taskId": "..."}` creates a **new** task from a `failed` or `expired` one using its original input at today's price (current schema, pricing, API balance and availability are evaluated again; the response carries `estimatedCostUsd`). The source task is never modified. `409` while the source is not final; a succeeded task cannot be retried. Accepts an `Idempotency-Key` scoped to the source task. The source must belong to the same key.
 
 ## Purge
 

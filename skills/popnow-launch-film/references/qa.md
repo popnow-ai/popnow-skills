@@ -65,5 +65,5 @@ wide cut, full screen for vertical), once with the sound off.
 
 ## Hand off
 
-The MP4 per preset, `share/`, `film/STORYBOARD.md`, the facts used, credits charged against the
+The MP4 per preset, `share/`, `film/STORYBOARD.md`, the facts used, USD charged against the
 confirmed total, and an honest list of what is still a placeholder.

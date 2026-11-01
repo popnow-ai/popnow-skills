@@ -43,4 +43,4 @@ Mode: full. Competitor colours: coffee chain `#00704A` + `#FFFFFF`; tea brand `#
 - [ ] Shop-sign and Instagram mockups exist (HTML from tokens is fine); any people are hands only.
 - [ ] No invented claims anywhere (packaging, captions, voice samples).
 - [ ] `lint_design.py DESIGN.md --brief brand/brief.json` reports 0 errors; board PDF is one page.
-- [ ] Credits were quoted before each stage and the user agreed; no automatic retries.
+- [ ] USD prices were quoted before each stage and the user agreed; no automatic retries.

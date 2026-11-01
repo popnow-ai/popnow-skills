@@ -9,8 +9,8 @@
     {
       "name": "popnow",
       "source": "./",
-      "description": "Generate AI videos, images, music and speech, apply trending video effects, make launch films, explainer videos, landing pages, social covers and brand kits, and find free style presets with the PopNow API. Quotes credits before every paid run.",
-      "version": "1.0.0",
+      "description": "Generate AI videos, images, music and speech, apply trending video effects, make launch films, explainer videos, landing pages, social covers and brand kits, and find free style presets with the PopNow API. Quotes every paid run in USD from your PopNow API balance first.",
+      "version": "1.1.0",
       "author": {
         "name": "PopNow",
         "url": "https://popnow.ai"

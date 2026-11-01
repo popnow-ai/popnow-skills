@@ -1,6 +1,6 @@
 # OpenAI Videos compatibility
 
-Code written for the OpenAI Videos API can point its `base_url` at `https://api.popnow.ai/v1`. Same keys, limits, validation and credits as the native API; OpenAI request, response and error shapes instead of the envelope.
+Code written for the OpenAI Videos API can point its `base_url` at `https://api.popnow.ai/v1`. Same keys, limits, validation and USD API balance as the native API; OpenAI request, response and error shapes instead of the envelope.
 
 | Call | Does |
 | --- | --- |

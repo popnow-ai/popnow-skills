@@ -24,13 +24,14 @@ Python 3 and Chrome (for the board and PDF). `POPNOW_API_KEY` for moodboard pict
 
 ## Cost
 
-The skill is free. Only what PopNow generates spends credits (1 credit = $0.001), and the agent quotes
-the price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
-above the amount you confirmed. A full kit is about 190-220 credits; lite is free (or about 30 with three draft tiles). Rendering and checks run on your machine and cost nothing.
+The skill is free. Only what PopNow generates is paid, in USD from the separate API balance behind your
+API key (it starts at $0 and is separate from website credits; add funds in
+https://popnow.ai/api/console/billing). The agent quotes the USD price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
+above the amount you confirmed. A full kit is about $0.19-$0.22; lite is free (or about $0.03 with three draft tiles). Rendering and checks run on your machine and cost nothing.
 
 ## Self-test
 
-Run from this folder; offline, no API key, no credits:
+Run from this folder; offline, no API key, nothing charged:
 
 ```bash
 python3 scripts/selftest.py

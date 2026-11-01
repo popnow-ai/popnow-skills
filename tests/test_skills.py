@@ -1,4 +1,4 @@
-"""Offline tests for the PopNow skills. No network, no API key, no credits spent.
+"""Offline tests for the PopNow skills. No network, no API key, nothing charged.
 
 Run: python3 -m unittest discover -s tests -v
 """
@@ -51,9 +51,15 @@ def client_with(routes):
     return client, fake
 
 
-QUOTE = {"quoteId": "q_1", "model": "minimax/h3/image-to-video", "maxCredits": 185, "expectedCredits": 185,
-         "estimatedCost": "0.185", "maxCharge": "0.185", "currency": "USD", "quantity": "5", "unit": "per_second",
+QUOTE = {"quoteId": "q_1", "model": "minimax/h3/image-to-video", "maxChargeUsd": "0.185", "expectedChargeUsd": "0.185",
+         "maxCharge": "0.185", "estimatedCost": "0.185", "expectedCharge": "0.185", "maxCredits": 185,
+         "expectedCredits": 185, "currency": "USD", "quantity": "5", "unit": "per_second",
          "expiresAt": "2026-10-19T10:00:00Z"}
+# What a server from before the USD fields returned: credit projections only.
+LEGACY_QUOTE = {"quoteId": "q_old", "model": "minimax/h3/image-to-video", "maxCredits": 185, "expectedCredits": 185,
+                "currency": "USD", "quantity": "5", "unit": "per_second", "expiresAt": "2026-10-19T10:00:00Z"}
+BALANCE = {"available": "12.5", "held": "0.185", "total": "12.685", "availableUsd": "12.5", "heldUsd": "0.185",
+           "totalUsd": "12.685", "availableCredits": 12500, "heldCredits": 185, "totalCredits": 12685}
 
 SCHEMA_SINGLE = {"model": "minimax/h3/image-to-video", "inputSchema": {"properties": {
     "prompt": {"type": "string"}, "image_url": {"type": "string"}, "last_image_url": {"type": "string"},
@@ -85,7 +91,7 @@ class EnvelopeTests(unittest.TestCase):
     def test_insufficient_balance_has_hint(self):
         with self.assertRaises(popnow.PopNowError) as ctx:
             popnow.parse_envelope(402, b'{"code":40201,"msg":"Insufficient balance"}', {})
-        self.assertIn("popnow.ai/pricing", str(ctx.exception))
+        self.assertIn("popnow.ai/api/console/billing", str(ctx.exception))
 
     def test_gateway_page_is_transport_error(self):
         with self.assertRaises(popnow.PopNowError) as ctx:
@@ -128,31 +134,65 @@ class InputTests(unittest.TestCase):
 
 class CreateTests(unittest.TestCase):
     def test_price_above_confirmation_starts_nothing(self):
-        client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(dict(QUOTE, maxCredits=370))})
+        client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(dict(QUOTE, maxChargeUsd="0.37", maxCredits=370))})
         body = popnow.task_body("minimax/h3/image-to-video", {"prompt": "x", "image_url": "https://x.test/a.jpg"})
         with self.assertRaises(popnow.ConfirmationNeeded) as ctx:
-            popnow.create(client, body, 185)
-        self.assertIn("--confirm-credits 370", str(ctx.exception))
+            popnow.create(client, body, "0.185")
+        self.assertIn("--confirm-usd 0.37", str(ctx.exception))
+        self.assertIn("$0.37 USD", str(ctx.exception))
         self.assertEqual(fake.paths(), ["/api/v1/jobs/quote"])
 
-    def test_confirmed_create_locks_quote_and_sends_idempotency_key(self):
-        accepted = {"taskId": "job_1", "state": "queued", "estimatedCredits": 185, "estimatedCost": "0.185",
-                    "deadlineAt": "2026-10-19T10:30:00Z"}
+    def test_confirmed_create_locks_quote_in_usd_and_sends_idempotency_key(self):
+        accepted = {"taskId": "job_1", "state": "queued", "estimatedCostUsd": "0.185", "estimatedCost": "0.185",
+                    "estimatedCredits": 185, "deadlineAt": "2026-10-19T10:30:00Z"}
         client, fake = client_with({
             ("POST", "/api/v1/jobs/quote"): ok(QUOTE),
             ("POST", "/api/v1/jobs/createTask"): ok(accepted, status=202),
         })
         body = popnow.task_body("minimax/h3/image-to-video", {"prompt": "x"}, callback="https://hooks.test/p")
-        q, status, data, key = popnow.create(client, body, 185, idempotency_key="order-1", retention=3600)
+        q, status, data, key = popnow.create(client, body, "0.185", idempotency_key="order-1", retention=3600)
         self.assertEqual((status, data["taskId"], key), (202, "job_1", "order-1"))
         sent = fake.calls[1]
         self.assertEqual(sent["body"]["quoteId"], "q_1")
-        self.assertEqual(sent["body"]["expectedCredits"], 185)
+        self.assertEqual(sent["body"]["expectedCostUsd"], "0.185")
+        self.assertNotIn("expectedCredits", sent["body"])
         self.assertEqual(sent["body"]["callBackUrl"], "https://hooks.test/p")
         self.assertEqual(fake.calls[0]["body"]["callBackUrl"], "https://hooks.test/p")
         self.assertEqual(sent["headers"]["Idempotency-Key"], "order-1")
         self.assertEqual(sent["headers"]["X-PopNow-Retention"], "3600")
         self.assertTrue(sent["headers"]["Authorization"].startswith("Bearer sk-popnow-"))
+        self.assertEqual(popnow.accepted_usd(data), "0.185")
+
+    def test_usd_amounts_are_compared_exactly(self):
+        quoted = dict(QUOTE, maxChargeUsd="0.123456790")
+        client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(quoted),
+                                    ("POST", "/api/v1/jobs/createTask"): ok({"taskId": "job_9", "state": "queued"}, 202)})
+        with self.assertRaises(popnow.ConfirmationNeeded):
+            popnow.create(client, popnow.task_body("m/n/t", {}), "0.123456789")
+        popnow.create(client, popnow.task_body("m/n/t", {}), "$0.12345679")
+        self.assertEqual(fake.calls[-1]["body"]["expectedCostUsd"], "0.123456790")
+
+    def test_legacy_quote_without_usd_fields_still_works(self):
+        client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(LEGACY_QUOTE),
+                                    ("POST", "/api/v1/jobs/createTask"): ok({"taskId": "job_3", "state": "queued",
+                                                                             "estimatedCredits": 185}, 202)})
+        _, _, data, _ = popnow.create(client, popnow.task_body("m/n/t", {}), "0.185")
+        sent = fake.calls[1]["body"]
+        self.assertEqual((sent["quoteId"], sent["expectedCredits"]), ("q_old", 185))
+        self.assertNotIn("expectedCostUsd", sent)
+        self.assertEqual(popnow.accepted_usd(data), "0.185")
+        with self.assertRaises(popnow.ConfirmationNeeded):
+            popnow.create(client, popnow.task_body("m/n/t", {}), "0.184")
+
+    def test_deprecated_credit_confirmation_still_works(self):
+        client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(QUOTE),
+                                    ("POST", "/api/v1/jobs/createTask"): ok({"taskId": "job_4", "state": "queued"}, 202)})
+        popnow.create(client, popnow.task_body("m/n/t", {}), 185)
+        popnow.create(client, popnow.task_body("m/n/t", {}), confirm_credits=185)
+        self.assertEqual([c["body"]["expectedCostUsd"] for c in fake.calls if c["path"].endswith("createTask")],
+                         ["0.185", "0.185"])
+        with self.assertRaises(popnow.ConfirmationNeeded):
+            popnow.create(client, popnow.task_body("m/n/t", {}), confirm_credits=184)
 
     def test_retry_keeps_the_same_idempotency_key(self):
         attempts = []
@@ -161,23 +201,59 @@ class CreateTests(unittest.TestCase):
             attempts.append(1)
             if len(attempts) == 1:
                 return 503, {"code": 503, "msg": "busy"}
-            return ok({"taskId": "job_2", "state": "queued", "estimatedCredits": 185}, status=202)
+            return ok({"taskId": "job_2", "state": "queued", "estimatedCostUsd": "0.185"}, status=202)
 
         client, fake = client_with({("POST", "/api/v1/jobs/quote"): ok(QUOTE), ("POST", "/api/v1/jobs/createTask"): flaky})
         orig_sleep = popnow.time.sleep
         popnow.time.sleep = lambda s: None
         try:
-            popnow.create(client, popnow.task_body("m/n/t", {"prompt": "x"}), 300)
+            popnow.create(client, popnow.task_body("m/n/t", {"prompt": "x"}), "0.3")
         finally:
             popnow.time.sleep = orig_sleep
         keys = [c["headers"]["Idempotency-Key"] for c in fake.calls if c["path"].endswith("createTask")]
         self.assertEqual(len(keys), 2)
         self.assertEqual(keys[0], keys[1])
 
-    def test_confirm_credits_is_required(self):
-        client, _ = client_with({})
-        with self.assertRaises(popnow.UsageError):
-            popnow.create(client, popnow.task_body("m/n/t", {}), None)
+    def test_confirmation_is_required_and_must_be_a_decimal_string(self):
+        client, fake = client_with({})
+        for bad in (None, 0.185, "1e-3", "-1", "0.1234567891", "abc", ""):
+            with self.subTest(bad=bad), self.assertRaises(popnow.UsageError):
+                popnow.create(client, popnow.task_body("m/n/t", {}), bad)
+        self.assertEqual(fake.calls, [])
+
+
+class MoneyTests(unittest.TestCase):
+    def test_usd_fields_win_and_legacy_fields_still_parse(self):
+        self.assertEqual(popnow.quote_max_usd(QUOTE), "0.185")
+        self.assertEqual(popnow.quote_max_usd(LEGACY_QUOTE), "0.185")
+        self.assertEqual(popnow.available_usd(BALANCE), "12.5")
+        self.assertEqual(popnow.available_usd({"availableCredits": 12500}), "12.5")
+        self.assertEqual(popnow.held_usd({"heldCredits": 185}), "0.185")
+        self.assertEqual(popnow.task_cost_usd({"costUsd": "0.000000001", "credits": 1}), "0.000000001")
+        self.assertEqual(popnow.task_cost_usd({"cost": "0.37"}), "0.37")
+        self.assertEqual(popnow.task_cost_usd({"exactCredits": "184.5", "credits": 185}), "0.1845")
+        self.assertEqual(popnow.task_cost_usd({"credits": 185}), "0.185")
+        self.assertIsNone(popnow.task_cost_usd({"state": "queued"}))
+
+    def test_model_prices_use_the_usd_snapshot(self):
+        rec = {"usd": {"unit": "per_second", "perUnit": "0.0612", "currency": "USD",
+                       "rules": [{"when": {"resolution": "720p"}, "perUnit": "0.126"}]},
+               "credits": {"unit": "per_second", "perUnit": 61.2}}
+        self.assertEqual(popnow.price_text(popnow.model_usd(rec)), "from $0.0612/second")
+        legacy = popnow.model_usd({"credits": {"unit": "per_second", "perUnit": 61.2,
+                                               "rules": [{"when": {"resolution": "720p"}, "perUnit": 126}]}})
+        self.assertEqual((legacy["perUnit"], legacy["rules"][0]["perUnit"]), ("0.0612", "0.126"))
+        chat = {"usd": {"unit": "per_1m_tokens", "input": "1.25", "output": "10", "currency": "USD"}}
+        self.assertEqual(popnow.price_text(popnow.model_usd(chat)), "$1.25 in, $10 out per 1M tokens")
+
+    def test_summaries_show_usd(self):
+        text = popnow.describe_quote(QUOTE, dict(BALANCE, availableUsd="0.1"))
+        self.assertIn("up to $0.185 USD", text)
+        self.assertIn("--confirm-usd 0.185", text)
+        self.assertIn("popnow.ai/api/console/billing", text)
+        self.assertNotIn("credit", text)
+        task = {"taskId": "job_1", "model": "m/n/t", "state": "succeeded", "costUsd": "0.17", "settled": True, "credits": 170}
+        self.assertIn("Cost:       $0.17 USD (final charge)", popnow.summarize_task(task))
 
 
 class WaitAndDownloadTests(unittest.TestCase):
@@ -261,6 +337,24 @@ class RepoTests(unittest.TestCase):
             plugin = json.load(fh)
         self.assertEqual(market["plugins"][0]["name"], plugin["name"])
         self.assertEqual(market["plugins"][0]["source"], "./")
+        versions = {market["plugins"][0]["version"], plugin["version"], popnow.__version__}
+        for path in (".codex-plugin/plugin.json", ".cursor-plugin/plugin.json"):
+            with open(os.path.join(ROOT, path), encoding="utf-8") as fh:
+                versions.add(json.load(fh)["version"])
+        self.assertEqual(len(versions), 1, versions)
+
+    def test_developer_links_only(self):
+        """A developer product: no links to the consumer MCP or the website skills catalog."""
+        consumer = re.compile(r"https://popnow\.ai/mcp\b|https://api\.popnow\.ai/mcp\b|popnow-ai/popnow-mcp\b|popnow\.ai/skills/agent-skills")
+        out = subprocess.run(["git", "ls-files"], cwd=ROOT, capture_output=True, text=True)
+        files = [f for f in out.stdout.splitlines() if not f.startswith("assets/") and not f.endswith((".woff2", ".png"))]
+        self.assertTrue(files)
+        for name in files:
+            path = os.path.join(ROOT, name)
+            if not os.path.isfile(path) or name in ("CHANGELOG.md", "tests/test_skills.py"):
+                continue
+            with open(path, encoding="utf-8", errors="replace") as fh:
+                self.assertIsNone(consumer.search(fh.read()), name)
 
     def test_cli_help(self):
         for script in ("skills/popnow-api/scripts/popnow.py", "skills/popnow-effects/scripts/effects.py"):

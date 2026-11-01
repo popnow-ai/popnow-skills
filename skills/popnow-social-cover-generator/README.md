@@ -24,13 +24,14 @@ Node.js 22+, Chrome, Python 3. `POPNOW_API_KEY` only for generated backgrounds; 
 
 ## Cost
 
-The skill is free. Only what PopNow generates spends credits (1 credit = $0.001), and the agent quotes
-the price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
-above the amount you confirmed. About 100-200 credits for a six-platform set with generated pictures; lite about 22-48; picture-free sets cost nothing. Rendering and checks run on your machine and cost nothing.
+The skill is free. Only what PopNow generates is paid, in USD from the separate API balance behind your
+API key (it starts at $0 and is separate from website credits; add funds in
+https://popnow.ai/api/console/billing). The agent quotes the USD price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
+above the amount you confirmed. About $0.10-$0.20 for a six-platform set with generated pictures; lite about $0.022-$0.048; picture-free sets cost nothing. Rendering and checks run on your machine and cost nothing.
 
 ## Self-test
 
-Run from this folder; offline, no API key, no credits:
+Run from this folder; offline, no API key, nothing charged:
 
 ```bash
 node scripts/selftest.mjs

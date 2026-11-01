@@ -64,7 +64,7 @@ python3 $SKILL/scripts/popnow.py quote --model google/nano-banana-2.1/text-to-im
   --prompt "Flat paper cut-out illustration of <object>, layered construction paper in tomato red, \
 teal, mustard and cream, visible paper fibres and slightly uneven scissor edges, soft drop shadow, \
 isolated on a plain white background, no text, no letters, no logos"
-# after a yes: create ... --confirm-credits <N> --download assets/raw
+# after a yes: create ... --confirm-usd <maxChargeUsd> --download assets/raw
 python3 $SKILL/scripts/popnow.py quote --model popnow/background-remover-v1/edit --image assets/raw/<file>.png
 # after a yes: create ... --download assets/   -> transparent PNG
 ```

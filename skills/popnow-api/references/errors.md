@@ -35,7 +35,7 @@ A failed call returns the envelope with a business `code` and a human `msg`:
 
 | `code` | Meaning | Do |
 | --- | --- | --- |
-| `40201` | Not enough credits for the hold | Buy credits at https://popnow.ai/pricing |
+| `40201` | Not enough API balance for the hold | Add funds at https://popnow.ai/api/console/billing (website credits cannot pay for API calls) |
 | `40202` | Key spend cap reached | Raise the cap or wait for the reset |
 | `40301` | Key may not call this model | Add it to the key's allowed models |
 | `40302` | Caller IP not in the key's allowlist | Add the address |

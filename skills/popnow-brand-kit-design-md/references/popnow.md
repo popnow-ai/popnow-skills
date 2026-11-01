@@ -11,17 +11,17 @@ python3 scripts/plan.py commands brand/brief.json --stage directions          # 
 python3 scripts/popnow.py quote --model alibaba/z-image-turbo/text-to-image --prompt "..." --aspect-ratio 1:1
 ```
 
-Add up the quotes for the stage, tell the user the total credits and their balance
+Add up the quotes for the stage, tell the user the USD total and their API balance
 (`python3 scripts/popnow.py balance`), and wait for a clear yes. Then:
 
 ```bash
 python3 scripts/plan.py commands brand/brief.json --stage directions --create   # create commands
-python3 scripts/popnow.py create --model ... --confirm-credits <QUOTED> --download brand/assets/moodboard/_raw/dir-a-1
+python3 scripts/popnow.py create --model ... --confirm-usd <maxChargeUsd> --download brand/assets/moodboard/_raw/dir-a-1
 ```
 
 Move each downloaded file to its `out` path (convert to WebP if you like) and set `"status": "done"`.
 If the price went up, `create` stops without charging (exit 3): tell the user the new price. A
-failed task refunds automatically; do not retry a paid task without asking.
+failed task releases its hold automatically; do not retry a paid task without asking.
 
 ## Models
 

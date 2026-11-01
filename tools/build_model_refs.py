@@ -6,13 +6,16 @@ Usage:
   python3 tools/build_model_refs.py /tmp/models.json 2026-10-19
 
 The input is the `data` object of GET /api/v1/models (fields `items[].model`,
-`displayName`, `provider`, `modality`, `tasks`, `credits`,
-`maxOutputDurationSeconds`, `available`).
+`displayName`, `provider`, `modality`, `tasks`, `usd`,
+`maxOutputDurationSeconds`, `available`). Prices come from the `usd` rate
+snapshot (exact decimal strings); a catalog from an older server that only has
+the deprecated `credits` block is converted at 1 credit = $0.001.
 """
 
 import json
 import os
 import sys
+from decimal import Decimal
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -49,32 +52,46 @@ def task(m):
     return tasks[0] if tasks else m["model"].rsplit("/", 1)[-1]
 
 
-def num(x):
-    return ("%.2f" % x).rstrip("0").rstrip(".")
+def usd_text(value):
+    """An exact USD decimal string as shown in the tables: "$0.0612". Never goes through float."""
+    text = format(Decimal(str(value)).normalize(), "f")
+    return "$" + text
+
+
+def rates(m):
+    """The model's USD rate snapshot, or one converted from the deprecated credits block."""
+    usd = m.get("usd")
+    if isinstance(usd, dict) and usd.get("perUnit") is not None:
+        return usd
+    credits = m.get("credits") or {}
+    to_usd = lambda v: format((Decimal(str(v)) / 1000).normalize(), "f")  # noqa: E731
+    out = {"unit": credits.get("unit"), "perUnit": to_usd(credits.get("perUnit", 0))}
+    out["rules"] = [dict(r, perUnit=to_usd(r.get("perUnit", 0))) for r in credits.get("rules") or []]
+    return out
 
 
 def price(m):
-    c = m.get("credits") or {}
-    base = "%s %s" % (num(c.get("perUnit", 0)), UNIT.get(c.get("unit"), c.get("unit", "")))
+    r = rates(m)
+    base = "%s %s" % (usd_text(r.get("perUnit", "0")), UNIT.get(r.get("unit"), r.get("unit", "")))
     tiers = []
-    for rule in c.get("rules") or []:
+    for rule in r.get("rules") or []:
         when = ", ".join(str(v) if k == "*" else "%s=%s" % (k, v) for k, v in sorted((rule.get("when") or {}).items()))
-        tiers.append("%s: %s" % (when or "default", num(rule.get("perUnit", 0))))
+        tiers.append("%s: %s" % (when or "default", usd_text(rule.get("perUnit", "0"))))
     return base.strip(), "; ".join(tiers[:6]) + (" ..." if len(tiers) > 6 else "")
 
 
 def render(skill, items, snapshot):
     out = ["# %s" % TITLES[skill], ""]
-    out += ["Snapshot of `GET /api/v1/models` taken %s. Prices are in credits (1 credit = $0.001) and are the "
-               "starting price per unit; the exact amount of one request comes from `popnow.py quote`. The live list "
-               "is always the source of truth: `popnow.py models --modality %s`." % (snapshot, skill.split("-")[1]), ""]
+    out += ["Snapshot of `GET /api/v1/models` taken %s. Prices are in USD, paid from the separate API balance, and "
+               "are the starting price per unit; the exact amount of one request comes from `popnow.py quote`. The live "
+               "list is always the source of truth: `popnow.py models --modality %s`." % (snapshot, skill.split("-")[1]), ""]
     out.append("Model IDs follow `<maker>/<model>/<task>`. Read a model's input fields with `popnow.py model <id>`.")
     out.append("")
     for title, pred in GROUPS[skill]:
         rows = sorted((m for m in items if pred(m)), key=lambda m: (m.get("provider", ""), m["model"]))
         if not rows:
             continue
-        out += ["## %s" % title, "", "| Model ID | Name | Maker | Price (credits) | Tiers |", "| --- | --- | --- | --- | --- |"]
+        out += ["## %s" % title, "", "| Model ID | Name | Maker | Price (USD) | Tiers |", "| --- | --- | --- | --- | --- |"]
         for m in rows:
             base, tiers = price(m)
             if m.get("maxOutputDurationSeconds"):

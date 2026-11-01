@@ -24,13 +24,14 @@ Python 3, Node.js 22+, FFmpeg, Chrome, HyperFrames through `npx` (Apache-2.0), G
 
 ## Cost
 
-The skill is free. Only what PopNow generates spends credits (1 credit = $0.001), and the agent quotes
-the price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
-above the amount you confirmed. About 21 credits for a 60 s lite video (voice and transcription) up to about 440 credits for 120 s with music and six generated cut-outs. Rendering and checks run on your machine and cost nothing.
+The skill is free. Only what PopNow generates is paid, in USD from the separate API balance behind your
+API key (it starts at $0 and is separate from website credits; add funds in
+https://popnow.ai/api/console/billing). The agent quotes the USD price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
+above the amount you confirmed. About $0.021 for a 60 s lite video (voice and transcription) up to about $0.44 for 120 s with music and six generated cut-outs. Rendering and checks run on your machine and cost nothing.
 
 ## Self-test
 
-Run from this folder; offline, no API key, no credits:
+Run from this folder; offline, no API key, nothing charged:
 
 ```bash
 python3 scripts/explainer.py selftest && node scripts/kit-selftest.mjs

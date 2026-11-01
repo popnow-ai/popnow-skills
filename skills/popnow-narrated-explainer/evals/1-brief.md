@@ -36,5 +36,5 @@
       energy agency or standards body page), visible on the end card.
 - [ ] The three parts of the system each appear on the word that names them (check in the render).
 - [ ] No technical term on screen that the narration does not explain.
-- [ ] Credits spent within the quoted total; expected about 21 for voice and transcription, plus
-      about 53 per cut-out if approved.
+- [ ] USD spent within the quoted total; expected about $0.021 for voice and transcription, plus
+      about $0.053 per cut-out if approved.

@@ -9,10 +9,10 @@ real copy comes from the brief.
 
 | What | Model | Settings | About |
 | --- | --- | --- | --- |
-| Full-page mockup (default) | `openai/gpt-image-2/text-to-image` | `aspect_ratio 1:3`, `resolution 4k`, `quality medium` | 30-35 credits each |
+| Full-page mockup (default) | `openai/gpt-image-2/text-to-image` | `aspect_ratio 1:3`, `resolution 4k`, `quality medium` | $0.03-$0.035 each |
 | Sharper type for a final review | same | `quality high` | about 4x the medium price |
-| Cheap layout sketch before spending on the real one | `alibaba/z-image-turbo/text-to-image` | `--aspect-ratio 9:16` | about 10 credits; text will be wrong |
-| Change one section of a chosen mockup | `google/nano-banana-2.1/edit` | `--image <mockup>`, describe the change | 35-75 credits |
+| Cheap layout sketch before spending on the real one | `alibaba/z-image-turbo/text-to-image` | `--aspect-ratio 9:16` | about $0.01; text will be wrong |
+| Change one section of a chosen mockup | `google/nano-banana-2.1/edit` | `--image <mockup>`, describe the change | $0.035-$0.075 |
 
 Prices move: always run `python3 scripts/popnow.py model <id>` (free) to see the current
 fields and options, and `quote` for the real number. `python3 scripts/popnow.py models
@@ -55,16 +55,16 @@ python3 scripts/popnow.py quote --model openai/gpt-image-2/text-to-image --input
 python3 scripts/popnow.py balance
 ```
 
-Quote every mockup, then tell the user one total and their balance ("Three mockups,
-about 100 credits; you have 4,200. Go ahead?"). Create only after a clear yes, with the
-quoted number:
+Quote every mockup, then tell the user one total and their API balance ("Three mockups,
+about $0.10 USD; your API balance is $4.20. Go ahead?"). Create only after a clear yes, with each
+mockup's quoted `maxChargeUsd`:
 
 ```bash
 python3 scripts/popnow.py create --model openai/gpt-image-2/text-to-image \
-  --input-file mockups/A-warm-editorial.json --confirm-credits <quoted> --download mockups/A-warm-editorial
+  --input-file mockups/A-warm-editorial.json --confirm-usd <maxChargeUsd> --download mockups/A-warm-editorial
 ```
 
-A failed task is refunded and is not retried automatically. A redo is a new paid run:
+A failed task releases its hold and is not retried automatically. A redo is a new paid run:
 ask first.
 
 ## Reading the results

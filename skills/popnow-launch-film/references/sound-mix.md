@@ -7,8 +7,8 @@ that matter, two or three sounds at most.
 ## Music bed
 
 Options, cheapest first: a track the user already licenses; HyperFrames' media catalogue through
-`npx hyperframes media-use` (needs its own sign-in); an original bed from PopNow `suno/v6/text-to-audio` (about 72
-credits, usually two takes, instrumental).
+`npx hyperframes media-use` (needs its own sign-in); an original bed from PopNow `suno/v6/text-to-audio` (about
+$0.072, usually two takes, instrumental).
 
 Write the brief like a note to a composer, with the film's length and turning points:
 
@@ -26,7 +26,7 @@ card and ends on a clean final chord at about 30 seconds, no vocals, no risers
 
 ## Voiceover
 
-PopNow `google/gemini-3.8-flash-tts/text-to-speech` (about 0.3 credits per second of speech). One
+PopNow `google/gemini-3.8-flash-tts/text-to-speech` (about $0.0003 per second of speech). One
 file per beat line keeps placement exact (`vo-hook`, `vo-agent`, ...); one file for the whole script
 works too if you time it with `npx hyperframes transcribe`.
 
@@ -44,7 +44,7 @@ works too if you time it with `npx hyperframes transcribe`.
 
 At most one per meaningful action (a confirm click, a card landing), never one per cut. HyperFrames'
 media tooling includes a small offline library (free). PopNow `popnow/foley-v1/video-to-audio`
-makes sound that follows a generated clip (about 1.2 credits per second). Place them with
+makes sound that follows a generated clip (about $0.0012 per second). Place them with
 `--sfx file@seconds[@gain]` in `mix.mjs`, on the frame of the action.
 
 ## Levels

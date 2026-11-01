@@ -61,7 +61,7 @@ Look at these yourself before delivering:
 Write it next to the render:
 
 - What was made: length, canvas, style, language, voice.
-- Generations: each model id, prompt or text, credits charged, which take was kept.
+- Generations: each model id, prompt or text, USD charged, which take was kept.
 - Timing source (`stt`, `transcribe`, `estimate-audio`) and the alignment match rate.
 - Sources (from `sources.json`) and anything cut for lack of a source.
 - QA summary (`qa.json`) and the measured loudness.

@@ -24,13 +24,13 @@
 | Lite mode: hook, two points, takeaway; 5-7 beats from kit components; default voice; no music or images | SKILL.md "Lite mode" |
 | Without a key: says where to create one, then builds the silent captioned draft (rate timing) and the contact sheet; offers the user's own recording or the local draft voice | SKILL.md "No key" |
 | Product facts are `first-party` claims from the note; nothing beyond it is said | `sources.json`, content rules |
-| Once a key exists: one quote for the narration (about 20 credits) and the transcription (about 2), shown together before creating | Cost table, quote rule |
+| Once a key exists: one quote for the narration (about $0.02) and the transcription (about $0.002), shown together before creating | Cost table, quote rule |
 
 ## Acceptance (in addition to the shared list)
 
 - [ ] Length 55-65 s; QA run with `--lite` passes.
 - [ ] Without a key the agent still delivers the script, contact sheet and a silent captioned
       render, and explains the next step.
-- [ ] With a key the total spend is within about 25 credits and was quoted before any call.
+- [ ] With a key the total spend is within about $0.025 and was quoted before any call.
 - [ ] No number or claim that is not in the product note.
 - [ ] No custom illustration code beyond the kit components unless the user asked.

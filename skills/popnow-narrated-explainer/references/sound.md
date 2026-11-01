@@ -26,7 +26,7 @@ hides the seam only until someone listens on headphones.
 
 ## Step 2: get a music bed (optional, paid)
 
-Use a single instrumental for the whole video. Check the fields, quote, tell the user the credits
+Use a single instrumental for the whole video. Check the fields, quote, tell the user the USD price
 and wait for a yes:
 
 ```bash
@@ -35,7 +35,7 @@ python3 $SKILL/scripts/popnow.py quote --model suno/v6/text-to-audio --set instr
   --title "Explainer bed" --prompt "<a prompt from the table below>"
 # only after the user agrees:
 python3 $SKILL/scripts/popnow.py create --model suno/v6/text-to-audio --set instrumental=true \
-  --title "Explainer bed" --prompt "<same prompt>" --confirm-credits <N> --download assets/music-raw
+  --title "Explainer bed" --prompt "<same prompt>" --confirm-usd <maxChargeUsd> --download assets/music-raw
 ```
 
 Starting prompts, one per look:

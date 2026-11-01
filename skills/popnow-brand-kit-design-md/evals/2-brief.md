@@ -54,4 +54,4 @@ Mode: lite. No logo, no photo mockups, no PopNow spend needed.
       `prefers-color-scheme: dark` and `[data-theme="dark"]`.
 - [ ] Fonts are open-licensed with source and fallback; if Inter stays, the brief's reason is written down.
 - [ ] Voice examples cover an API error, an empty dashboard and a docs headline; none uses the banned list.
-- [ ] No PopNow credits were spent (or the user explicitly asked for draft tiles after a quote).
+- [ ] Nothing was spent on PopNow (or the user explicitly asked for draft tiles after a quote).

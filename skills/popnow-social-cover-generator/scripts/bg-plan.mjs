@@ -21,14 +21,25 @@ const MODELS = {
   cutout: "popnow/background-remover-v1/edit",
   upscale: "popnow/image-upscaler-v1/upscale",
 };
-// Rough credit ranges (October 2026). The quote is the price; these only set expectations.
+// Rough USD ranges (October 2026), paid from the separate API USD balance. The quote is the price;
+// these only set expectations. Amounts stay decimal strings; sums are done in whole thousandths of a dollar.
 const ESTIMATE = {
-  [`${MODELS.image}@1k`]: [22, 48],
-  [`${MODELS.image}@2k`]: [35, 72],
-  [MODELS.draft]: [10, 10],
-  [MODELS.cutout]: [5, 5],
-  [MODELS.upscale]: [12, 12],
+  [`${MODELS.image}@1k`]: ["0.022", "0.048"],
+  [`${MODELS.image}@2k`]: ["0.035", "0.072"],
+  [MODELS.draft]: ["0.01", "0.01"],
+  [MODELS.cutout]: ["0.005", "0.005"],
+  [MODELS.upscale]: ["0.012", "0.012"],
 };
+
+const toMills = (usd) => {
+  const [whole, frac = ""] = String(usd).split(".");
+  return Number(whole) * 1000 + Number((frac + "000").slice(0, 3));
+};
+const fromMills = (mills) => {
+  const s = String(mills).padStart(4, "0");
+  return `${s.slice(0, -3)}.${s.slice(-3)}`.replace(/(\.\d\d\d*?)0+$/, "$1");
+};
+const usdRange = ([low, high]) => (low === high ? `$${low}` : `$${low}-$${high}`);
 const TEXT_ON_IMAGE = new Set(["bold-sans", "device-showcase"]);
 const NO_TEXT = "No text, no letters, no numbers, no logos, no watermark, no border.";
 
@@ -72,7 +83,7 @@ export function plan(spec, dir, { lite = false, draft = false, upscale = [] } = 
           : "Main subject centered with generous margins on every side, because the picture will be cropped to different shapes.";
         const input = { prompt: `${bg.prompt.trim().replace(/\.?$/, ".")} ${hint} ${NO_TEXT}`, aspect_ratio: SHAPE_ASPECT[shape] };
         if (!draft) input.resolution = res;
-        jobs.push({ name: `background-${shape}`, model, input, dir: `assets/gen/background-${shape}`, for: use.ids, shape, estimate: ESTIMATE[draft ? model : `${model}@${res}`] });
+        jobs.push({ name: `background-${shape}`, model, input, dir: `assets/gen/background-${shape}`, for: use.ids, shape, estimateUsd: ESTIMATE[draft ? model : `${model}@${res}`] });
       }
       if (lite) notes.push("Lite: the landscape background is reused for portrait and tall covers (cropped with images.background.focus).");
     }
@@ -83,10 +94,10 @@ export function plan(spec, dir, { lite = false, draft = false, upscale = [] } = 
   if (usesSubject && subj) {
     const have = exists(subj.src, dir);
     if (!have && subj.prompt) {
-      jobs.push({ name: "subject-raw", model, input: { prompt: `${subj.prompt.trim().replace(/\.?$/, ".")} Isolated on a plain light grey background, the whole subject in frame with generous margin, soft even studio light. ${NO_TEXT}`, aspect_ratio: "1:1", ...(draft ? {} : { resolution: "1k" }) }, dir: "assets/gen/subject-raw", estimate: ESTIMATE[draft ? model : `${model}@1k`] });
-      jobs.push({ name: "subject", model: MODELS.cutout, image: "assets/gen/subject-raw/<downloaded file>", input: {}, dir: "assets/gen/subject", after: "subject-raw", estimate: ESTIMATE[MODELS.cutout] });
+      jobs.push({ name: "subject-raw", model, input: { prompt: `${subj.prompt.trim().replace(/\.?$/, ".")} Isolated on a plain light grey background, the whole subject in frame with generous margin, soft even studio light. ${NO_TEXT}`, aspect_ratio: "1:1", ...(draft ? {} : { resolution: "1k" }) }, dir: "assets/gen/subject-raw", estimateUsd: ESTIMATE[draft ? model : `${model}@1k`] });
+      jobs.push({ name: "subject", model: MODELS.cutout, image: "assets/gen/subject-raw/<downloaded file>", input: {}, dir: "assets/gen/subject", after: "subject-raw", estimateUsd: ESTIMATE[MODELS.cutout] });
     } else if (have && subj.removeBackground) {
-      jobs.push({ name: "subject", model: MODELS.cutout, image: subj.src, input: {}, dir: "assets/gen/subject", estimate: ESTIMATE[MODELS.cutout] });
+      jobs.push({ name: "subject", model: MODELS.cutout, image: subj.src, input: {}, dir: "assets/gen/subject", estimateUsd: ESTIMATE[MODELS.cutout] });
     } else if (!have) {
       notes.push("A layout uses a subject cut-out but images.subject has no file and no prompt.");
     }
@@ -100,12 +111,12 @@ export function plan(spec, dir, { lite = false, draft = false, upscale = [] } = 
     const srcJob = jobs.find((j) => j.name === `background-${lite ? "landscape" : shape}`);
     const image = srcJob ? `${srcJob.dir}/<downloaded file>` : bg?.[shape] || bg?.src;
     if (!image) { notes.push(`--upscale ${id}: no background to upscale`); continue; }
-    jobs.push({ name: `background-${shape}-upscaled`, model: MODELS.upscale, image, input: { resolution: "4k" }, dir: `assets/gen/background-${shape}-up`, after: srcJob?.name, estimate: ESTIMATE[MODELS.upscale] });
+    jobs.push({ name: `background-${shape}-upscaled`, model: MODELS.upscale, image, input: { resolution: "4k" }, dir: `assets/gen/background-${shape}-up`, after: srcJob?.name, estimateUsd: ESTIMATE[MODELS.upscale] });
   }
 
   if (outputs.some((o) => o.layout === "device-showcase") && !(images.screens || []).length) notes.push("device-showcase needs your own app screenshots in images.screens; they are not generated.");
-  const total = jobs.reduce((a, j) => [a[0] + j.estimate[0], a[1] + j.estimate[1]], [0, 0]);
-  return { jobs, notes, estimate: total };
+  const total = jobs.reduce((a, j) => [a[0] + toMills(j.estimateUsd[0]), a[1] + toMills(j.estimateUsd[1])], [0, 0]);
+  return { jobs, notes, estimateUsd: total.map(fromMills) };
 }
 
 // Commands are written to run from the spec's folder; popnow.py is referenced relative to it.
@@ -113,7 +124,7 @@ function commands(job, py = "scripts/popnow.py") {
   const req = `assets/gen/requests/${job.name}.json`;
   const img = job.image ? ` --image ${job.image}` : "";
   const base = `python3 ${py} %s --model ${job.model}${img} --input-file ${req}`;
-  return { request: req, fields: `python3 ${py} model ${job.model}`, quote: base.replace("%s", "quote"), create: base.replace("%s", "create") + ` --confirm-credits <QUOTED> --download ${job.dir}` };
+  return { request: req, fields: `python3 ${py} model ${job.model}`, quote: base.replace("%s", "quote"), create: base.replace("%s", "create") + ` --confirm-usd <maxChargeUsd> --download ${job.dir}` };
 }
 
 function main() {
@@ -153,14 +164,14 @@ function main() {
   if (argv.includes("--json")) return console.log(JSON.stringify(p, null, 2));
   if (!p.jobs.length) console.log("Nothing to generate: every picture the spec uses is already on disk.");
   p.jobs.forEach((j, i) => {
-    console.log(`${i + 1}. ${j.name}  ${j.model}  about ${j.estimate[0] === j.estimate[1] ? j.estimate[0] : j.estimate.join("-")} credits${j.for ? `  (for ${j.for.join(", ")})` : ""}${j.after ? `  [after ${j.after}]` : ""}`);
+    console.log(`${i + 1}. ${j.name}  ${j.model}  about ${usdRange(j.estimateUsd)}${j.for ? `  (for ${j.for.join(", ")})` : ""}${j.after ? `  [after ${j.after}]` : ""}`);
     console.log(`   request: ${j.commands.request}`);
     console.log(`   ${j.commands.quote}`);
     console.log(`   ${j.commands.create}`);
   });
   if (p.jobs.length) {
     console.log(`\nRun these from ${dir}.`);
-    console.log(`Estimated total: about ${p.estimate[0] === p.estimate[1] ? p.estimate[0] : p.estimate.join("-")} credits. Run "${p.jobs[0].commands.fields}" (free) once, quote every job, tell the user the total and their balance, and create only after a clear yes.`);
+    console.log(`Estimated total: about ${usdRange(p.estimateUsd)} from the API balance. Run "${p.jobs[0].commands.fields}" (free) once, quote every job, tell the user the USD total and their API balance, and create each job with --confirm-usd <its maxChargeUsd> only after a clear yes.`);
     console.log(argv.includes("--update-spec") ? `Spec updated: image entries now point at the download folders (${relative(process.cwd(), file)}).` : "Add --update-spec to point the spec at the download folders, then re-render.");
   }
   for (const n of p.notes) console.log(`note: ${n}`);

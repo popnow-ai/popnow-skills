@@ -30,7 +30,7 @@ List filters: `modality` (`image`, `video`, `audio`), `provider`, `task` (`edit`
 | `displayName`, `provider` | What to show users |
 | `modality`, `tasks` | Grouping (`tasks[0]` is the classification, e.g. `image-to-image` for `.../edit`) |
 | `available`, `availability` | `false` / `maintenance`: cannot take tasks now |
-| `credits` | Price (below) |
+| `usd` | USD price snapshot (below); `credits` is the deprecated credit projection |
 | `inputSchema` | JSON Schema (draft 2020-12) that `input` is validated against |
 | `taskTimeoutSeconds` | Platform execution deadline |
 | `maxOutputDurationSeconds` | Longest clip, when the model has a length setting |
@@ -41,13 +41,13 @@ List filters: `modality` (`image`, `video`, `audio`), `provider`, `task` (`edit`
 ## Prices
 
 ```json
-"credits": { "unit": "per_second", "perUnit": 45,
-  "rules": [ { "when": { "*": "480p" }, "perUnit": 45 },
-             { "when": { "*": "720p" }, "perUnit": 90 },
-             { "when": { "*": "1080p" }, "perUnit": 180 } ] }
+"usd": { "currency": "USD", "unit": "per_second", "perUnit": "0.045",
+  "rules": [ { "when": { "*": "480p" }, "perUnit": "0.045" },
+             { "when": { "*": "720p" }, "perUnit": "0.09" },
+             { "when": { "*": "1080p" }, "perUnit": "0.18" } ] }
 ```
 
-`unit` is `per_image`, `per_second`, `per_request` or `per_1k_characters`; `perUnit` is the starting price; each rule applies when the request matches its `when` values (`*` stands for the setting that decides the tier, usually `resolution`). Final charges are rounded up to whole credits. For one request's exact amount use `jobs/quote`.
+`unit` is `per_image`, `per_second`, `per_request` or `per_1k_characters`; `perUnit` is the starting price as an exact USD decimal string; each rule applies when the request matches its `when` values (`*` stands for the setting that decides the tier, usually `resolution`). Chat models carry `input`, `output`, `cachedInput` and `cacheWrite` in USD per 1M tokens instead. The snapshot is for display; for one request's exact amount use `jobs/quote`. The older `credits` block (numbers at 1 credit = $0.001) is deprecated.
 
 ## Input schemas
 

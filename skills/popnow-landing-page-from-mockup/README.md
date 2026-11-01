@@ -24,13 +24,14 @@ Node.js 22+, Chrome, Python 3 and `POPNOW_API_KEY` for the mockups. Without a ke
 
 ## Cost
 
-The skill is free. Only what PopNow generates spends credits (1 credit = $0.001), and the agent quotes
-the price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
-above the amount you confirmed. About 275 credits for three mockups and the page imagery; lite (one mockup) about 35. Rendering and checks run on your machine and cost nothing.
+The skill is free. Only what PopNow generates is paid, in USD from the separate API balance behind your
+API key (it starts at $0 and is separate from website credits; add funds in
+https://popnow.ai/api/console/billing). The agent quotes the USD price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
+above the amount you confirmed. About $0.275 for three mockups and the page imagery; lite (one mockup) about $0.035. Rendering and checks run on your machine and cost nothing.
 
 ## Self-test
 
-Run from this folder; offline, no API key, no credits:
+Run from this folder; offline, no API key, nothing charged:
 
 ```bash
 node scripts/selftest.mjs

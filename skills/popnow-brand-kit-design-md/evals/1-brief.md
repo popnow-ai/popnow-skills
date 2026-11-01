@@ -39,7 +39,7 @@ Mode: full. Competitor colours the agent should record: chain `#E4002B` + `#FFFF
 
 - [ ] Three directions differ on at least three axes; none uses a wheel-in-circle or gear symbol.
 - [ ] `python3 scripts/plan.py check brand/brief.json` exits 0 (no look-alike palettes, no unsafe prompts).
-- [ ] Credits were quoted and accepted before every generation; total within the SKILL.md estimate.
+- [ ] USD prices were quoted and accepted before every generation; total within the SKILL.md estimate.
 - [ ] `lint_design.py DESIGN.md --brief brand/brief.json` reports 0 errors (profile full).
 - [ ] Wordmark, symbol, lockup, reverse and one-colour SVGs exist; all are outlined paths.
 - [ ] Symbol reads at 16 px and in one colour (check the board's size row).

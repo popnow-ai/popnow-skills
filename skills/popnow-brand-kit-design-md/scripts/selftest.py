@@ -312,7 +312,7 @@ def plan_checks():
         code, out = quiet(plan.main, ["commands", path, "--stage", "directions"])
         assert code == 0 and "scripts/popnow.py quote" in out and "--aspect-ratio 1:1" in out
         code, out = quiet(plan.main, ["commands", path, "--stage", "directions", "--create"])
-        assert "--confirm-credits <QUOTED>" in out
+        assert "--confirm-usd <maxChargeUsd>" in out
         code, _ = quiet(plan.main, ["check", path])
         assert code == 1
     finally:

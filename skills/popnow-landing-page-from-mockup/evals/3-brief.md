@@ -37,4 +37,4 @@ cards, "Unleash your creativity" and a "Join 500+ happy potters" band.
 - [ ] No emoji; the vase is a picture slot or an SVG, not a character.
 - [ ] Contrast of clay on oat is checked; if clay text fails 4.5:1, it is used for large text or buttons with light text only.
 - [ ] One review round: QA clean at 1440 and 390 px; delivery note lists the stand-in photos.
-- [ ] Total credits spent are reported and are in the lite range (one mockup plus at most one image).
+- [ ] Total USD spent is reported and is in the lite range (one mockup plus at most one image).

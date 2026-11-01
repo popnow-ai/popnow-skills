@@ -72,7 +72,7 @@ await test("prompt builder: three distinct directions with every quoted string",
     assert.match(m.prompt, /Avoid: .*purple-to-blue gradients/);
     assert.match(m.prompt, /piggy banks/);
     assert.match(m.commands.quote, /popnow\.py quote --model openai\/gpt-image-2\/text-to-image --input-file mockups\//);
-    assert.match(m.commands.create, /--confirm-credits <QUOTED>/);
+    assert.match(m.commands.create, /--confirm-usd <maxChargeUsd>/);
     assert.equal(m.input.prompt, m.prompt);
   }
   assert.ok(!r.mockups.some((m) => m.direction === "studio-product"), "a software brief should not get the physical-product direction");

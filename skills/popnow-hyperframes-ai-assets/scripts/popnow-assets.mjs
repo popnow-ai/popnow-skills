@@ -6,12 +6,15 @@
 // total, generates, downloads into assets/, and records each file in:
 //   - .media/manifest.jsonl + .media/index.md  (the HyperFrames media-use ledger,
 //     same record shape, same append-only rule, same lock and id scheme)
-//   - assets/popnow-provenance.json            (prompt, model, task, credits, licence note)
+//   - assets/popnow-provenance.json            (prompt, model, task, USD cost, licence note)
+//
+// Generation is paid from the separate API USD balance behind POPNOW_API_KEY
+// (add funds at https://popnow.ai/api/console/billing). Amounts are exact USD decimal strings.
 //
 // Usage:
 //   node scripts/popnow-assets.mjs <plan.json> --dry-run            offline: validate, estimate, preview records
-//   node scripts/popnow-assets.mjs <plan.json> --quote              free: exact quotes, total, balance
-//   node scripts/popnow-assets.mjs <plan.json> --confirm-credits N  generate (never spends more than N in total)
+//   node scripts/popnow-assets.mjs <plan.json> --quote              free: exact USD quotes, total, API balance
+//   node scripts/popnow-assets.mjs <plan.json> --confirm-usd X      generate (never spends more than $X in total)
 //   node scripts/popnow-assets.mjs --self-test                      offline test with a fake helper
 //
 // Options:
@@ -24,9 +27,10 @@
 //   --python BIN         Python 3 interpreter (default: python3)
 //   --timeout SECONDS    wait per task (default 1200)
 //   --json               print the final summary as JSON
+//   --confirm-credits N  deprecated alias of --confirm-usd (N legacy credits = N x $0.001)
 //
 // Exit codes: 0 ok, 1 API or network error, 2 bad plan or usage, 3 needs confirmation
-// (or the total would exceed the confirmed credits), 4 a task is still running, 5 a task failed.
+// (or the total would exceed the confirmed USD amount), 4 a task is still running, 5 a task failed.
 
 import { spawnSync } from "node:child_process";
 import { createHash, randomBytes } from "node:crypto";
@@ -44,6 +48,7 @@ const TOOL = "popnow-hyperframes-ai-assets";
 const PROVENANCE_FILE = "assets/popnow-provenance.json";
 const TERMS_URL = "https://popnow.ai/terms";
 const KEYS_URL = "https://popnow.ai/api/console/keys";
+const BILLING_URL = "https://popnow.ai/api/console/billing";
 const EXIT = { ok: 0, api: 1, usage: 2, confirm: 3, timeout: 4, failed: 5 };
 
 // Kind of asset -> HyperFrames media-use type and the folder it lands in.
@@ -62,26 +67,86 @@ const MEDIA_TYPE_DIRS = { bgm: "audio/bgm", sfx: "audio/sfx", voice: "audio/voic
 // language from the text itself; `lang` only names files and fills the ledger.
 const LANGS = ["en", "zh-CN", "zh-TW", "ja", "ko", "de", "fr", "es", "pt-BR", "ru", "it", "pl"];
 
-// Typical prices for the offline --dry-run estimate only (credits, October 2026 list).
+// Typical USD prices for the offline --dry-run estimate only (October 2026 list).
 // The quote is the only exact number; models and prices change.
 const PRICE_HINTS = {
-  "google/nano-banana-2.1/text-to-image": { unit: "image", base: 48, by: { resolution: { "1k": 48, "2k": 72, "4k": 162 } } },
-  "google/nano-banana-2.1/edit": { unit: "image", base: 48, by: { resolution: { "1k": 48, "2k": 72, "4k": 162 } } },
-  "openai/gpt-image-2/text-to-image": { unit: "image", base: 24, by: { quality: { low: 3, medium: 24, high: 97 } } },
-  "alibaba/z-image-turbo/text-to-image": { unit: "image", base: 10 },
-  "popnow/image-upscaler-v1/upscale": { unit: "image", base: 12 },
-  "popnow/background-remover-v1/edit": { unit: "image", base: 5 },
-  "minimax/h3/text-to-video": { unit: "second", base: 37, seconds: 5, by: { resolution: { "768p": 37, "2k": 58 } } },
-  "minimax/h3/image-to-video": { unit: "second", base: 37, seconds: 5, by: { resolution: { "768p": 37, "2k": 58 } } },
-  "bytedance/seedance-2.0-mini/text-to-video": { unit: "second", base: 53, seconds: 5, by: { resolution: { "480p": 25, "720p": 53 } } },
-  "bytedance/seedance-2.0-mini/image-to-video": { unit: "second", base: 53, seconds: 5, by: { resolution: { "480p": 25, "720p": 53 } } },
-  "suno/v6/text-to-audio": { unit: "request", base: 72 },
-  "minimax/music-3.0/text-to-audio": { unit: "request", base: 180 },
-  "google/gemini-3.8-flash-tts/text-to-speech": { unit: "speech-second", base: 0.32 },
-  "minimax/speech-2.8-turbo/text-to-speech": { unit: "1k-chars", base: 72 },
-  "popnow/foley-v1/video-to-audio": { unit: "second", base: 1.2, seconds: 8 },
-  "bytedance/seed-audio-1.0/text-to-audio": { unit: "request", base: 360 },
+  "google/nano-banana-2.1/text-to-image": { unit: "image", base: "0.048", by: { resolution: { "1k": "0.048", "2k": "0.072", "4k": "0.162" } } },
+  "google/nano-banana-2.1/edit": { unit: "image", base: "0.048", by: { resolution: { "1k": "0.048", "2k": "0.072", "4k": "0.162" } } },
+  "openai/gpt-image-2/text-to-image": { unit: "image", base: "0.024", by: { quality: { low: "0.003", medium: "0.024", high: "0.097" } } },
+  "alibaba/z-image-turbo/text-to-image": { unit: "image", base: "0.01" },
+  "popnow/image-upscaler-v1/upscale": { unit: "image", base: "0.012" },
+  "popnow/background-remover-v1/edit": { unit: "image", base: "0.005" },
+  "minimax/h3/text-to-video": { unit: "second", base: "0.037", seconds: 5, by: { resolution: { "768p": "0.037", "2k": "0.058" } } },
+  "minimax/h3/image-to-video": { unit: "second", base: "0.037", seconds: 5, by: { resolution: { "768p": "0.037", "2k": "0.058" } } },
+  "bytedance/seedance-2.0-mini/text-to-video": { unit: "second", base: "0.053", seconds: 5, by: { resolution: { "480p": "0.025", "720p": "0.053" } } },
+  "bytedance/seedance-2.0-mini/image-to-video": { unit: "second", base: "0.053", seconds: 5, by: { resolution: { "480p": "0.025", "720p": "0.053" } } },
+  "suno/v6/text-to-audio": { unit: "request", base: "0.072" },
+  "minimax/music-3.0/text-to-audio": { unit: "request", base: "0.18" },
+  "google/gemini-3.8-flash-tts/text-to-speech": { unit: "speech-second", base: "0.00032" },
+  "minimax/speech-2.8-turbo/text-to-speech": { unit: "1k-chars", base: "0.072" },
+  "popnow/foley-v1/video-to-audio": { unit: "second", base: "0.0012", seconds: 8 },
+  "bytedance/seed-audio-1.0/text-to-audio": { unit: "request", base: "0.36" },
 };
+
+// ---------------------------------------------------------------------------
+// Money: exact USD decimal strings from the API, held here as BigInt nanodollars (no floats).
+// ---------------------------------------------------------------------------
+
+const NANO_PER_USD = 1_000_000_000n;
+// Deprecated credit fields are display projections at 1 credit = $0.001.
+const NANO_PER_CREDIT = 1_000_000n;
+
+// "0.185" or "$0.185" -> 185000000n; null when it is not a plain non-negative decimal with up to 9 places.
+function parseUsd(value) {
+  if (typeof value !== "string") return null;
+  const m = value.trim().match(/^\$?([0-9]+)(?:\.([0-9]{1,9}))?$/);
+  if (!m) return null;
+  return BigInt(m[1]) * NANO_PER_USD + BigInt((m[2] || "").padEnd(9, "0") || "0");
+}
+
+// 185000000n -> "0.185"; 0n -> "0"; 1500000000n -> "1.5".
+function fmtUsd(nano) {
+  const n = BigInt(nano);
+  const sign = n < 0n ? "-" : "";
+  const abs = n < 0n ? -n : n;
+  const whole = abs / NANO_PER_USD;
+  const frac = (abs % NANO_PER_USD).toString().padStart(9, "0").replace(/0+$/, "");
+  return `${sign}${whole}${frac ? `.${frac}` : ""}`;
+}
+
+function creditsToNano(credits) {
+  return BigInt(credits) * NANO_PER_CREDIT;
+}
+
+// Legacy exactCredits: an unrounded credit-scale decimal string (USD x 1000).
+function exactCreditsToNano(value) {
+  const m = typeof value === "string" && value.trim().match(/^([0-9]+)(?:\.([0-9]+))?$/);
+  if (!m) return null;
+  const frac = (m[2] || "").slice(0, 6).padEnd(6, "0");
+  const rest = (m[2] || "").slice(6);
+  return BigInt(m[1]) * NANO_PER_CREDIT + BigInt(frac) + (/[1-9]/.test(rest) ? 1n : 0n);
+}
+
+// First USD string field that parses, then the legacy integer credit field, else null.
+function usdField(obj, usdKeys, creditKey) {
+  if (!obj || typeof obj !== "object") return null;
+  for (const key of usdKeys) {
+    const nano = parseUsd(obj[key]);
+    if (nano != null) return nano;
+  }
+  if (creditKey && Number.isInteger(obj[creditKey]) && obj[creditKey] >= 0) return creditsToNano(obj[creditKey]);
+  return null;
+}
+
+const quoteMaxNano = (quote) => usdField(quote, ["maxChargeUsd", "maxCharge", "estimatedCost"], "maxCredits");
+const balanceNano = (balance) => usdField(balance, ["availableUsd", "available"], "availableCredits");
+
+function taskCostNano(task) {
+  const nano = usdField(task, ["costUsd", "cost"], "credits");
+  return nano != null ? nano : exactCreditsToNano(task?.exactCredits);
+}
+
+const usd = (nano) => `$${fmtUsd(nano)}`;
 
 // Plan field -> popnow.py flag.
 const FLAG_FIELDS = [
@@ -266,7 +331,8 @@ function speechSeconds(text) {
   return Math.max(1, words / 2.6 + cjk / 4.2 + 0.5);
 }
 
-function estimateCredits(item) {
+// Typical USD price of one item in nanodollars, or null when the model has no hint.
+function estimateUsd(item) {
   const hint = PRICE_HINTS[item.model];
   if (!hint) return null;
   let per = hint.base;
@@ -279,7 +345,10 @@ function estimateCredits(item) {
   if (hint.unit === "speech-second") units = speechSeconds(item.text);
   if (hint.unit === "1k-chars") units = Math.max(1, String(item.text || "").length) / 1000;
   const outputs = Number((item.set || {}).num_outputs) || 1;
-  return Math.ceil(per * units * outputs);
+  // A rough estimate, rounded up to a tenth of a cent: the per-unit nanodollars stay far below 2^53,
+  // so Number is exact enough here.
+  const nano = Math.ceil(Number(parseUsd(per)) * units * outputs);
+  return BigInt(Math.ceil(nano / 1_000_000)) * 1_000_000n;
 }
 
 function requestHash(item) {
@@ -550,7 +619,7 @@ function manifestFields(item, filePath, meta, task) {
       prompt: item.prompt || item.text || "",
       model: item.model,
       ...(task?.taskId && { taskId: task.taskId }),
-      ...(task?.credits != null && { credits: task.credits }),
+      ...(task?.costUsd != null && { costUsd: task.costUsd }),
       plan_item: item.id,
       license: "see assets/popnow-provenance.json",
     },
@@ -568,10 +637,10 @@ function dryRun(ctx) {
   const rows = [];
   const manifestPreview = [];
   const provenancePreview = [];
-  let total = 0;
+  let total = 0n;
   let unknown = 0;
   for (const item of items) {
-    const est = estimateCredits(item);
+    const est = estimateUsd(item);
     if (est == null) unknown += 1; else total += est;
     const ext = guessExt(item);
     const file = item.out && extname(item.out) ? item.out : `${item.out ? item.out.replace(/\.[a-z0-9]{2,5}$/i, "") : `${KINDS[item.kind].dir}/${item.id}`}${ext}`;
@@ -582,17 +651,17 @@ function dryRun(ctx) {
     provenancePreview.push({
       item: item.id, kind: item.kind, state: "planned", file, mediaId: id, model: item.model,
       ...(item.prompt && { prompt: item.prompt }), ...(item.text && { text: item.text }), ...(item.lang && { lang: item.lang }),
-      ...(item.use && { use: item.use }), estimatedCredits: est, requestHash: requestHash(item),
+      ...(item.use && { use: item.use }), estimatedUsd: est == null ? null : fmtUsd(est), requestHash: requestHash(item),
       ...(item.deps.length && { dependsOn: item.deps }),
       ...(item.consent && { consent: item.consent }),
       license: licenseNote(item, MEDIA_FIELDS.flatMap(([f]) => asList(item[f])).filter((v) => !String(v).startsWith("@") && !/^(https|popnow):\/\//.test(v))),
     });
-    rows.push([item.id, item.kind, item.model, est == null ? "quote" : `~${est}`, file]);
+    rows.push([item.id, item.kind, item.model, est == null ? "quote" : `~${usd(est)}`, file]);
   }
   const preview = {
     dryRun: true,
     project: toPosix(relative(dirname(ctx.planPath), project) || "."),
-    estimatedCredits: total,
+    estimatedTotalUsd: fmtUsd(total),
     unpricedItems: unknown,
     manifestRecords: manifestPreview,
     provenanceEntries: provenancePreview,
@@ -602,8 +671,8 @@ function dryRun(ctx) {
     console.log(JSON.stringify(preview, null, 2));
   } else {
     console.log(`Dry run: nothing is sent, generated or written to the project.\n`);
-    console.log(table(rows, ["item", "kind", "model", "credits", "lands at"]));
-    console.log(`\nEstimated total: ~${total} credits${unknown ? ` plus ${unknown} item(s) without a typical price` : ""} (typical prices; --quote gives exact numbers).`);
+    console.log(table(rows, ["item", "kind", "model", "USD", "lands at"]));
+    console.log(`\nEstimated total: ~${usd(total)}${unknown ? ` plus ${unknown} item(s) without a typical price` : ""} (typical prices; --quote gives exact USD amounts).`);
     console.log(`\nRecords that would be appended to .media/manifest.jsonl:`);
     for (const r of manifestPreview) console.log(JSON.stringify(r));
     console.log(`\nNext: node scripts/popnow-assets.mjs ${toPosix(relative(process.cwd(), ctx.planPath))} --quote`);
@@ -671,45 +740,46 @@ function quoteAll(ctx, helper) {
   let balance = null;
   for (const item of selected) {
     if (item.resumeTaskId) {
-      quotes.push({ item, credits: 0, estimated: false, resume: true });
+      quotes.push({ item, nano: 0n, estimated: false, resume: true });
       continue;
     }
     const pending = item.deps.filter((d) => selected.some((s) => s.id === d));
     if (pending.length) {
-      const est = estimateCredits(item);
+      const est = estimateUsd(item);
       if (est == null) {
         throw new StopRun(`"${item.id}" depends on ${pending.map((d) => `@${d}`).join(", ")} and ${item.model} has no typical price; generate the dependency first (--only ${pending.join(",")}), then quote this item`, EXIT.usage);
       }
-      quotes.push({ item, credits: est, estimated: true });
+      quotes.push({ item, nano: est, estimated: true });
       continue;
     }
     const res = helper(["quote", "--json", ...requestFlags(item, resolveMedia)]);
     const data = parseJson(res.stdout, `quote ${item.id}`);
-    const credits = data.quote?.maxCredits;
-    if (!Number.isInteger(credits)) throw new StopRun(`quote ${item.id}: no maxCredits in the answer`, EXIT.api);
-    quotes.push({ item, credits, estimated: false, expected: data.quote?.expectedCredits });
-    if (data.balance?.availableCredits != null) balance = data.balance.availableCredits;
+    const nano = quoteMaxNano(data.quote);
+    if (nano == null) throw new StopRun(`quote ${item.id}: no maxChargeUsd in the answer`, EXIT.api);
+    quotes.push({ item, nano, estimated: false });
+    const available = balanceNano(data.balance);
+    if (available != null) balance = available;
   }
-  const total = quotes.reduce((sum, q) => sum + q.credits, 0);
+  const total = quotes.reduce((sum, q) => sum + q.nano, 0n);
   return { quotes, total, balance, skipped, provenance };
 }
 
 function printQuote(q) {
-  const rows = q.quotes.map(({ item, credits, estimated, resume }) => [item.id, item.kind, item.model,
-    resume ? `0 (collect ${item.resumeTaskId})` : estimated ? `~${credits} (est.)` : String(credits)]);
-  console.log(table(rows, ["item", "kind", "model", "credits (max)"]));
+  const rows = q.quotes.map(({ item, nano, estimated, resume }) => [item.id, item.kind, item.model,
+    resume ? `$0 (collect ${item.resumeTaskId})` : estimated ? `~${usd(nano)} (est.)` : usd(nano)]);
+  console.log(table(rows, ["item", "kind", "model", "USD (max)"]));
   for (const { item } of q.skipped) console.log(`(skipped ${item.id}: already generated with the same request; --regenerate ${item.id} for a new take)`);
-  console.log(`\nTotal: up to ${q.total} credits${q.balance != null ? ` · balance ${q.balance}` : ""}`);
+  console.log(`\nTotal: up to ${usd(q.total)}${q.balance != null ? ` · API balance ${usd(q.balance)}` : ""}`);
   if (q.quotes.some((x) => x.estimated)) console.log("Items marked est. depend on another item's output; each is quoted for real just before it runs and the run stops rather than go over the confirmed total.");
-  if (q.balance != null && q.balance < q.total) console.log("Not enough credits for the whole plan: top up at https://popnow.ai/pricing or trim the plan.");
+  if (q.balance != null && q.balance < q.total) console.log(`Not enough API balance for the whole plan: add funds at ${BILLING_URL} or trim the plan.`);
 }
 
 async function confirmInteractively(total) {
   if (!promptAllowed || !(process.stdin.isTTY && process.stdout.isTTY)) return false;
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   try {
-    const answer = (await rl.question(`Spend up to ${total} credits on these assets? Type ${total} to confirm: `)).trim();
-    return answer === String(total);
+    const answer = (await rl.question(`Spend up to ${usd(total)} on these assets? Type ${fmtUsd(total)} to confirm: `)).trim();
+    return parseUsd(answer) === total;
   } finally {
     rl.close();
   }
@@ -720,16 +790,16 @@ async function generate(ctx, helper) {
   const q = quoteAll(ctx, helper);
   printQuote(q);
   if (!q.quotes.length) { console.log("\nNothing to generate."); return EXIT.ok; }
-  let budget = opts.confirmCredits;
+  let budget = opts.confirmNano;
   if (budget == null) {
     if (await confirmInteractively(q.total)) budget = q.total;
     else {
-      console.log(`\nNot started. Tell the user the plan costs up to ${q.total} credits; after a clear yes run again with --confirm-credits ${q.total}.`);
+      console.log(`\nNot started. Tell the user the plan costs up to ${usd(q.total)} from the API balance; after a clear yes run again with --confirm-usd ${fmtUsd(q.total)}.`);
       return EXIT.confirm;
     }
   }
   if (q.total > budget) {
-    console.log(`\nNot started: the plan costs up to ${q.total} credits, more than the ${budget} confirmed. Ask again with the new total.`);
+    console.log(`\nNot started: the plan costs up to ${usd(q.total)}, more than the ${usd(budget)} confirmed. Ask again with the new total.`);
     return EXIT.confirm;
   }
 
@@ -739,7 +809,7 @@ async function generate(ctx, helper) {
   const failed = new Set();
   const taken = Object.assign(new Set(), { project });
   const results = [];
-  let spent = 0;
+  let spent = 0n;
   let exitCode = EXIT.ok;
   const tmpRoot = mkdtempSync(join(tmpdir(), "popnow-assets-"));
   try {
@@ -751,14 +821,14 @@ async function generate(ctx, helper) {
         continue;
       }
       const flags = quote.resume ? [] : requestFlags(item, resolveMedia);
-      let maxCredits = quote.credits;
+      let maxNano = quote.nano;
       if (quote.estimated) {
         const fresh = parseJson(helper(["quote", "--json", ...flags]).stdout, `quote ${item.id}`);
-        maxCredits = fresh.quote?.maxCredits;
-        if (!Number.isInteger(maxCredits)) throw new StopRun(`quote ${item.id}: no maxCredits`, EXIT.api);
+        maxNano = quoteMaxNano(fresh.quote);
+        if (maxNano == null) throw new StopRun(`quote ${item.id}: no maxChargeUsd`, EXIT.api);
       }
-      if (spent + maxCredits > budget) {
-        console.log(`\nStopped before "${item.id}": it costs up to ${maxCredits} credits and ${spent} are already spent, which would pass the ${budget} confirmed. Nothing else was started.`);
+      if (spent + maxNano > budget) {
+        console.log(`\nStopped before "${item.id}": it costs up to ${usd(maxNano)} and ${usd(spent)} is already spent, which would pass the ${usd(budget)} confirmed. Nothing else was started.`);
         exitCode = EXIT.confirm;
         break;
       }
@@ -771,9 +841,9 @@ async function generate(ctx, helper) {
           console.log(`\n[${item.id}] collecting running task ${item.resumeTaskId}…`);
           res = helper(["wait", item.resumeTaskId, "--json", "--timeout", String(opts.timeout || 1200)], { allowCodes: [0, 4, 5] });
         } else {
-          console.log(`\n[${item.id}] generating with ${item.model} (up to ${maxCredits} credits)…`);
+          console.log(`\n[${item.id}] generating with ${item.model} (up to ${usd(maxNano)})…`);
           res = helper(["create", "--json", "--wait", "--timeout", String(opts.timeout || 1200), "--idempotency-key", idemKey,
-            "--confirm-credits", String(maxCredits), ...flags], { allowCodes: [0, 4, 5] });
+            "--confirm-usd", fmtUsd(maxNano), ...flags], { allowCodes: [0, 4, 5] });
         }
       } catch (err) {
         if (err.code === EXIT.confirm) {
@@ -785,10 +855,10 @@ async function generate(ctx, helper) {
       }
       if (res.code === 4) {
         const taskId = item.resumeTaskId || (res.stdout.match(/wait\s+`?([A-Za-z0-9_-]+)/) || [])[1] || null;
-        // Its credits are held and will be charged, so they count against this run's total.
-        spent += maxCredits;
+        // Its USD hold will be charged, so it counts against this run's total.
+        spent += maxNano;
         if (!item.resumeTaskId) {
-          provenance.entries.push({ item: item.id, kind: item.kind, state: "running", model: item.model, taskId, quotedCredits: maxCredits, requestHash: requestHash(item), startedAt: new Date().toISOString() });
+          provenance.entries.push({ item: item.id, kind: item.kind, state: "running", model: item.model, taskId, quotedMaxUsd: fmtUsd(maxNano), requestHash: requestHash(item), startedAt: new Date().toISOString() });
           writeProvenance(project, provenance);
         }
         console.log(`[${item.id}] still running (${taskId}). Run the same command again later to collect it; it will not be paid for twice.`);
@@ -799,7 +869,7 @@ async function generate(ctx, helper) {
       }
       const task = parseJson(res.stdout, `create ${item.id}`);
       if (res.code === 5 || task.state !== "succeeded") {
-        console.log(`[${item.id}] ${task.state || "failed"}: ${task.errorCode || ""} ${task.errorMessage || ""}`.trim() + " (refunded; not retried automatically)");
+        console.log(`[${item.id}] ${task.state || "failed"}: ${task.errorCode || ""} ${task.errorMessage || ""}`.trim() + " (hold released; not retried automatically)");
         provenance.entries.push({ item: item.id, kind: item.kind, state: "failed", model: item.model, taskId: task.taskId, error: task.errorCode || task.state, requestHash: requestHash(item), at: new Date().toISOString() });
         writeProvenance(project, provenance);
         results.push({ item: item.id, state: "failed", taskId: task.taskId, error: task.errorCode || task.state });
@@ -807,9 +877,10 @@ async function generate(ctx, helper) {
         exitCode = exitCode === EXIT.ok ? EXIT.failed : exitCode;
         continue;
       }
-      const credits = Number.isFinite(task.credits) ? task.credits : maxCredits;
+      const costNano = taskCostNano(task) ?? maxNano;
+      const costUsd = fmtUsd(costNano);
       // A collected task was confirmed and counted in the run that started it.
-      if (!quote.resume) spent += credits;
+      if (!quote.resume) spent += costNano;
       const tmp = join(tmpRoot, task.taskId || item.id);
       const saved = parseJson(helper(["download", task.taskId, "--out", tmp, "--json"]).stdout, `download ${item.id}`).saved || [];
       const mediaFiles = saved.filter((f) => !/\.txt$/i.test(f));
@@ -821,7 +892,7 @@ async function generate(ctx, helper) {
         moveFile(file, join(project, rel));
         files.push(rel);
         const meta = probe(join(project, rel));
-        const fields = manifestFields(item, rel, meta, { taskId: task.taskId, credits: index === 0 ? credits : 0 });
+        const fields = manifestFields(item, rel, meta, { taskId: task.taskId, costUsd: index === 0 ? costUsd : "0" });
         let recorded = null;
         try {
           if (opts.ledger === "media-use") recorded = appendManifestRecord(project, fields);
@@ -839,22 +910,22 @@ async function generate(ctx, helper) {
         ...(item.use && { use: item.use }),
         params: Object.fromEntries(Object.entries({ duration: item.duration, resolution: item.resolution, aspectRatio: item.aspectRatio, voice: item.voice, set: withKindDefaults(item) }).filter(([, v]) => v != null && !(typeof v === "object" && !Object.keys(v).length))),
         ...(inputs.length && { inputs }),
-        taskId: task.taskId, credits, quotedCredits: maxCredits, requestHash: requestHash(item),
+        taskId: task.taskId, costUsd, ...(!quote.resume && { quotedMaxUsd: fmtUsd(maxNano) }), requestHash: requestHash(item),
         generatedAt: new Date().toISOString(),
         ...(item.consent && { consent: item.consent }),
         license: licenseNote(item, inputs.filter((v) => !/^(https|popnow):\/\//.test(v))),
       });
       writeProvenance(project, provenance);
-      results.push({ item: item.id, state: "done", files, credits });
-      console.log(`[${item.id}] saved ${files.join(", ")} · ${credits} credits`);
+      results.push({ item: item.id, state: "done", files, costUsd });
+      console.log(`[${item.id}] saved ${files.join(", ")} · ${usd(costNano)}`);
     }
   } finally {
     rmSync(tmpRoot, { recursive: true, force: true });
   }
-  const summary = { spent, confirmed: budget, results };
+  const summary = { spentUsd: fmtUsd(spent), confirmedUsd: fmtUsd(budget), results };
   if (opts.json) console.log(JSON.stringify(summary, null, 2));
   else {
-    console.log(`\nDone: ${results.filter((r) => r.state === "done").length} generated, ${spent} credits charged (confirmed up to ${budget}).`);
+    console.log(`\nDone: ${results.filter((r) => r.state === "done").length} generated, ${usd(spent)} charged to the API balance (confirmed up to ${usd(budget)}).`);
     console.log(`Ledger: ${opts.ledger === "none" ? "not recorded in .media (--ledger none)" : ".media/manifest.jsonl and .media/index.md"}; provenance in ${PROVENANCE_FILE}.`);
   }
   return exitCode;
@@ -876,10 +947,20 @@ function parseArgs(argv) {
     switch (a) {
       case "--dry-run": opts.dryRun = true; break;
       case "--quote": opts.quote = true; break;
+      case "--confirm-usd": {
+        const nano = parseUsd(next());
+        if (nano == null) throw new StopRun("--confirm-usd takes the quoted USD total as a decimal, such as 0.314 (up to 9 decimal places)", EXIT.usage);
+        if (opts.confirmNano != null) throw new StopRun("pass --confirm-usd once (and not together with --confirm-credits)", EXIT.usage);
+        opts.confirmNano = nano;
+        break;
+      }
       case "--confirm-credits": {
+        // Deprecated: legacy credits at 1 credit = $0.001. Use --confirm-usd.
         const n = Number(next());
-        if (!Number.isInteger(n) || n < 0) throw new StopRun("--confirm-credits takes a whole number of credits", EXIT.usage);
-        opts.confirmCredits = n;
+        if (!Number.isInteger(n) || n < 0) throw new StopRun("--confirm-credits (deprecated) takes a whole number; prefer --confirm-usd <USD total>", EXIT.usage);
+        if (opts.confirmNano != null) throw new StopRun("pass --confirm-usd once (and not together with --confirm-credits)", EXIT.usage);
+        console.error("warning: --confirm-credits is deprecated; use --confirm-usd with the quoted USD total");
+        opts.confirmNano = creditsToNano(n);
         break;
       }
       case "--project": opts.project = next(); break;
@@ -903,7 +984,7 @@ function parseArgs(argv) {
 }
 
 function usage() {
-  const head = readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 30);
+  const head = readFileSync(fileURLToPath(import.meta.url), "utf8").split("\n").slice(1, 35);
   return head.filter((l) => l.startsWith("//")).map((l) => l.replace(/^\/\/ ?/, "")).join("\n");
 }
 
@@ -922,16 +1003,20 @@ export async function main(argv = process.argv.slice(2)) {
     const ctx = { plan, items, project, planPath, opts };
     if (opts.dryRun) return dryRun(ctx);
     if (!process.env.POPNOW_API_KEY && !opts.popnow) {
-      console.error(`POPNOW_API_KEY is not set. Create a key at ${KEYS_URL} and export it, or keep the composition's labelled placeholders (no credits needed).`);
+      console.error(`POPNOW_API_KEY is not set. Create a key at ${KEYS_URL} and export it, or keep the composition's labelled placeholders (no API balance needed).`);
       return EXIT.usage;
     }
     const helper = makeHelper(opts);
     if (opts.quote) {
       const q = quoteAll(ctx, helper);
-      if (opts.json) console.log(JSON.stringify({ total: q.total, balance: q.balance, items: q.quotes.map((x) => ({ id: x.item.id, model: x.item.model, credits: x.credits, estimated: x.estimated })) }, null, 2));
-      else {
+      if (opts.json) {
+        console.log(JSON.stringify({
+          totalUsd: fmtUsd(q.total), balanceUsd: q.balance == null ? null : fmtUsd(q.balance),
+          items: q.quotes.map((x) => ({ id: x.item.id, model: x.item.model, maxChargeUsd: fmtUsd(x.nano), estimated: x.estimated })),
+        }, null, 2));
+      } else {
         printQuote(q);
-        console.log(`\nTell the user the total. After a clear yes: node scripts/popnow-assets.mjs ${toPosix(relative(process.cwd(), planPath))} --confirm-credits ${q.total}`);
+        console.log(`\nTell the user the USD total. After a clear yes: node scripts/popnow-assets.mjs ${toPosix(relative(process.cwd(), planPath))} --confirm-usd ${fmtUsd(q.total)}`);
       }
       return EXIT.ok;
     }
@@ -946,10 +1031,12 @@ export async function main(argv = process.argv.slice(2)) {
 
 // ---------------------------------------------------------------------------
 // Self-test: a fake popnow.py stands in for the API, so nothing is sent or charged.
+// It answers in the USD shape; FAKE_LEGACY=1 makes it answer with the deprecated credit fields only.
 // ---------------------------------------------------------------------------
 
 const FAKE_HELPER = String.raw`
 import json, os, sys, struct, wave, zlib
+from decimal import Decimal
 args = sys.argv[1:]
 cmd = args[0]
 state_file = os.environ["FAKE_STATE"]
@@ -957,27 +1044,46 @@ state = json.load(open(state_file)) if os.path.exists(state_file) else {"creates
 def opt(name, default=None):
     return args[args.index(name) + 1] if name in args else default
 prices = json.loads(os.environ.get("FAKE_PRICES", "{}"))
+legacy = os.environ.get("FAKE_LEGACY") == "1"
 model = opt("--model", "")
-price = prices.get(model, 10)
+price = Decimal(prices.get(model, "0.01"))
+def credits(usd):
+    return int((usd * 1000).to_integral_value(rounding="ROUND_CEILING"))
+def cost(usd):
+    if legacy:
+        return {"credits": credits(usd)}
+    return {"costUsd": str(usd), "cost": str(usd), "credits": credits(usd)}
 def save():
     json.dump(state, open(state_file, "w"))
 if cmd == "quote":
     state["quotes"] += 1; save()
-    print(json.dumps({"quote": {"model": model, "maxCredits": price, "expectedCredits": price, "quoteId": "q_test"}, "balance": {"availableCredits": 9000}}))
+    if legacy:
+        q = {"model": model, "maxCredits": credits(price), "expectedCredits": credits(price), "quoteId": "q_test"}
+        bal = {"availableCredits": 9000}
+    else:
+        q = {"model": model, "maxChargeUsd": str(price), "expectedChargeUsd": str(price), "maxCharge": str(price),
+             "maxCredits": credits(price), "currency": "USD", "quoteId": "q_test"}
+        bal = {"availableUsd": "9", "heldUsd": "0", "totalUsd": "9", "availableCredits": 9000}
+    print(json.dumps({"quote": q, "balance": bal}))
 elif cmd == "create":
-    if int(opt("--confirm-credits", "-1")) < price:
-        sys.stderr.write("Not started, nothing was charged: this request costs up to %d" % price); sys.exit(3)
+    state.setdefault("confirms", []).append([a for a in args if a.startswith("--confirm-")] + [opt("--confirm-usd") or opt("--confirm-credits")])
+    if "--confirm-usd" in args:
+        ok = Decimal(opt("--confirm-usd")) >= price
+    else:
+        ok = Decimal(opt("--confirm-credits", "-1")) / 1000 >= price
+    if not ok:
+        sys.stderr.write("Not started, nothing was charged: this request costs up to $%s" % price); sys.exit(3)
     state["creates"].append(model); save()
     task_id = "job_test_%d" % len(state["creates"])
     if model in os.environ.get("FAKE_FAIL", "").split(","):
         print(json.dumps({"taskId": task_id, "model": model, "state": "failed", "errorCode": "content_rejected"})); sys.exit(5)
     if model in os.environ.get("FAKE_SLOW", "").split(","):
         print("Still running after 1200s. Resume with: popnow.py wait %s" % task_id); sys.exit(4)
-    print(json.dumps({"taskId": task_id, "model": model, "state": "succeeded", "credits": price, "settled": True}))
+    print(json.dumps(dict({"taskId": task_id, "model": model, "state": "succeeded", "settled": True}, **cost(price))))
 elif cmd == "wait":
     state["waits"] = state.get("waits", 0) + 1; save()
     m = state["creates"][int(args[1].rsplit("_", 1)[1]) - 1]
-    print(json.dumps({"taskId": args[1], "model": m, "state": "succeeded", "credits": prices.get(m, 10), "settled": True}))
+    print(json.dumps(dict({"taskId": args[1], "model": m, "state": "succeeded", "settled": True}, **cost(Decimal(prices.get(m, "0.01"))))))
 elif cmd == "download":
     out = opt("--out"); os.makedirs(out, exist_ok=True)
     m = [c for c in state["creates"]][int(args[1].rsplit("_", 1)[1]) - 1]
@@ -1029,9 +1135,11 @@ async function selfTest() {
     writeFileSync(helperPath, FAKE_HELPER);
     process.env.FAKE_STATE = join(root, "state.json");
     process.env.FAKE_PRICES = JSON.stringify({
-      "google/nano-banana-2.1/text-to-image": 48, "minimax/h3/image-to-video": 185, "suno/v6/text-to-audio": 72,
-      "google/gemini-3.8-flash-tts/text-to-speech": 9, "minimax/h3/text-to-video": 185,
+      "google/nano-banana-2.1/text-to-image": "0.048", "minimax/h3/image-to-video": "0.185", "suno/v6/text-to-audio": "0.072",
+      "google/gemini-3.8-flash-tts/text-to-speech": "0.009", "minimax/h3/text-to-video": "0.185",
     });
+    const fakeState = () => JSON.parse(readFileSync(process.env.FAKE_STATE, "utf8"));
+    const sumCost = (entries) => fmtUsd(entries.reduce((s, e) => s + (parseUsd(e.costUsd) ?? 0n), 0n));
     const plan = {
       version: 1, project: "film", defaults: { aspectRatio: "16:9" },
       assets: [
@@ -1074,13 +1182,33 @@ async function selfTest() {
       assert.equal(withDefaults[1].aspectRatio, undefined, "image-to-video keeps its input's shape");
     });
 
+    await check("usd helpers keep exact decimals", async () => {
+      assert.equal(parseUsd("0.185"), 185000000n);
+      assert.equal(parseUsd("$0.000000001"), 1n);
+      assert.equal(parseUsd("12"), 12000000000n);
+      for (const bad of ["1e-3", "-1", "0.1234567891", "", "abc", "0.", ".5"]) assert.equal(parseUsd(bad), null, bad);
+      assert.equal(fmtUsd(185000000n), "0.185");
+      assert.equal(fmtUsd(0n), "0");
+      assert.equal(fmtUsd(1500000000n), "1.5");
+      assert.equal(fmtUsd(creditsToNano(314)), "0.314");
+      assert.equal(taskCostNano({ costUsd: "0.0123", credits: 13 }), 12300000n);
+      assert.equal(taskCostNano({ cost: "0.0123" }), 12300000n);
+      assert.equal(taskCostNano({ credits: 13 }), 13000000n);
+      assert.equal(taskCostNano({ exactCredits: "12.3000001" }), 12300001n);
+      assert.equal(quoteMaxNano({ maxChargeUsd: "0.185", maxCredits: 185 }), 185000000n);
+      assert.equal(quoteMaxNano({ maxCredits: 185 }), 185000000n);
+      assert.equal(balanceNano({ availableUsd: "9.5", availableCredits: 9500 }), 9500000000n);
+    });
+
     await check("dry run estimates, previews ledger ids after existing ones, writes nothing", async () => {
       const before = readFileSync(join(project, ".media/manifest.jsonl"), "utf8");
       const previewPath = join(root, "preview.json");
       const { code } = await capture(() => main([...base, "--dry-run", "--preview-out", previewPath]));
       assert.equal(code, 0);
       const preview = JSON.parse(readFileSync(previewPath, "utf8"));
-      assert.equal(preview.estimatedCredits, 48 + 185 + 72 + Math.ceil(0.32 * speechSeconds(plan.assets[3].text)));
+      const speech = BigInt(Math.ceil(0.32 * speechSeconds(plan.assets[3].text))) * 1_000_000n;
+      assert.equal(preview.estimatedTotalUsd, fmtUsd(48000000n + 185000000n + 72000000n + speech));
+      assert.equal(preview.provenanceEntries[0].estimatedUsd, "0.048");
       assert.equal(preview.manifestRecords[0].id, "image_003", "skips image_001 (manifest) and image_002 (reserved file)");
       assert.equal(readFileSync(join(project, ".media/manifest.jsonl"), "utf8"), before);
       assert.ok(!existsSync(join(project, PROVENANCE_FILE)));
@@ -1089,19 +1217,35 @@ async function selfTest() {
     await check("without a confirmation nothing is created (exit 3)", async () => {
       const { code, out } = await capture(() => main(base));
       assert.equal(code, 3);
-      assert.match(out, /--confirm-credits 314/);
-      assert.equal(JSON.parse(readFileSync(process.env.FAKE_STATE, "utf8")).creates.length, 0);
+      assert.match(out, /--confirm-usd 0\.314/);
+      assert.match(out, /up to \$0\.314/);
+      assert.equal(fakeState().creates.length, 0);
+    });
+
+    await check("quote --json reports USD strings", async () => {
+      const { code, out } = await capture(() => main([...base, "--quote", "--json"]));
+      assert.equal(code, 0, out);
+      const q = JSON.parse(out.slice(out.indexOf("{")));
+      assert.equal(q.totalUsd, "0.314");
+      assert.equal(q.balanceUsd, "9");
+      assert.deepEqual(q.items.map((x) => x.maxChargeUsd), ["0.048", "0.185", "0.072", "0.009"]);
+      assert.equal(q.items[1].estimated, true, "hero-move waits for @hero, so it is estimated");
     });
 
     await check("a confirmation below the total is refused", async () => {
-      const { code } = await capture(() => main([...base, "--confirm-credits", "300"]));
+      const { code } = await capture(() => main([...base, "--confirm-usd", "0.3"]));
       assert.equal(code, 3);
-      assert.equal(JSON.parse(readFileSync(process.env.FAKE_STATE, "utf8")).creates.length, 0);
+      assert.equal(fakeState().creates.length, 0);
+      const bad = await capture(() => main([...base, "--confirm-usd", "3e-1"]));
+      assert.equal(bad.code, 2, "exponent notation is rejected");
     });
 
     await check("confirmed run generates, keeps the user's file and appends valid records", async () => {
-      const { code, out } = await capture(() => main([...base, "--confirm-credits", "314"]));
+      const { code, out } = await capture(() => main([...base, "--confirm-usd", "0.314"]));
       assert.equal(code, 0, out);
+      assert.match(out, /\$0\.314 charged to the API balance/);
+      assert.deepEqual(fakeState().confirms.map((c) => c.slice(-1)[0]), ["0.048", "0.185", "0.072", "0.009"], "each create is confirmed with its own USD maximum");
+      assert.ok(fakeState().confirms.every((c) => c[0] === "--confirm-usd"));
       assert.equal(readFileSync(join(project, "assets/images/hero.png"), "utf8"), "users own picture");
       const lines = readFileSync(join(project, ".media/manifest.jsonl"), "utf8");
       assert.ok(lines.startsWith(existing), "existing ledger lines are untouched");
@@ -1120,62 +1264,98 @@ async function selfTest() {
       const prov = JSON.parse(readFileSync(join(project, PROVENANCE_FILE), "utf8"));
       const move = prov.entries.find((e) => e.item === "hero-move");
       assert.deepEqual(move.inputs, ["assets/images/hero-2.png"]);
-      assert.equal(prov.entries.reduce((s, e) => s + (e.credits || 0), 0), 314);
+      assert.equal(sumCost(prov.entries), "0.314");
+      assert.equal(prov.entries[0].quotedMaxUsd, "0.048");
+      assert.equal(added[0].provenance.costUsd, "0.048");
       assert.match(prov.entries[0].license, /popnow\.ai\/terms/);
     });
 
     await check("a second run skips finished items and spends nothing", async () => {
-      const before = JSON.parse(readFileSync(process.env.FAKE_STATE, "utf8")).creates.length;
-      const { code, out } = await capture(() => main([...base, "--confirm-credits", "0"]));
+      const before = fakeState().creates.length;
+      const { code, out } = await capture(() => main([...base, "--confirm-usd", "0"]));
       assert.equal(code, 0, out);
       assert.match(out, /Nothing to generate/);
-      assert.equal(JSON.parse(readFileSync(process.env.FAKE_STATE, "utf8")).creates.length, before);
+      assert.equal(fakeState().creates.length, before);
     });
 
     await check("a dependent item whose real price is higher stops the run before spending", async () => {
       rmSync(join(project, PROVENANCE_FILE));
       writeFileSync(process.env.FAKE_STATE, JSON.stringify({ creates: [], quotes: 0 }));
-      process.env.FAKE_PRICES = JSON.stringify({ ...JSON.parse(process.env.FAKE_PRICES), "minimax/h3/image-to-video": 400 });
-      const { code, out } = await capture(() => main([...base, "--only", "hero,hero-move", "--confirm-credits", "233"]));
+      const prices = process.env.FAKE_PRICES;
+      process.env.FAKE_PRICES = JSON.stringify({ ...JSON.parse(prices), "minimax/h3/image-to-video": "0.4" });
+      const { code, out } = await capture(() => main([...base, "--only", "hero,hero-move", "--confirm-usd", "0.233"]));
+      process.env.FAKE_PRICES = prices;
       assert.equal(code, 3, out);
-      assert.match(out, /Stopped before "hero-move"/);
-      assert.deepEqual(JSON.parse(readFileSync(process.env.FAKE_STATE, "utf8")).creates, ["google/nano-banana-2.1/text-to-image"]);
+      assert.match(out, /Stopped before "hero-move": it costs up to \$0\.4/);
+      assert.deepEqual(fakeState().creates, ["google/nano-banana-2.1/text-to-image"]);
     });
 
     await check("a task still running is collected on the next run without paying again", async () => {
       rmSync(join(project, PROVENANCE_FILE));
       writeFileSync(process.env.FAKE_STATE, JSON.stringify({ creates: [], quotes: 0 }));
       process.env.FAKE_SLOW = "suno/v6/text-to-audio";
-      const first = await capture(() => main([...base, "--only", "bed", "--confirm-credits", "72"]));
+      const first = await capture(() => main([...base, "--only", "bed", "--confirm-usd", "0.072"]));
       delete process.env.FAKE_SLOW;
       assert.equal(first.code, 4, first.out);
-      const second = await capture(() => main([...base, "--only", "bed", "--confirm-credits", "0"]));
+      const second = await capture(() => main([...base, "--only", "bed", "--confirm-usd", "0"]));
       assert.equal(second.code, 0, second.out);
-      const st = JSON.parse(readFileSync(process.env.FAKE_STATE, "utf8"));
+      const st = fakeState();
       assert.equal(st.creates.length, 1, "created once");
       assert.equal(st.waits, 1, "collected with wait");
       const prov = JSON.parse(readFileSync(join(project, PROVENANCE_FILE), "utf8"));
+      assert.equal(prov.entries.at(-2).quotedMaxUsd, "0.072");
       assert.equal(prov.entries.at(-1).state, "done");
-      assert.equal(prov.entries.at(-1).credits, 72);
+      assert.equal(prov.entries.at(-1).costUsd, "0.072");
     });
 
     await check("a failed task is reported, not retried, and its dependents are skipped", async () => {
       rmSync(join(project, PROVENANCE_FILE));
       writeFileSync(process.env.FAKE_STATE, JSON.stringify({ creates: [], quotes: 0 }));
       process.env.FAKE_FAIL = "google/nano-banana-2.1/text-to-image";
-      const { code, out } = await capture(() => main([...base, "--only", "hero,hero-move", "--confirm-credits", "1000"]));
+      const { code, out } = await capture(() => main([...base, "--only", "hero,hero-move", "--confirm-usd", "1"]));
       delete process.env.FAKE_FAIL;
       assert.equal(code, 5, out);
       assert.match(out, /not retried automatically/);
-      assert.deepEqual(JSON.parse(readFileSync(process.env.FAKE_STATE, "utf8")).creates, ["google/nano-banana-2.1/text-to-image"]);
+      assert.deepEqual(fakeState().creates, ["google/nano-banana-2.1/text-to-image"]);
+    });
+
+    await check("deprecated --confirm-credits still works (1 credit = $0.001)", async () => {
+      rmSync(join(project, PROVENANCE_FILE));
+      writeFileSync(process.env.FAKE_STATE, JSON.stringify({ creates: [], quotes: 0 }));
+      const low = await capture(() => main([...base, "--only", "bed", "--confirm-credits", "71"]));
+      assert.equal(low.code, 3, low.out);
+      assert.equal(fakeState().creates.length, 0);
+      const { code, out } = await capture(() => main([...base, "--only", "bed", "--confirm-credits", "72"]));
+      assert.equal(code, 0, out);
+      assert.match(out, /--confirm-credits is deprecated/);
+      assert.deepEqual(fakeState().confirms, [["--confirm-usd", "0.072"]], "the helper is still confirmed in USD");
+    });
+
+    await check("a helper that answers with legacy credit fields only still works", async () => {
+      rmSync(join(project, PROVENANCE_FILE));
+      writeFileSync(process.env.FAKE_STATE, JSON.stringify({ creates: [], quotes: 0 }));
+      process.env.FAKE_LEGACY = "1";
+      try {
+        const quoted = await capture(() => main([...base, "--only", "hero,bed", "--quote", "--json"]));
+        assert.equal(quoted.code, 0, quoted.out);
+        const q = JSON.parse(quoted.out.slice(quoted.out.indexOf("{")));
+        assert.equal(q.totalUsd, "0.12");
+        assert.equal(q.balanceUsd, "9");
+        const { code, out } = await capture(() => main([...base, "--only", "hero,bed", "--confirm-usd", "0.12"]));
+        assert.equal(code, 0, out);
+        const prov = JSON.parse(readFileSync(join(project, PROVENANCE_FILE), "utf8"));
+        assert.equal(sumCost(prov.entries), "0.12");
+      } finally {
+        delete process.env.FAKE_LEGACY;
+      }
     });
   } finally {
     rmSync(root, { recursive: true, force: true });
-    for (const k of ["FAKE_STATE", "FAKE_PRICES", "FAKE_FAIL", "FAKE_SLOW"]) delete process.env[k];
+    for (const k of ["FAKE_STATE", "FAKE_PRICES", "FAKE_FAIL", "FAKE_SLOW", "FAKE_LEGACY"]) delete process.env[k];
   }
   console.log(log.join("\n"));
   const failedCount = log.filter((l) => l.startsWith("FAIL")).length;
-  console.log(failedCount ? `\n${failedCount} self-test(s) failed` : `\nAll ${log.length} self-tests passed (no network, no credits).`);
+  console.log(failedCount ? `\n${failedCount} self-test(s) failed` : `\nAll ${log.length} self-tests passed (no network, nothing charged).`);
   return failedCount ? 1 : 0;
 }
 

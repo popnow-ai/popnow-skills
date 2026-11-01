@@ -1,13 +1,13 @@
 {
   "name": "popnow",
   "displayName": "PopNow",
-  "version": "1.0.0",
-  "description": "Agent Skills for the PopNow AI API: generate videos, images, music and speech, apply trending video effects, make launch films, explainer videos, landing pages, social covers and brand kits, and find free ready-made style presets. Every paid generation is quoted first.",
+  "version": "1.1.0",
+  "description": "Agent Skills for the PopNow AI API: generate videos, images, music and speech, apply trending video effects, make launch films, explainer videos, landing pages, social covers and brand kits, and find free ready-made style presets. Every paid generation is quoted in USD first.",
   "author": {
     "name": "PopNow",
     "email": "support@popnow.ai"
   },
-  "homepage": "https://popnow.ai/skills/agent-skills",
+  "homepage": "https://popnow.ai/api/skills",
   "repository": "https://github.com/popnow-ai/popnow-skills",
   "license": "MIT",
   "logo": "assets/popnow-logo.png",
