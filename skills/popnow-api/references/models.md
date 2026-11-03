@@ -1,61 +1,75 @@
-# Models, prices and input schemas
+# PopNow API models
 
-## Model IDs
+Snapshot of `GET /api/v1/models` taken 2026-11-03. Prices are in USD, paid from the separate API balance, and are the starting price per unit; the exact amount of one request comes from `popnow.py quote`. The live list is always the source of truth: `popnow.py models --modality text`.
 
-```text
-<maker>/<model>/<task>
-alibaba/wan-3.0/image-to-video
-google/nano-banana-2.1/edit
-popnow/background-remover-v1/edit
-```
+Model IDs follow `<maker>/<model>/<task>`. Read a model's input fields with `popnow.py model <id>`.
 
-- `maker` is who built the model; tools built by PopNow use `popnow`.
-- `model` keeps version dots (`seedance-2.0`).
-- `task`: `text-to-image`, `edit` (image editing is always `edit`), `text-to-video`, `image-to-video`, `reference-to-video`, `video-extend`, `video-edit`, `character-animation`, `upscale`, `layer-decomposition`, `text-to-audio`, `text-to-speech`, `speech-to-text`, `video-to-audio`.
+## 3D
 
-A family usually has one ID per task: `.../text-to-video` takes only a prompt, `.../image-to-video` needs an opening image.
+| Model ID | Name | Maker | Price (USD) | Tiers |
+| --- | --- | --- | --- | --- |
+| `bytedance/seed3d-2.0/image-to-3d` | Seed3D 2.0 · image-to-3d | ByteDance | $0.48 / run | - |
+| `tripo/h3.1/image-to-3d` | Tripo H3.1 · image-to-3d | Tripo | $0.432 / run | - |
+| `tripo/h3.1/text-to-3d` | Tripo H3.1 · text-to-3d | Tripo | $0.288 / run | - |
+| `tripo/p1/image-to-3d` | Tripo P1 · image-to-3d | Tripo | $0.72 / run | - |
 
-## Catalog
+## Chat
 
-```bash
-curl "https://api.popnow.ai/api/v1/models?modality=video&includeSchema=1" -H "Authorization: Bearer $POPNOW_API_KEY"
-curl "https://api.popnow.ai/api/v1/models/alibaba/wan-3.0/image-to-video" -H "Authorization: Bearer $POPNOW_API_KEY"
-```
+| Model ID | Name | Maker | Price (USD) | Tiers |
+| --- | --- | --- | --- | --- |
+| `anthropic/claude-fable-5/chat` | Claude Fable 5 · chat | Anthropic | input $9 / output $45 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-haiku-5.5/chat` | Claude Haiku 5.5 · chat | Anthropic | input $0.1 / output $0.5 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-opus-4.5/chat` | Claude Opus 4.5 · chat | Anthropic | input $5.04 / output $25.2 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-opus-4.6/chat` | Claude Opus 4.6 · chat | Anthropic | input $5 / output $25 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-opus-5.5/chat` | Claude Opus 5.5 · chat | Anthropic | input $3.6 / output $18 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-opus-5/chat` | Claude Opus 5 · chat | Anthropic | input $4.5 / output $22.5 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-sonnet-4.5/chat` | Claude Sonnet 4.5 · chat | Anthropic | input $2.7 / output $13.5 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-sonnet-4.6/chat` | Claude Sonnet 4.6 · chat | Anthropic | input $3 / output $15 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-sonnet-5.5/chat` | Claude Sonnet 5.5 · chat | Anthropic | input $2 / output $10 per million tokens | See live schema for cache and long-context rates |
+| `anthropic/claude-sonnet-5/chat` | Claude Sonnet 5 · chat | Anthropic | input $1.9 / output $9.5 per million tokens | See live schema for cache and long-context rates |
+| `callstack/apex/chat` | Apex · chat | Callstack | input $0.5 / output $3 per million tokens | See live schema for cache and long-context rates |
+| `deepseek/v4-flash/chat` | DeepSeek V4 Flash · chat | DeepSeek | input $0.44 / output $1.32 per million tokens | See live schema for cache and long-context rates |
+| `deepseek/v4-pro/chat` | DeepSeek V4 Pro · chat | DeepSeek | input $1.32 / output $3.96 per million tokens | See live schema for cache and long-context rates |
+| `deepseek/v4.1-flash/chat` | DeepSeek V4.1 Flash · chat | DeepSeek | input $0.3 / output $1.2 per million tokens | See live schema for cache and long-context rates |
+| `google/gemini-2.5-flash/chat` | Gemini 2.5 Flash · chat | Google | input $0.285 / output $2.375 per million tokens | See live schema for cache and long-context rates |
+| `google/gemini-3-flash-preview/chat` | Gemini 3 Flash Preview · chat | Google | input $0.45 / output $2.7 per million tokens | See live schema for cache and long-context rates |
+| `google/gemini-3.1-pro-preview/chat` | Gemini 3.1 Pro Preview · chat | Google | input $1.9 / output $11.4 per million tokens | See live schema for cache and long-context rates |
+| `google/gemini-3.5-flash-lite/chat` | Gemini 3.5 Flash-Lite · chat | Google | input $0.3 / output $2.5 per million tokens | See live schema for cache and long-context rates |
+| `google/gemini-3.7-flash/chat` | Gemini 3.7 Flash · chat | Google | input $0.675 / output $3.375 per million tokens | See live schema for cache and long-context rates |
+| `google/gemini-4-argon/chat` | Gemini 4 Argon · chat | Google | input $4 / output $20 per million tokens | See live schema for cache and long-context rates |
+| `inception/mercury-3/chat` | Mercury 3 · chat | Inception | input $0.2 / output $0.7 per million tokens | See live schema for cache and long-context rates |
+| `meta/muse-wonder-1.0/chat` | Muse Wonder 1.0 · chat | Meta | input $4 / output $20 per million tokens | See live schema for cache and long-context rates |
+| `minimax/m3.1-flash/chat` | MiniMax M3.1 Flash · chat | MiniMax | input $0.15 / output $0.6 per million tokens | See live schema for cache and long-context rates |
+| `moonshot/kimi-k3.1-pro/chat` | Kimi K3.1 Pro · chat | Moonshot AI | input $2 / output $10 per million tokens | See live schema for cache and long-context rates |
+| `moonshot/kimi-k3/chat` | Kimi K3 · chat | Moonshot AI | input $2.7 / output $13.5 per million tokens | See live schema for cache and long-context rates |
+| `nvidia/nemotron-3.5-super-vl/chat` | Nemotron 3.5 Super VL · chat | NVIDIA | input $0.2 / output $0.5 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-5.4-mini/chat` | GPT-5.4 Mini · chat | OpenAI | input $0.15 / output $0.9 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-5.4/chat` | GPT-5.4 · chat | OpenAI | input $0.5 / output $3 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-5.5/chat` | GPT-5.5 · chat | OpenAI | input $1 / output $6 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-5.6-luna/chat` | GPT 5.6 Luna · chat | OpenAI | input $0.04 / output $0.24 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-5.6-sol/chat` | GPT 5.6 Sol · chat | OpenAI | input $1 / output $6 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-5.6-terra/chat` | GPT 5.6 Terra · chat | OpenAI | input $0.4 / output $2.4 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-6-astra/chat` | GPT 6 Astra · chat | OpenAI | input $2 / output $10 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-6-luna/chat` | GPT 6 Luna · chat | OpenAI | input $0.02 / output $0.1 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-6-sol/chat` | GPT 6 Sol · chat | OpenAI | input $0.4 / output $2 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-6.1-sol/chat` | GPT 6.1 Sol · chat | OpenAI | input $2 / output $10 per million tokens | See live schema for cache and long-context rates |
+| `openai/gpt-6.1-terra/chat` | GPT 6.1 Terra · chat | OpenAI | input $1 / output $5 per million tokens | See live schema for cache and long-context rates |
+| `reflection/beam-1.0/chat` | Beam 1.0 · chat | Reflection | input $1 / output $3 per million tokens | See live schema for cache and long-context rates |
+| `xiaomi/mimo-v2.6-flash/chat` | MiMo V2.6 Flash · chat | Xiaomi | input $0.14 / output $0.28 per million tokens | See live schema for cache and long-context rates |
+| `xiaomi/mimo-v2.6-pro/chat` | MiMo V2.6 Pro · chat | Xiaomi | input $0.435 / output $0.87 per million tokens | See live schema for cache and long-context rates |
+| `zai/glm-5.2/chat` | GLM 5.2 · chat | Z.ai | input $0.98 / output $3.08 per million tokens | See live schema for cache and long-context rates |
+| `zai/glm-5.3-flash/chat` | GLM 5.3 Flash · chat | Z.ai | input $0.1275 / output $0.425 per million tokens | See live schema for cache and long-context rates |
+| `zai/glm-5.3/chat` | GLM 5.3 · chat | Z.ai | input $1.05 / output $3.3 per million tokens | See live schema for cache and long-context rates |
+| `inclusionai/ling-3.1-flash/chat` | Ling 3.1 Flash · chat | inclusionAI | input $0.075 / output $0.225 per million tokens | See live schema for cache and long-context rates |
+| `xai/grok-4.3/chat` | Grok 4.3 · chat | xAI | input $1.4625 / output $2.925 per million tokens | See live schema for cache and long-context rates |
+| `xai/grok-4.5/chat` | Grok 4.5 · chat | xAI | input $2.36 / output $7.08 per million tokens | See live schema for cache and long-context rates |
+| `xai/grok-4.6/chat` | Grok 4.6 · chat | xAI | input $2.36 / output $7.08 per million tokens | See live schema for cache and long-context rates |
+| `xai/grok-4.7/chat` | Grok 4.7 · chat | xAI | input $2.36 / output $7.08 per million tokens | See live schema for cache and long-context rates |
 
-List filters: `modality` (`image`, `video`, `audio`), `provider`, `task` (`edit` and `image-to-image` select the same endpoints), `search`, `includeSchema=1`, `includeExamples=1`. If a client treats path parameters as one segment, encode slashes as `%2F`. Responses are cacheable for 60 seconds (`private, max-age=60`).
+## Embeddings
 
-| Field | Use |
-| --- | --- |
-| `model` | The ID to send (store this spelling) |
-| `displayName`, `provider` | What to show users |
-| `modality`, `tasks` | Grouping (`tasks[0]` is the classification, e.g. `image-to-image` for `.../edit`) |
-| `available`, `availability` | `false` / `maintenance`: cannot take tasks now |
-| `usd` | USD price snapshot (below); `credits` is the deprecated credit projection |
-| `inputSchema` | JSON Schema (draft 2020-12) that `input` is validated against |
-| `taskTimeoutSeconds` | Platform execution deadline |
-| `maxOutputDurationSeconds` | Longest clip, when the model has a length setting |
-| `badges` | `commercial_use`, `no_watermark`, `commercial_restricted`, `reference_input`, `audio_output`, `fast_tier`, `high_resolution` |
-| `relatedModels`, `examples` | Alternatives and validated example inputs |
-| `version` | Changes with schema or metadata; re-read the model when it does |
-
-## Prices
-
-```json
-"usd": { "currency": "USD", "unit": "per_second", "perUnit": "0.045",
-  "rules": [ { "when": { "*": "480p" }, "perUnit": "0.045" },
-             { "when": { "*": "720p" }, "perUnit": "0.09" },
-             { "when": { "*": "1080p" }, "perUnit": "0.18" } ] }
-```
-
-`unit` is `per_image`, `per_second`, `per_request` or `per_1k_characters`; `perUnit` is the starting price as an exact USD decimal string; each rule applies when the request matches its `when` values (`*` stands for the setting that decides the tier, usually `resolution`). Chat models carry `input`, `output`, `cachedInput` and `cacheWrite` in USD per 1M tokens instead. The snapshot is for display; for one request's exact amount use `jobs/quote`. The older `credits` block (numbers at 1 credit = $0.001) is deprecated.
-
-## Input schemas
-
-- Unknown fields are rejected (`400`), so typos fail fast.
-- Shared field names: `prompt`, `negative_prompt`, `image_url`, `image_urls`, `last_image_url`, `video_url`, `audio_url`, `duration_seconds`, `aspect_ratio`, `resolution`, `seed`, `generate_audio`.
-- Defaults are filled in; send only what you change.
-- Media fields take HTTPS URLs, `popnow://f/` uploads, `popnow://a/` assets or image data URIs.
-- Display hints live in a per-property `x-ui` object; they never change validation.
-- Omitting `seed` on a model that has one picks a random seed and returns it in the task's `input`.
-
-Per-skill model tables with starting prices: `popnow-video/references/models.md`, `popnow-image/references/models.md`, `popnow-audio/references/models.md`.
+| Model ID | Name | Maker | Price (USD) | Tiers |
+| --- | --- | --- | --- | --- |
+| `openai/text-embedding-3-large/embedding` | text-embedding-3-large · embedding | OpenAI | $0.000026 / 1k tokens | - |
+| `openai/text-embedding-3-small/embedding` | text-embedding-3-small · embedding | OpenAI | $0.000004 / 1k tokens | - |
+| `openai/text-embedding-ada-002/embedding` | text-embedding-ada-002 · embedding | OpenAI | $0.00002 / 1k tokens | - |

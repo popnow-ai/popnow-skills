@@ -30,3 +30,10 @@ curl -X POST "https://api.popnow.ai/v1/videos" \
 A field the model does not support is rejected with `400`. States map `queued` -> `queued`, `running` -> `in_progress`, `succeeded` -> `completed`, `failed`/`expired` -> `failed` with an `error` object. The `video` object never contains prices; read cost with the native `recordInfo` using the same ID (the compatible layer cannot quote, so quote with `/api/v1/jobs/quote` first when acting for a user).
 
 Errors: `{"error": {"message", "type", "param", "code"}}` with the HTTP status the native API would use. A content refusal is `400` with `code: content_rejected`; parameter errors are `invalid_request` / `unsupported_parameter` with `param` set. Also reads the key from `x-api-key`.
+
+
+## Embeddings and speech
+
+Use `POST /v1/embeddings` with `model`, `input` and optional `dimensions`. The OpenAI-compatible response contains `data[].embedding` and measured token usage. The task API uses `embedding_input`; vectors are returned in `output.embeddings`, without media assets.
+
+Use `POST /v1/audio/speech` with `model`, `input`, and the selected model’s supported voice and response format. It returns audio bytes. Realtime speech and live transcription are task models with their own schemas; inspect the live model before quoting.
