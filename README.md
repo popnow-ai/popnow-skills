@@ -48,6 +48,18 @@ Focused OpenClaw skills for popular models and tasks. Each one uses the same dep
 | [`suno`](skills/popnow-suno/SKILL.md) | Suno v6 — AI Music & Song Generator | [clawhub.ai/kyuminjo/skills/suno](https://clawhub.ai/kyuminjo/skills/suno) |
 | [`text-to-speech`](skills/popnow-text-to-speech/SKILL.md) | AI Text to Speech — Gemini, MiniMax, Qwen Voices | [clawhub.ai/kyuminjo/skills/text-to-speech](https://clawhub.ai/kyuminjo/skills/text-to-speech) |
 
+### Workflow skills on ClawHub
+
+Multi-step OpenClaw workflows based on PopNow's own apps. Each quotes every paid step in USD, asks for one approval of the full budget table and then runs the steps.
+
+| Skill | What it makes | ClawHub |
+|---|---|---|
+| [`faceless-video`](skills/popnow-faceless-video/SKILL.md) | Faceless Video Generator — Script to Voiced Shorts & YouTube Videos | [clawhub.ai/kyuminjo/skills/faceless-video](https://clawhub.ai/kyuminjo/skills/faceless-video) |
+| [`ugc-ad-video`](skills/popnow-ugc-ad-video/SKILL.md) | UGC Ad Video Maker — AI Spokesperson & Product Ads | [clawhub.ai/kyuminjo/skills/ugc-ad-video](https://clawhub.ai/kyuminjo/skills/ugc-ad-video) |
+| [`ai-product-photoshoot`](skills/popnow-ai-product-photoshoot/SKILL.md) | AI Product Photoshoot — Ecommerce Product Images for Amazon & Shopify | [clawhub.ai/kyuminjo/skills/ai-product-photoshoot](https://clawhub.ai/kyuminjo/skills/ai-product-photoshoot) |
+| [`ai-short-film`](skills/popnow-ai-short-film/SKILL.md) | AI Short Film & Short Drama Maker — Script to Multi-Shot Video | [clawhub.ai/kyuminjo/skills/ai-short-film](https://clawhub.ai/kyuminjo/skills/ai-short-film) |
+| [`ai-comic-generator`](skills/popnow-ai-comic-generator/SKILL.md) | AI Comic Generator — Consistent Characters, Panels & Pages | [clawhub.ai/kyuminjo/skills/ai-comic-generator](https://clawhub.ai/kyuminjo/skills/ai-comic-generator) |
+
 ## Quickstart
 
 1. **Get an API key** at [popnow.ai/api/console/keys](https://popnow.ai/api/console/keys), add funds to your API balance in [API billing](https://popnow.ai/api/console/billing) (it starts at $0), and export the key in the shell your agent runs in:
