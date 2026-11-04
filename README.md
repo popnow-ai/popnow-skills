@@ -27,6 +27,27 @@ Make it pop.
 
 [`popnow-media`](skills/popnow-media/SKILL.md) is the self-contained OpenClaw skill. It discovers model schemas, quotes exact USD amounts, requires explicit budget approval and a stable idempotency key before creating, and reads task results. It uses Python 3.8+ with no dependencies. The skill is free; generation is paid from the separate prepaid API USD balance, like every other skill here. The skill directory is MIT-0 to meet ClawHub's publishing format; the repository license applies to the other files. ClawHub submission status is separate from source availability.
 
+### Model skills on ClawHub
+
+Focused OpenClaw skills for popular models and tasks. Each one uses the same dependency-free helper and API USD quote-then-approve flow as `popnow-media`.
+
+| Skill | What it covers | ClawHub |
+|---|---|---|
+| [`nano-banana-2-1`](skills/popnow-nano-banana-2-1/SKILL.md) | Nano Banana 2.1 — AI Image Generator & Editor | [clawhub.ai/kyuminjo/skills/nano-banana-2-1](https://clawhub.ai/kyuminjo/skills/nano-banana-2-1) |
+| [`nano-banana-pro`](skills/popnow-nano-banana-pro/SKILL.md) | Nano Banana Pro — 4K Text-Heavy Image Generation | [clawhub.ai/kyuminjo/skills/nano-banana-pro](https://clawhub.ai/kyuminjo/skills/nano-banana-pro) |
+| [`seedream`](skills/popnow-seedream/SKILL.md) | Seedream 5.0 — AI Image Generation, Editing & Layers | [clawhub.ai/kyuminjo/skills/seedream](https://clawhub.ai/kyuminjo/skills/seedream) |
+| [`gpt-image-2-5`](skills/popnow-gpt-image-2-5/SKILL.md) | GPT Image 2.5 — OpenAI Image Generator & Editor | [clawhub.ai/kyuminjo/skills/gpt-image-2-5](https://clawhub.ai/kyuminjo/skills/gpt-image-2-5) |
+| [`flux-2`](skills/popnow-flux-2/SKILL.md) | FLUX.2 & FLUX 3 Klein — Photoreal AI Images | [clawhub.ai/kyuminjo/skills/flux-2](https://clawhub.ai/kyuminjo/skills/flux-2) |
+| [`qwen-image`](skills/popnow-qwen-image/SKILL.md) | Qwen Image 3.0 & 2.1 — AI Image Generator & Editor | [clawhub.ai/kyuminjo/skills/qwen-image](https://clawhub.ai/kyuminjo/skills/qwen-image) |
+| [`ai-image-generator`](skills/popnow-ai-image-generator/SKILL.md) | AI Image Generator — 80+ Models in One API | [clawhub.ai/kyuminjo/skills/ai-image-generator](https://clawhub.ai/kyuminjo/skills/ai-image-generator) |
+| [`ai-image-editor`](skills/popnow-ai-image-editor/SKILL.md) | AI Image Editor — Edit Photos with Text Prompts | [clawhub.ai/kyuminjo/skills/ai-image-editor](https://clawhub.ai/kyuminjo/skills/ai-image-editor) |
+| [`seedance`](skills/popnow-seedance/SKILL.md) | Seedance 2.5 — AI Video Generator with Audio | [clawhub.ai/kyuminjo/skills/seedance](https://clawhub.ai/kyuminjo/skills/seedance) |
+| [`kling`](skills/popnow-kling/SKILL.md) | Kling 4.0 — AI Video Generation & Editing | [clawhub.ai/kyuminjo/skills/kling](https://clawhub.ai/kyuminjo/skills/kling) |
+| [`minimax-h3`](skills/popnow-minimax-h3/SKILL.md) | MiniMax H3 (Hailuo) — AI Video with Audio up to 2K | [clawhub.ai/kyuminjo/skills/minimax-h3](https://clawhub.ai/kyuminjo/skills/minimax-h3) |
+| [`ai-video-generator`](skills/popnow-ai-video-generator/SKILL.md) | AI Video Generator — Seedance, Kling, Hailuo & More in One API | [clawhub.ai/kyuminjo/skills/ai-video-generator](https://clawhub.ai/kyuminjo/skills/ai-video-generator) |
+| [`suno`](skills/popnow-suno/SKILL.md) | Suno v6 — AI Music & Song Generator | [clawhub.ai/kyuminjo/skills/suno](https://clawhub.ai/kyuminjo/skills/suno) |
+| [`text-to-speech`](skills/popnow-text-to-speech/SKILL.md) | AI Text to Speech — Gemini, MiniMax, Qwen Voices | [clawhub.ai/kyuminjo/skills/text-to-speech](https://clawhub.ai/kyuminjo/skills/text-to-speech) |
+
 ## Quickstart
 
 1. **Get an API key** at [popnow.ai/api/console/keys](https://popnow.ai/api/console/keys), add funds to your API balance in [API billing](https://popnow.ai/api/console/billing) (it starts at $0), and export the key in the shell your agent runs in:
