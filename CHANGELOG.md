@@ -4,6 +4,10 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+
+- `llms.txt` lists the 19 ClawHub skills, and the frontmatter test accepts their published slugs.
+
 ## [1.1.0] - 2026-11-01
 
 ### Changed
