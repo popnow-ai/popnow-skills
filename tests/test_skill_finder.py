@@ -192,7 +192,8 @@ class FinderSkillTests(unittest.TestCase):
             match = re.match(r"^---\n(.*?)\n---\n", text, re.S)
             self.assertIsNotNone(match, skill)
             meta = dict(line.split(": ", 1) for line in match.group(1).splitlines() if ": " in line)
-            self.assertEqual(meta.get("name"), skill)
+            # ClawHub skills keep their published slug, which drops the folder's popnow- prefix.
+            self.assertIn(meta.get("name"), {skill, skill.removeprefix("popnow-")})
             self.assertRegex(meta["name"], r"^[a-z0-9-]{1,64}$")
             self.assertTrue(0 < len(meta.get("description", "")) <= 1024, skill)
             self.assertNotIn("<", meta["description"])

@@ -23,6 +23,25 @@ Flow used by every skill: `POST /api/v1/jobs/quote` -> user confirms the USD pri
 - [popnow-skill-finder](skills/popnow-skill-finder/SKILL.md): finds a free style preset in the PopNow skills catalog (https://popnow.ai/api/skills), shows previews, installs the chosen one and follows it; uses the PopNow developer MCP find_skills/install_skill, else `popnow skills search|add`, else GET /api/v1/agent-skills, /api/v1/agent-skills/{slug}, /api/v1/agent-skills/{slug}/download (302 to a signed link fetched without the API key)
 - [popnow-api](skills/popnow-api/SKILL.md): auth, models, tasks, USD billing, errors, webhooks, idempotency, media, assets, OpenAI-compatible /v1/videos, developer MCP
 - [popnow-media](skills/popnow-media/SKILL.md): self-contained OpenClaw / ClawHub skill: model schemas, exact USD quotes, explicit approval with a stable idempotency key, task status (MIT-0)
+- [popnow-nano-banana-2-1](skills/popnow-nano-banana-2-1/SKILL.md): Nano Banana 2.1 — AI Image Generator & Editor
+- [popnow-nano-banana-pro](skills/popnow-nano-banana-pro/SKILL.md): Nano Banana Pro — 4K Text-Heavy Image Generation
+- [popnow-seedream](skills/popnow-seedream/SKILL.md): Seedream 5.0 — AI Image Generation, Editing & Layers
+- [popnow-gpt-image-2-5](skills/popnow-gpt-image-2-5/SKILL.md): GPT Image 2.5 — OpenAI Image Generator & Editor
+- [popnow-flux-2](skills/popnow-flux-2/SKILL.md): FLUX.2 & FLUX 3 Klein — Photoreal AI Images
+- [popnow-qwen-image](skills/popnow-qwen-image/SKILL.md): Qwen Image 3.0 & 2.1 — AI Image Generator & Editor
+- [popnow-ai-image-generator](skills/popnow-ai-image-generator/SKILL.md): AI Image Generator — 80+ Models in One API
+- [popnow-ai-image-editor](skills/popnow-ai-image-editor/SKILL.md): AI Image Editor — Edit Photos with Text Prompts
+- [popnow-seedance](skills/popnow-seedance/SKILL.md): Seedance 2.5 — AI Video Generator with Audio
+- [popnow-kling](skills/popnow-kling/SKILL.md): Kling 4.0 — AI Video Generation & Editing
+- [popnow-minimax-h3](skills/popnow-minimax-h3/SKILL.md): MiniMax H3 (Hailuo) — AI Video with Audio up to 2K
+- [popnow-ai-video-generator](skills/popnow-ai-video-generator/SKILL.md): AI Video Generator — Seedance, Kling, Hailuo & More in One API
+- [popnow-suno](skills/popnow-suno/SKILL.md): Suno v6 — AI Music & Song Generator
+- [popnow-text-to-speech](skills/popnow-text-to-speech/SKILL.md): AI Text to Speech — Gemini, MiniMax, Qwen Voices
+- [popnow-faceless-video](skills/popnow-faceless-video/SKILL.md): Faceless Video Generator — Script to Voiced Shorts & YouTube Videos
+- [popnow-ugc-ad-video](skills/popnow-ugc-ad-video/SKILL.md): UGC Ad Video Maker — AI Spokesperson & Product Ads
+- [popnow-ai-product-photoshoot](skills/popnow-ai-product-photoshoot/SKILL.md): AI Product Photoshoot — Ecommerce Product Images for Amazon & Shopify
+- [popnow-ai-short-film](skills/popnow-ai-short-film/SKILL.md): AI Short Film & Short Drama Maker — Script to Multi-Shot Video
+- [popnow-ai-comic-generator](skills/popnow-ai-comic-generator/SKILL.md): AI Comic Generator — Consistent Characters, Panels & Pages
 
 ## Scripts
 
