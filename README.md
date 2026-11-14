@@ -19,7 +19,7 @@
 
 **PopNow Skills is a set of open-source Agent Skills that let Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, Claude.ai and other skill-compatible AI agents generate videos, images, music and speech, apply trending video effects, make finished work (product launch films, narrated explainer videos, landing pages, social covers and thumbnails, brand kits with a DESIGN.md), and find free ready-made style presets, through the [PopNow](https://popnow.ai) API, always quoting the USD price from your API balance before anything runs.**
 
-Built by PopNow AI ([popnow.ai](https://popnow.ai)), the world's first AI creative studio that pays you back: every API call is quoted in USD before it runs, and failed tasks are refunded to your API balance automatically.
+Built by PopNow AI ([popnow.ai](https://popnow.ai)), the world's first AI studio with automatic price protection: every API call is quoted in USD before it runs, and failed tasks are refunded to your API balance automatically.
 
 Each skill is a folder with a `SKILL.md` (instructions the agent loads when the task matches), a dependency-free Python 3 script (standard library `urllib` only) and reference docs; the make-things skills add dependency-free Node.js and Python tools that run on your machine. Ask your agent *"turn this photo into a 5-second video"*, *"make a 30-second launch film from our README"* or *"find a style for our pitch deck"* and it picks the model or preset, tells you the price in USD, waits for your yes, then creates, waits and downloads the file.
 
