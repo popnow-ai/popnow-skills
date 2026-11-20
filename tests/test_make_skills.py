@@ -82,7 +82,7 @@ class MakeSkillMetadataTests(unittest.TestCase):
                 self.assertLessEqual(len(desc), 1024)
                 self.assertIn("quotes USD before any paid run", desc)
                 self.assertIn("free", desc)
-                self.assertIn("from the separate API USD balance", desc)
+                self.assertIn("from the PopNow balance in USD", desc)
                 self.assertNotIn("credit", desc)
 
     def test_readme_links_to_the_preview_page(self):

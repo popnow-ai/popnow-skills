@@ -27,7 +27,7 @@ Make it pop.
 
 ## OpenClaw / ClawHub
 
-[`popnow-media`](skills/popnow-media/SKILL.md) is the self-contained OpenClaw skill. It discovers model schemas, quotes exact USD amounts, requires explicit budget approval and a stable idempotency key before creating, and reads task results. It uses Python 3.8+ with no dependencies. The skill is free; generation is paid from the separate prepaid API USD balance, like every other skill here. The skill directory is MIT-0 to meet ClawHub's publishing format; the repository license applies to the other files. ClawHub submission status is separate from source availability.
+[`popnow-media`](skills/popnow-media/SKILL.md) is the self-contained OpenClaw skill. It discovers model schemas, quotes exact USD amounts, requires explicit budget approval and a stable idempotency key before creating, and reads task results. It uses Python 3.8+ with no dependencies. The skill is free; generation is paid in USD from the PopNow balance, like every other skill here. The skill directory is MIT-0 to meet ClawHub's publishing format; the repository license applies to the other files. ClawHub submission status is separate from source availability.
 
 ### Model skills on ClawHub
 
@@ -64,7 +64,7 @@ Multi-step OpenClaw workflows based on PopNow's own apps. Each quotes every paid
 
 ## Quickstart
 
-1. **Get an API key** at [popnow.ai/api/console/keys](https://popnow.ai/api/console/keys), add funds to your API balance in [API billing](https://popnow.ai/api/console/billing) (it starts at $0), and export the key in the shell your agent runs in:
+1. **Get an API key** at [popnow.ai/api/console/keys](https://popnow.ai/api/console/keys), add funds in [API billing](https://popnow.ai/api/console/billing) if your PopNow balance is empty (it is the same balance as on popnow.ai), and export the key in the shell your agent runs in:
    ```bash
    export POPNOW_API_KEY="sk-popnow-..."
    ```
@@ -123,8 +123,8 @@ The live model list (Kling, Seedance, Wan, Vidu, MiniMax, Nano Banana, GPT Image
 ## Pricing: skills are free, generations are paid in USD from your API balance
 
 - **The skills cost nothing.** Installing these skills, searching the [agent skills catalog](https://popnow.ai/api/skills), and installing and using a style preset are free.
-- **You pay only for what PopNow generates**: each image, video, song or voiceover a skill makes is paid in USD from your **API balance**, at the same model price as on [popnow.ai](https://popnow.ai). Prices: [popnow.ai/api/pricing](https://popnow.ai/api/pricing).
-- **A separate API balance.** API keys spend the API balance, which starts at $0 and is separate from website credits: website credits cannot pay for API calls. Add funds in [API billing](https://popnow.ai/api/console/billing). No subscription.
+- **You pay only for what PopNow generates**: each image, video, song or voiceover a skill makes is paid in USD from your **PopNow balance**, at the same model price as on [popnow.ai](https://popnow.ai). Prices: [popnow.ai/api/pricing](https://popnow.ai/api/pricing).
+- **One balance.** API keys spend your PopNow balance, shown in USD: the same balance as on popnow.ai (1 credit = $0.001). Add funds in [API billing](https://popnow.ai/api/console/billing). No subscription.
 - **Always quoted first.** The agent shows the exact USD price and runs a generation only after your yes; `create` refuses to start above the amount you confirmed. Failed or expired tasks release their hold, so they cost nothing.
 
 ## How it works

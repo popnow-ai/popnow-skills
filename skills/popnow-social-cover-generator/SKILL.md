@@ -1,6 +1,6 @@
 ---
 name: popnow-social-cover-generator
-description: Turns one message into a full set of share images - Open Graph 1200x630, X 1600x900, LinkedIn 1200x627, RedNote 1080x1440, YouTube thumbnail 1280x720, Instagram 1080x1350 and optional App Store 1290x2796 screenshots - as exact-size PNG and WebP files with a contact sheet. Every word is real HTML text in bundled fonts, so nothing is misspelled; only backgrounds and subjects come from image generation. Seven layout systems, per-platform safe areas, and checks for fit, contrast, reserved zones, pixel size and file weight. Use it for launch posts, article and docs link previews, video thumbnails and store screenshots. The skill is free; generating images through the PopNow API is paid from the separate API USD balance, and the agent quotes USD before any paid run.
+description: Turns one message into a full set of share images - Open Graph 1200x630, X 1600x900, LinkedIn 1200x627, RedNote 1080x1440, YouTube thumbnail 1280x720, Instagram 1080x1350 and optional App Store 1290x2796 screenshots - as exact-size PNG and WebP files with a contact sheet. Every word is real HTML text in bundled fonts, so nothing is misspelled; only backgrounds and subjects come from image generation. Seven layout systems, per-platform safe areas, and checks for fit, contrast, reserved zones, pixel size and file weight. Use it for launch posts, article and docs link previews, video thumbnails and store screenshots. The skill is free; generating images through the PopNow API is paid from the PopNow balance in USD, and the agent quotes USD before any paid run.
 license: MIT
 ---
 
@@ -104,7 +104,7 @@ Optional: covers render without any generated picture.
 | Upscale | `popnow/image-upscaler-v1/upscale` | 4k | about $0.012 |
 | Lettering that belongs inside the scene (never the headline) | `openai/gpt-image-2/text-to-image` | | quote it |
 
-Typical six-platform set: about $0.10-$0.20 from the separate API USD balance; lite: about
+Typical six-platform set: about $0.10-$0.20 from the PopNow balance in USD; lite: about
 $0.022-$0.048; rendering and checks are free. Estimates only; the quote is the price.
 
 Every paid call: `python3 scripts/popnow.py model <id>` (free) -> `quote` -> tell the

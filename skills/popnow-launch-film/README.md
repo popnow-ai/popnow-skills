@@ -24,8 +24,7 @@ Node.js 22+, FFmpeg, Chrome, HyperFrames through `npx` (Apache-2.0). Optional: P
 
 ## Cost
 
-The skill is free. Only what PopNow generates is paid, in USD from the separate API balance behind your
-API key (it starts at $0 and is separate from website credits; add funds in
+The skill is free. Only what PopNow generates is paid, in USD from your PopNow balance (the same balance as on popnow.ai; add funds in
 https://popnow.ai/api/console/billing). The agent quotes the USD price and waits for your yes before every paid run; `scripts/popnow.py create` refuses to start
 above the amount you confirmed. Free without generated media. With PopNow: about $0.072 (music bed only) to about $0.50 (hero still, two B-roll clips, music and voiceover) for a 30 s film. Rendering and checks run on your machine and cost nothing.
 

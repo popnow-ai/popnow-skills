@@ -6,6 +6,7 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ### Fixed
 
+- Billing wording follows the one-balance account: API keys spend the user's PopNow balance, shown in USD, the same balance as on popnow.ai (1 credit = $0.001). The skills, references, helper scripts and manifests no longer say the API balance is separate from website credits or starts at $0.
 - `llms.txt` lists the 19 ClawHub skills, and the frontmatter test accepts their published slugs.
 
 ## [1.1.0] - 2026-11-01

@@ -1,6 +1,6 @@
 ---
 name: popnow-hyperframes-ai-assets
-description: Generates the media a HyperFrames video cannot draw in code - photoreal hero stills and product scenes, 3 to 5 second B-roll clips, original instrumental music beds, voiceover in 12 languages and sound effects - from one JSON asset plan, and files every result into the project's assets/ folder and the HyperFrames media ledger with its prompt, model, USD cost and licence note. Use it when a composition has placeholder pictures, silent cuts, no music or lines that should be spoken, or when another video skill asks for a PopNow media pass. The skill is free; generating images, video, music and voiceover through the PopNow API is paid from the separate API USD balance, and the agent quotes USD before any paid run.
+description: Generates the media a HyperFrames video cannot draw in code - photoreal hero stills and product scenes, 3 to 5 second B-roll clips, original instrumental music beds, voiceover in 12 languages and sound effects - from one JSON asset plan, and files every result into the project's assets/ folder and the HyperFrames media ledger with its prompt, model, USD cost and licence note. Use it when a composition has placeholder pictures, silent cuts, no music or lines that should be spoken, or when another video skill asks for a PopNow media pass. The skill is free; generating images, video, music and voiceover through the PopNow API is paid from the PopNow balance in USD, and the agent quotes USD before any paid run.
 license: MIT
 ---
 
@@ -42,8 +42,8 @@ owner's file); a real person's face or voice without their consent; a talking pr
   `npx hyperframes init my-film`. HyperFrames is open source (Apache-2.0,
   https://github.com/heygen-com/hyperframes) and runs through `npx`; it needs Node.js 22+ and FFmpeg.
 - Python 3 for `scripts/popnow.py` (standard library only) and Node.js 22+ for `scripts/popnow-assets.mjs`.
-- `POPNOW_API_KEY` from https://popnow.ai/api/console/keys. Generation is paid from the key's API USD
-  balance, which is separate from website credits and starts at $0; add funds in
+- `POPNOW_API_KEY` from https://popnow.ai/api/console/keys. Generation is paid in USD from the PopNow
+  balance behind the key (the same balance as on popnow.ai); add funds in
   https://popnow.ai/api/console/billing. Without a key, `--dry-run` still validates
   and prices the plan, and the composition keeps labelled placeholders (a CSS gradient or an SVG frame
   with the planned prompt written on it) until the user decides.

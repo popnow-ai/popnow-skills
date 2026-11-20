@@ -8,7 +8,7 @@
 //     same record shape, same append-only rule, same lock and id scheme)
 //   - assets/popnow-provenance.json            (prompt, model, task, USD cost, licence note)
 //
-// Generation is paid from the separate API USD balance behind POPNOW_API_KEY
+// Generation is paid in USD from the PopNow balance behind POPNOW_API_KEY
 // (add funds at https://popnow.ai/api/console/billing). Amounts are exact USD decimal strings.
 //
 // Usage:

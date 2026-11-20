@@ -7,7 +7,7 @@
   python3 scripts/plan.py status brand/brief.json           which planned pictures exist on disk
 
 Nothing here calls the network. Exact prices only come from
-`python3 scripts/popnow.py quote ...` (USD, from the separate API balance); the estimate is
+`python3 scripts/popnow.py quote ...` (USD, from the PopNow balance); the estimate is
 for planning the conversation.
 Standard library only.
 """

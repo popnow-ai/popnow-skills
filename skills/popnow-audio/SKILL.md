@@ -1,6 +1,6 @@
 ---
 name: popnow-audio
-description: Generate AI music and speech with the PopNow API - original songs and instrumentals from a description (Suno, MiniMax Music), text-to-speech voiceovers in many voices and languages (Gemini TTS, MiniMax Speech, Qwen TTS), speech-to-text transcription and sound effects for a silent video. Use when the user asks for a song, jingle, background music, voiceover, narration, text read aloud, a transcript, or sound for a clip. Quotes the USD price from the separate PopNow API balance and waits for the user's OK before spending anything. Needs POPNOW_API_KEY.
+description: Generate AI music and speech with the PopNow API - original songs and instrumentals from a description (Suno, MiniMax Music), text-to-speech voiceovers in many voices and languages (Gemini TTS, MiniMax Speech, Qwen TTS), speech-to-text transcription and sound effects for a silent video. Use when the user asks for a song, jingle, background music, voiceover, narration, text read aloud, a transcript, or sound for a clip. Quotes the USD price from the user's PopNow balance and waits for the user's OK before spending anything. Needs POPNOW_API_KEY.
 license: MIT
 ---
 
@@ -10,7 +10,7 @@ Make music, voiceovers and transcripts through the PopNow REST API (`https://api
 
 ## Rule: always confirm the price first
 
-Generations spend the user's PopNow API balance, in US dollars. It is separate from website credits, starts at $0 and is funded in API billing (https://popnow.ai/api/console/billing). Run `quote`, tell the user the USD price (`maxChargeUsd`) and their API balance, and only after a clear yes run `create --confirm-usd <maxChargeUsd>`. The script re-quotes and will not start if the price went up (exit code 3, nothing charged). Failed tasks release their hold, so they cost nothing.
+Generations spend the user's PopNow balance, in US dollars (the same balance as on popnow.ai; add funds in API billing at https://popnow.ai/api/console/billing). Run `quote`, tell the user the USD price (`maxChargeUsd`) and their API balance, and only after a clear yes run `create --confirm-usd <maxChargeUsd>`. The script re-quotes and will not start if the price went up (exit code 3, nothing charged). Failed tasks release their hold, so they cost nothing.
 
 ## Setup
 
@@ -70,7 +70,7 @@ Keep lyrics and scripts suitable for a general audience and do not imitate a rea
 | You see | Do |
 | --- | --- |
 | Exit 3 price above the confirmed amount | Tell the user the new price; re-run only after they agree |
-| `40201` not enough API balance | Add funds in API billing (https://popnow.ai/api/console/billing). Website credits cannot pay for API calls |
+| `40201` not enough API balance | Add funds in API billing (https://popnow.ai/api/console/billing) |
 | `400` naming a field | Fix it (check `model <id>`); nothing was charged |
 | Task `failed` (exit 5) | The hold was released; read `errorCode` / `errorMessage` |
 

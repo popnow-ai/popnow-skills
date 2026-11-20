@@ -15,7 +15,7 @@
   "interface": {
     "displayName": "PopNow",
     "shortDescription": "AI video, image and music generation, launch films, explainers, landing pages and brand kits",
-    "longDescription": "Generate AI videos (text-to-video and image-to-video), images, music and speech with the PopNow API, apply trending video effects to a photo, and let your agent make finished work: a product launch film from a README, a narrated explainer video with timed captions, a landing page designed from AI mockups, exact-size social covers and thumbnails, and a brand kit delivered as a DESIGN.md. You can also find free ready-made style presets. Skills are free; generations spend your separate PopNow API balance in USD and are always quoted and confirmed first. Needs a PopNow API key in POPNOW_API_KEY for generation.",
+    "longDescription": "Generate AI videos (text-to-video and image-to-video), images, music and speech with the PopNow API, apply trending video effects to a photo, and let your agent make finished work: a product launch film from a README, a narrated explainer video with timed captions, a landing page designed from AI mockups, exact-size social covers and thumbnails, and a brand kit delivered as a DESIGN.md. You can also find free ready-made style presets. Skills are free; generations spend your PopNow balance in USD and are always quoted and confirmed first. Needs a PopNow API key in POPNOW_API_KEY for generation.",
     "developerName": "PopNow",
     "category": "Creativity",
     "capabilities": ["Interactive", "Read", "Write"],

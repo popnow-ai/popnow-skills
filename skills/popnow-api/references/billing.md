@@ -1,6 +1,6 @@
 # API balance and billing (USD)
 
-- API keys spend the **API balance, in US dollars**. It is separate from the website's credits: website credits cannot pay for API calls and API funds cannot be moved to the website. It starts at $0; add funds and see API payments in API billing: https://popnow.ai/api/console/billing. No subscription.
+- API keys spend your **PopNow balance, shown in US dollars**: the same balance as on popnow.ai (1 credit = $0.001). Top-ups in API billing and on popnow.ai go into the same balance. Add funds and see API payments in API billing: https://popnow.ai/api/console/billing. No subscription.
 - API-key calls (REST, the compatible endpoints and the developer MCP) and API Playground runs spend the API balance. A model costs the same on the API as on popnow.ai for the same settings; API prices: https://popnow.ai/api/pricing.
 - Prices are per model and option: per image, per second of video or audio, per request, or per 1,000 characters of speech.
 - Amounts are exact USD decimal strings with up to nine decimal places (`maxChargeUsd`, `expectedChargeUsd`, `estimatedCostUsd`, `costUsd`, `availableUsd`, `heldUsd`, `totalUsd`, `totalSpend`). Keep them as strings or decimals; never convert through binary floating point and never round them.

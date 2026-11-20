@@ -136,7 +136,7 @@ node scripts/popnow-assets.mjs --self-test
 | `--confirm-usd X` | Generate, never spending more than `X` USD in total (the quoted total, a decimal string such as `0.314`) |
 | `--confirm-credits N` | Deprecated alias of `--confirm-usd`: `N` legacy credits = `N` x $0.001 |
 
-Generation is paid from the separate API USD balance behind `POPNOW_API_KEY`; add funds in
+Generation is paid in USD from the PopNow balance behind `POPNOW_API_KEY`; add funds in
 https://popnow.ai/api/console/billing. Without `--confirm-usd`, a run in a terminal asks the user to type
 the USD total; anywhere else it prints the total and exits with code 3. An agent should always quote,
 ask in the conversation, then pass `--confirm-usd`.

@@ -1,6 +1,6 @@
 ---
 name: popnow-brand-kit-design-md
-description: "Builds a complete brand kit from a short brief: three visual directions to choose from, a contrast-checked palette, an open-licence type pairing, spacing/radius/shadow tokens, icon rules, voice and tone with do/don't copy, an outlined SVG wordmark and symbol, and app, card, social, signage and packaging mockups, delivered as a DESIGN.md that other agents read, W3C design tokens (tokens.json), tokens.css and a one-page brand board (HTML and PDF). Use it when a product, shop, app or side project needs a brand identity or style guide, or when a codebase needs a DESIGN.md so generated UI stops looking generic. A lite mode delivers palette, type and voice only. The skill is free; generating images through the PopNow API is paid from the separate API USD balance, and the agent quotes USD before any paid run."
+description: "Builds a complete brand kit from a short brief: three visual directions to choose from, a contrast-checked palette, an open-licence type pairing, spacing/radius/shadow tokens, icon rules, voice and tone with do/don't copy, an outlined SVG wordmark and symbol, and app, card, social, signage and packaging mockups, delivered as a DESIGN.md that other agents read, W3C design tokens (tokens.json), tokens.css and a one-page brand board (HTML and PDF). Use it when a product, shop, app or side project needs a brand identity or style guide, or when a codebase needs a DESIGN.md so generated UI stops looking generic. A lite mode delivers palette, type and voice only. The skill is free; generating images through the PopNow API is paid from the PopNow balance in USD, and the agent quotes USD before any paid run."
 license: MIT
 ---
 
@@ -120,7 +120,7 @@ the quote commands for every planned picture; add them up and ask once per stage
 | Print upscale / cut-out (optional) | `popnow/image-upscaler-v1/upscale`, `popnow/background-remover-v1/edit` | 1-2 | ~$0.012 / ~$0.005 each |
 | Palette, type, tokens, logo, HTML mockups, board, PDF | local scripts | - | $0 |
 
-A typical full kit is about $0.19-$0.22 from the separate API USD balance; lite is $0 (or ~$0.03 with
+A typical full kit is about $0.19-$0.22 from the PopNow balance in USD; lite is $0 (or ~$0.03 with
 three draft tiles). Prices are
 planning numbers from October 2026; `quote` is the only real price, and models change, so check
 `python3 scripts/popnow.py models --modality image`. Without `POPNOW_API_KEY`, say where to get one

@@ -1,6 +1,6 @@
 ---
 name: popnow-video
-description: Generate AI videos with the PopNow API - text-to-video from a prompt, image-to-video from a photo (bring a picture to life), plus video extend and upscale - using models such as MiniMax H3, Kling, Seedance, Wan and Vidu. Use when the user asks to make, animate or render a video clip, or to turn an image into a video. Quotes the USD price from the separate PopNow API balance and waits for the user's OK before spending anything. Needs POPNOW_API_KEY.
+description: Generate AI videos with the PopNow API - text-to-video from a prompt, image-to-video from a photo (bring a picture to life), plus video extend and upscale - using models such as MiniMax H3, Kling, Seedance, Wan and Vidu. Use when the user asks to make, animate or render a video clip, or to turn an image into a video. Quotes the USD price from the user's PopNow balance and waits for the user's OK before spending anything. Needs POPNOW_API_KEY.
 license: MIT
 ---
 
@@ -10,7 +10,7 @@ Make short AI videos through the PopNow REST API (`https://api.popnow.ai/api/v1`
 
 ## Rule: always confirm the price first
 
-Generations spend the user's PopNow API balance, in US dollars. It is separate from website credits, starts at $0 and is funded in API billing (https://popnow.ai/api/console/billing). Before any `create`:
+Generations spend the user's PopNow balance, in US dollars (the same balance as on popnow.ai; add funds in API billing at https://popnow.ai/api/console/billing). Before any `create`:
 
 1. Run `quote` with the exact request.
 2. Tell the user the price in USD (`maxChargeUsd`, and their API balance) and ask whether to go ahead.
@@ -80,7 +80,7 @@ Describe one shot: subject, action, camera movement, setting, light and mood, e.
 | You see | Do |
 | --- | --- |
 | Exit 3 "costs up to $X USD, more than the $Y USD the user confirmed" | Tell the user the new price; re-run with `--confirm-usd X` only after they agree |
-| `40201` not enough API balance | Ask the user to add funds in API billing (https://popnow.ai/api/console/billing), or pick a cheaper option. Website credits cannot pay for API calls |
+| `40201` not enough API balance | Ask the user to add funds in API billing (https://popnow.ai/api/console/billing), or pick a cheaper option |
 | `400` with a message | Fix the named field (check `model <id>`); nothing was charged |
 | Task `failed` (exit 5) | Read `errorCode`; the hold was released. `content_rejected`: change the prompt or image |
 | Exit 4 still running | Run `python3 scripts/popnow.py wait <taskId> --out DIR` again |

@@ -8,7 +8,7 @@ the price and result are the same as on the website.
 
 Dependency-free (Python 3.8+ standard library). Needs POPNOW_API_KEY.
 Uses popnow.py from the same folder for the HTTP calls. Generations spend the
-separate API balance in USD (add funds at https://popnow.ai/api/console/billing).
+PopNow balance in USD (add funds at https://popnow.ai/api/console/billing).
 
   effects.py list [--category weather] [--search zombie] [--popular]
   effects.py show "Zombie Turn"

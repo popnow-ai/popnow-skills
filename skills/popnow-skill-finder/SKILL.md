@@ -8,7 +8,7 @@ license: MIT
 
 PopNow publishes a catalog of free Agent Skills at https://popnow.ai/api/skills. Each one is a named style with a preview video or picture and a full playbook (`SKILL.md`, scripts, references, assets) that a coding agent follows to build the result: a launch video, a slide deck, a website, a set of images.
 
-**Cost model.** Finding, installing and using a skill is free. The images, video, music or voice a skill generates through PopNow spend the user's PopNow API balance, in US dollars (separate from website credits; add funds at https://popnow.ai/api/console/billing), and every generation is quoted and confirmed before anything is spent.
+**Cost model.** Finding, installing and using a skill is free. The images, video, music or voice a skill generates through PopNow spend the user's PopNow balance, in US dollars (the same balance as on popnow.ai; add funds at https://popnow.ai/api/console/billing), and every generation is quoted and confirmed before anything is spent.
 
 ## When to use it
 

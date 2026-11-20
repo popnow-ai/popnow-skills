@@ -8,8 +8,8 @@ Authentication: export POPNOW_API_KEY="sk-popnow-..." (create one at
 https://popnow.ai/api/console/keys). Optional: POPNOW_BASE_URL (default
 https://api.popnow.ai).
 
-Billing: API keys spend the separate API balance, in USD (add funds at
-https://popnow.ai/api/console/billing). Website credits cannot pay for API calls.
+Billing: API keys spend your PopNow balance, in USD (the same balance as on popnow.ai;
+add funds at https://popnow.ai/api/console/billing).
 Amounts are exact decimal strings (maxChargeUsd, costUsd, availableUsd) and are
 compared as decimals, never as floats.
 
@@ -130,7 +130,7 @@ class UsageError(Exception):
 def hint_for(code):
     hints = {
         401: " Hint: set POPNOW_API_KEY to a valid sk-popnow- key from " + KEYS_URL + ".",
-        40201: " Hint: not enough API balance. Add funds at " + BILLING_URL + " (website credits cannot pay for API calls).",
+        40201: " Hint: not enough balance. Add funds at " + BILLING_URL + ".",
         40202: " Hint: a USD spend cap on this API key was reached; raise it in the API console.",
         40301: " Hint: this key is not allowed to call this model; check the key's allowed models.",
         40310: " Hint: verify the account's email address first.",
@@ -865,7 +865,7 @@ def cmd_balance(client, args):
     print("Available:  %s USD in the API balance" % usd_text(available_usd(bal)))
     print("Held:       %s USD (reserved by running tasks)" % usd_text(held_usd(bal)))
     print("Total:      %s USD" % usd_text(total_usd(bal)))
-    print("Add funds:  %s (website credits cannot pay for API calls)" % BILLING_URL)
+    print("Add funds:  %s" % BILLING_URL)
 
 
 def cmd_models(client, args):
@@ -1001,7 +1001,7 @@ def build_parser():
     parser = argparse.ArgumentParser(
         prog="popnow.py",
         description="PopNow API helper: quote, create, wait and download AI video, image and audio generations. "
-        "Needs POPNOW_API_KEY; generations spend the separate API balance in USD. "
+        "Needs POPNOW_API_KEY; generations spend your PopNow balance, in USD. "
         "Always quote first and get the user's OK on the USD price before `create`.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="Docs: https://popnow.ai/docs  API reference: https://popnow.ai/docs/openapi.yaml",

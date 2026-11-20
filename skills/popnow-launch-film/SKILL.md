@@ -1,6 +1,6 @@
 ---
 name: popnow-launch-film
-description: Turns a product URL, README or repository into a 20 to 40 second launch film - an MP4 built in HTML, CSS and GSAP and rendered with HyperFrames - plus the posting kit (X and LinkedIn post text, a thumbnail frame, alt text). The film follows a real launch structure (hook, problem, product moments, proof, call to action), only claims facts it read from the product, gets a contact sheet approved before rendering, and comes in 16:9, 9:16 and 1:1 presets. Use it to announce a product, feature, app, library or release. The skill is free; generating optional hero stills, B-roll, an original music bed and voiceover through the PopNow API is paid from the separate API USD balance, and the agent quotes USD before any paid run.
+description: Turns a product URL, README or repository into a 20 to 40 second launch film - an MP4 built in HTML, CSS and GSAP and rendered with HyperFrames - plus the posting kit (X and LinkedIn post text, a thumbnail frame, alt text). The film follows a real launch structure (hook, problem, product moments, proof, call to action), only claims facts it read from the product, gets a contact sheet approved before rendering, and comes in 16:9, 9:16 and 1:1 presets. Use it to announce a product, feature, app, library or release. The skill is free; generating optional hero stills, B-roll, an original music bed and voiceover through the PopNow API is paid from the PopNow balance in USD, and the agent quotes USD before any paid run.
 license: MIT
 ---
 

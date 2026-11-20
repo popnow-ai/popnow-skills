@@ -1,6 +1,6 @@
 ---
 name: popnow-effects
-description: Apply PopNow's trending one-tap video effects and photo styles to a photo - Tiny Planet, Hyperdrive, Zombie Turn, Werewolf Turn, Molten Gold, Flying Car, dances, weather and film looks, plus image styles like Clay Figure, Pixel Art, Sticker Pack and Comic Cover. Use when the user wants a viral or trending effect, a TikTok/Reels-style transformation, "make my photo dance", or a named PopNow effect applied to their picture. Quotes the USD price from the separate PopNow API balance and waits for the user's OK before spending anything. Needs POPNOW_API_KEY.
+description: Apply PopNow's trending one-tap video effects and photo styles to a photo - Tiny Planet, Hyperdrive, Zombie Turn, Werewolf Turn, Molten Gold, Flying Car, dances, weather and film looks, plus image styles like Clay Figure, Pixel Art, Sticker Pack and Comic Cover. Use when the user wants a viral or trending effect, a TikTok/Reels-style transformation, "make my photo dance", or a named PopNow effect applied to their picture. Quotes the USD price from the user's PopNow balance and waits for the user's OK before spending anything. Needs POPNOW_API_KEY.
 license: MIT
 ---
 
@@ -10,7 +10,7 @@ PopNow's effects (https://popnow.ai/effects) are ready-made recipes: a model, a 
 
 ## Rule: always confirm the price first
 
-Effects spend the user's PopNow API balance, in US dollars (separate from website credits, starts at $0, funded in API billing at https://popnow.ai/api/console/billing): about $0.125-$0.34 for a 5-second effect video and $0.03-$0.05 for an image style. Run `quote`, tell the user the USD price (`maxChargeUsd`) and their API balance, and only after a clear yes run `create --confirm-usd <maxChargeUsd>`. The script re-quotes and will not start if the price went up (exit code 3, nothing charged). Failed tasks release their hold, so they cost nothing.
+Effects spend the user's PopNow balance, in US dollars (the same balance as on popnow.ai; add funds in API billing at https://popnow.ai/api/console/billing): about $0.125-$0.34 for a 5-second effect video and $0.03-$0.05 for an image style. Run `quote`, tell the user the USD price (`maxChargeUsd`) and their API balance, and only after a clear yes run `create --confirm-usd <maxChargeUsd>`. The script re-quotes and will not start if the price went up (exit code 3, nothing charged). Failed tasks release their hold, so they cost nothing.
 
 ## Setup
 
@@ -55,7 +55,7 @@ python3 scripts/popnow.py balance
 | --- | --- |
 | "matches several effects" | Pick one slug from the list, or ask the user |
 | Exit 3 price above the confirmed amount | Tell the user the new price; re-run only after they agree |
-| `40201` not enough API balance | Add funds in API billing (https://popnow.ai/api/console/billing). Website credits cannot pay for API calls |
+| `40201` not enough API balance | Add funds in API billing (https://popnow.ai/api/console/billing) |
 | Task `failed` with `content_rejected` or `invalid_asset` | The hold was released; try a different, clearer photo |
 
 ## Alternative: MCP

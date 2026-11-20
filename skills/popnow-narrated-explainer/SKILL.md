@@ -1,6 +1,6 @@
 ---
 name: popnow-narrated-explainer
-description: Turns a topic, article, document or dataset into a 45 to 120 second narrated explainer video - HTML, CSS and GSAP scenes rendered to MP4 with HyperFrames - in one of three looks (paper collage, whiteboard line drawing, or data story with animated charts), with a voiceover in any of 12 languages and captions timed to the spoken words. Use it when someone wants to explain an idea, a process, a product or a set of numbers in a short video for a site, a course, a launch post or a team update. The agent outlines, scripts at a measured pace, gets a storyboard approved, then times every scene and caption to the real voiceover and checks sync, pacing, facts and loudness before delivery. The skill is free; generating voiceover, transcription, music and images through the PopNow API is paid from the separate API USD balance, and the agent quotes USD before any paid run.
+description: Turns a topic, article, document or dataset into a 45 to 120 second narrated explainer video - HTML, CSS and GSAP scenes rendered to MP4 with HyperFrames - in one of three looks (paper collage, whiteboard line drawing, or data story with animated charts), with a voiceover in any of 12 languages and captions timed to the spoken words. Use it when someone wants to explain an idea, a process, a product or a set of numbers in a short video for a site, a course, a launch post or a team update. The agent outlines, scripts at a measured pace, gets a storyboard approved, then times every scene and caption to the real voiceover and checks sync, pacing, facts and loudness before delivery. The skill is free; generating voiceover, transcription, music and images through the PopNow API is paid from the PopNow balance in USD, and the agent quotes USD before any paid run.
 license: MIT
 ---
 
@@ -131,7 +131,7 @@ Models change: `python3 $SKILL/scripts/popnow.py models --modality audio` (or `i
 
 ## Cost
 
-USD from the 2026-10-18 price list, paid from the separate API balance (add funds in
+USD from the 2026-10-18 price list, paid from the PopNow balance (add funds in
 https://popnow.ai/api/console/billing); the quote is always the exact number. Rendering is local and free.
 
 | Order | What runs | About |

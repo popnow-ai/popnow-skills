@@ -12,7 +12,7 @@ def parser():
     models = commands.add_parser('models', help='Find models and their exact input schemas')
     models.add_argument('--search')
     models.add_argument('--modality')
-    commands.add_parser('balance', help='Read API USD balance; website credits are separate')
+    commands.add_parser('balance', help='Read your PopNow balance in USD')
     for name in ('quote', 'create'):
         command = commands.add_parser(name, help='Quote without spending' if name == 'quote' else 'Create one explicitly approved task')
         command.add_argument('--model', required=True)

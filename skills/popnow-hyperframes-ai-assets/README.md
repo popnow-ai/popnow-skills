@@ -24,8 +24,7 @@ Node.js 22+ and Python 3, a HyperFrames project (`npx hyperframes init`), `POPNO
 
 ## Cost
 
-The skill is free. Only what PopNow generates is paid, in USD from the separate API USD balance behind
-your API key (it starts at $0 and is separate from website credits; add funds in
+The skill is free. Only what PopNow generates is paid, in USD from your PopNow balance (the same balance as on popnow.ai; add funds in
 https://popnow.ai/api/console/billing). The agent quotes the USD price and waits for your yes before every
 paid run; `scripts/popnow.py create` refuses to start above the amount you confirmed. A 30 s film's media
 is about $0.082 (music bed and voiceover) to about $0.50 (adds a hero still and two B-roll clips).

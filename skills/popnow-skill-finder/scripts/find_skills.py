@@ -9,8 +9,8 @@ https://api.popnow.ai). The key is sent only to the API base URL; the package
 download is a short-lived signed link that is fetched without it.
 
 Using a skill is free. Only the images, video, music or voice a skill makes
-through PopNow cost money: they are quoted in USD and paid from the separate
-PopNow API balance (https://popnow.ai/api/console/billing) only after a yes.
+through PopNow cost money: they are quoted in USD and paid from the
+PopNow balance (https://popnow.ai/api/console/billing) only after a yes.
 
   find_skills.py search "product launch video" --type video --limit 4
   find_skills.py info <slug>

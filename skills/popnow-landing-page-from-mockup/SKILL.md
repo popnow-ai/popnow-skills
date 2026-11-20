@@ -1,6 +1,6 @@
 ---
 name: popnow-landing-page-from-mockup
-description: Designs a landing page as pictures first and code second - two or three full-page mockups in clearly different art directions, the user picks one, then the agent builds it as semantic, responsive HTML/CSS (or in the user's framework) with real copy, accessible contrast and properly sized imagery, screenshots it on desktop and phone, compares it with the mockup, and runs a de-AI pass before delivery. Use it when someone wants a marketing or product landing page that does not look like every other generated page, or when a page they have reads as generic and needs a redesign. The skill is free; generating images through the PopNow API is paid from the separate API USD balance, and the agent quotes USD before any paid run.
+description: Designs a landing page as pictures first and code second - two or three full-page mockups in clearly different art directions, the user picks one, then the agent builds it as semantic, responsive HTML/CSS (or in the user's framework) with real copy, accessible contrast and properly sized imagery, screenshots it on desktop and phone, compares it with the mockup, and runs a de-AI pass before delivery. Use it when someone wants a marketing or product landing page that does not look like every other generated page, or when a page they have reads as generic and needs a redesign. The skill is free; generating images through the PopNow API is paid from the PopNow balance in USD, and the agent quotes USD before any paid run.
 license: MIT
 ---
 
@@ -103,7 +103,7 @@ Required for the mockups; optional for the page images.
 | Optional finish: cut-out | `popnow/background-remover-v1/edit` | | about $0.005 |
 
 Typical full run: three mockups (about $0.10) + clean hero (about $0.075) + two section images
-(about $0.10) = roughly $0.275, paid from the separate API USD balance. Lite: one mockup and a reused
+(about $0.10) = roughly $0.275, paid from the PopNow balance in USD. Lite: one mockup and a reused
 crop, about $0.035.
 Screenshots, comparison, linting and building run locally and cost nothing. These are
 estimates; the `quote` is the price.

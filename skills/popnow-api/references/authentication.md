@@ -10,7 +10,7 @@ Authorization: Bearer sk-popnow-3f9c0a...
 - Create keys at https://popnow.ai/api/console/keys. Keys in the URL query string are never accepted, and a popnow.ai login session does not work on the API.
 - The OpenAI-compatible `/v1/*` routes also read `x-api-key`. Native `/api/v1/*` routes only read `Authorization`.
 - Keep keys in an environment variable or secret store (`POPNOW_API_KEY`), never in browser or mobile code, never in logs.
-- All keys of an account spend the same API balance (USD), which is separate from website credits. One key per environment or service makes revocation painless.
+- All keys of an account spend the account's PopNow balance, shown in USD (the same balance as on popnow.ai). One key per environment or service makes revocation painless.
 
 ## Per-key restrictions (set in the API console)
 

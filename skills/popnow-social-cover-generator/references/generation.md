@@ -18,7 +18,7 @@ backgrounds, scenes, objects and characters.
 | A background with readable lettering in the scene (a shop sign, a poster) | `openai/gpt-image-2/text-to-image` | only when the lettering is part of the picture, never for the headline | quote it |
 
 Typical full set (six platforms): two backgrounds and one subject cut-out, about
-$0.10-$0.20 from the separate API USD balance. Lite: one background at 1k, about $0.022-$0.048. Rendering, checks and the
+$0.10-$0.20 from the PopNow balance in USD. Lite: one background at 1k, about $0.022-$0.048. Rendering, checks and the
 contact sheet run locally and cost nothing. These ranges set expectations only; the
 quote is the price, and models change (`python3 scripts/popnow.py models --modality image`).
 

@@ -6,14 +6,14 @@ license: MIT
 
 # PopNow API reference
 
-PopNow (https://popnow.ai) is a browser-based AI studio for videos, images and music. Its developer API exposes the same models at the same prices as the website, billed in USD from a separate API balance. This skill holds the API reference (`references/`) and a dependency-free CLI, `scripts/popnow.py`. Paths below are relative to this skill's folder.
+PopNow (https://popnow.ai) is a browser-based AI studio for videos, images and music. Its developer API exposes the same models at the same prices as the website, billed in USD from the same PopNow balance as the website. This skill holds the API reference (`references/`) and a dependency-free CLI, `scripts/popnow.py`. Paths below are relative to this skill's folder.
 
 ## The essentials
 
 - **Base URL** `https://api.popnow.ai`. Native endpoints under `/api/v1/*`; OpenAI-compatible video endpoints under `/v1/*`.
 - **Auth** `Authorization: Bearer sk-popnow-...` on every request. Keys: https://popnow.ai/api/console/keys. Keep keys server-side and out of logs. Read it from `POPNOW_API_KEY`.
 - **Envelope** every native response is `{"code", "msg", "data", "request_id"}`. `code: 200` is success; anything else is an error. Branch on `code`, never on `msg`.
-- **Billing in USD** API keys spend the API balance, in US dollars with up to nine decimal places. It is separate from website credits (neither can pay for the other), starts at $0 and is funded in API billing: https://popnow.ai/api/console/billing. A model costs the same as on the website; API prices: https://popnow.ai/api/pricing. No subscription.
+- **Billing in USD** API keys spend your PopNow balance, in US dollars with up to nine decimal places. It is the same balance as on popnow.ai (1 credit = $0.001), funded in API billing: https://popnow.ai/api/console/billing. A model costs the same as on the website; API prices: https://popnow.ai/api/pricing. No subscription.
 - **Tasks** every generation is async: `POST /api/v1/jobs/quote` (free price check) -> `POST /api/v1/jobs/createTask` (holds the max price, returns `taskId`) -> `GET /api/v1/jobs/recordInfo?taskId=...` until `state` is `succeeded`, `failed` or `expired` -> download `output.assets[].url` (signed, about 20 minutes, no API key).
 - **Holds** the hold settles to the actual price (never above the hold) on success; `failed` and `expired` tasks release the whole hold. Amounts are exact decimal strings (`maxChargeUsd`, `estimatedCostUsd`, `costUsd`, `availableUsd`); keep them as strings or decimals, never floats.
 - **Model IDs** `<maker>/<model>/<task>`, e.g. `minimax/h3/image-to-video`, `google/nano-banana-2.1/edit`. Live catalog `GET /api/v1/models`; one model with its JSON Schema `GET /api/v1/models/{model}`. Unknown input fields are rejected.

@@ -1,6 +1,6 @@
 # PopNow API models
 
-Snapshot of `GET /api/v1/models` taken 2026-11-03. Prices are in USD, paid from the separate API balance, and are the starting price per unit; the exact amount of one request comes from `popnow.py quote`. The live list is always the source of truth: `popnow.py models --modality text`.
+Snapshot of `GET /api/v1/models` taken 2026-11-03. Prices are in USD, paid from the PopNow balance, and are the starting price per unit; the exact amount of one request comes from `popnow.py quote`. The live list is always the source of truth: `popnow.py models --modality text`.
 
 Model IDs follow `<maker>/<model>/<task>`. Read a model's input fields with `popnow.py model <id>`.
 

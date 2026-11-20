@@ -1,6 +1,6 @@
 ---
 name: popnow-image
-description: Generate and edit AI images with the PopNow API - text-to-image, prompt-based photo editing (style, outfit, background, add or remove objects), background removal, upscaling and layer splitting - using models such as Nano Banana, GPT Image, Seedream, Flux, Qwen Image and Krea. Use when the user asks to create, draw, render, edit, restyle, cut out or upscale a picture. Quotes the USD price from the separate PopNow API balance and waits for the user's OK before spending anything. Needs POPNOW_API_KEY.
+description: Generate and edit AI images with the PopNow API - text-to-image, prompt-based photo editing (style, outfit, background, add or remove objects), background removal, upscaling and layer splitting - using models such as Nano Banana, GPT Image, Seedream, Flux, Qwen Image and Krea. Use when the user asks to create, draw, render, edit, restyle, cut out or upscale a picture. Quotes the USD price from the user's PopNow balance and waits for the user's OK before spending anything. Needs POPNOW_API_KEY.
 license: MIT
 ---
 
@@ -10,7 +10,7 @@ Create and edit images through the PopNow REST API (`https://api.popnow.ai/api/v
 
 ## Rule: always confirm the price first
 
-Generations spend the user's PopNow API balance, in US dollars. It is separate from website credits, starts at $0 and is funded in API billing (https://popnow.ai/api/console/billing). Run `quote`, tell the user the USD price (`maxChargeUsd`) and their API balance, and only after a clear yes run `create --confirm-usd <maxChargeUsd>`. The script re-quotes and will not start if the price went up (exit code 3, nothing charged). Failed tasks release their hold, so they cost nothing.
+Generations spend the user's PopNow balance, in US dollars (the same balance as on popnow.ai; add funds in API billing at https://popnow.ai/api/console/billing). Run `quote`, tell the user the USD price (`maxChargeUsd`) and their API balance, and only after a clear yes run `create --confirm-usd <maxChargeUsd>`. The script re-quotes and will not start if the price went up (exit code 3, nothing charged). Failed tasks release their hold, so they cost nothing.
 
 ## Setup
 
@@ -80,7 +80,7 @@ Say what the picture shows: subject, setting, composition, style, light and mood
 | You see | Do |
 | --- | --- |
 | Exit 3 price above the confirmed amount | Tell the user the new price; re-run only after they agree |
-| `40201` not enough API balance | Add funds in API billing (https://popnow.ai/api/console/billing) or choose a cheaper model. Website credits cannot pay for API calls |
+| `40201` not enough API balance | Add funds in API billing (https://popnow.ai/api/console/billing) or choose a cheaper model |
 | `400` naming a field | Fix it; check `model <id>`. Nothing was charged |
 | Task `failed` (exit 5) | The hold was released; read `errorCode` and `errorMessage` |
 

@@ -8,7 +8,7 @@ https://github.com/popnow-ai/popnow-skills/blob/main/INSTALL_FOR_AGENTS.md
 My PopNow API key is (or will be) in the POPNOW_API_KEY environment variable.
 ```
 
-The skills are free. They spend money only for the images, video, music or voice they generate, in USD from the separate PopNow API balance behind your API key (add funds at https://popnow.ai/api/console/billing), and they quote every generation and wait for a yes first.
+The skills are free. They spend money only for the images, video, music or voice they generate, in USD from the PopNow balance behind your API key (add funds at https://popnow.ai/api/console/billing), and they quote every generation and wait for a yes first.
 
 ---
 
@@ -66,7 +66,7 @@ If a folder of the same name already exists, `setup` skips it; ask the user befo
 
 Never print, log or echo the key's value. If it is missing, tell the user:
 
-1. Create a key at https://popnow.ai/api/console/keys (a per-key daily USD spend cap is a good idea for agents). The API balance starts at $0 and is separate from website credits; add funds at https://popnow.ai/api/console/billing.
+1. Create a key at https://popnow.ai/api/console/keys (a per-key daily USD spend cap is a good idea for agents). Keys spend your PopNow balance, the same balance as on popnow.ai; add funds at https://popnow.ai/api/console/billing.
 2. Add `export POPNOW_API_KEY="sk-popnow-..."` to their shell profile (`~/.zshrc`, `~/.bashrc` or similar) themselves. On Windows: `setx POPNOW_API_KEY "sk-popnow-..."`.
 3. Restart the agent from a new terminal so it inherits the variable.
 
@@ -108,4 +108,4 @@ Tell the user:
 - Which skills were installed and where: `popnow-video`, `popnow-image`, `popnow-audio`, `popnow-effects`, `popnow-launch-film`, `popnow-narrated-explainer`, `popnow-hyperframes-ai-assets`, `popnow-landing-page-from-mockup`, `popnow-social-cover-generator`, `popnow-brand-kit-design-md`, `popnow-skill-finder`, `popnow-api`.
 - How to use them: ask in plain words ("turn this photo into a 5-second video", "make a launch film from our README", "find a style for our pitch deck"). In Claude Code they can also type `/popnow-video`; in Codex, `$popnow-video`.
 - Restart the agent if it only discovers skills at startup.
-- Skills are free; each generation is quoted in USD and runs only after their yes. It is paid from the API balance (separate from website credits): add funds at https://popnow.ai/api/console/billing, prices at https://popnow.ai/api/pricing. More agent skills: https://popnow.ai/api/skills.
+- Skills are free; each generation is quoted in USD and runs only after their yes. It is paid from the PopNow balance (the same balance as on popnow.ai): add funds at https://popnow.ai/api/console/billing, prices at https://popnow.ai/api/pricing. More agent skills: https://popnow.ai/api/skills.

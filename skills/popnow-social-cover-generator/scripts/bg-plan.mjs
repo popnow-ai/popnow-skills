@@ -21,7 +21,7 @@ const MODELS = {
   cutout: "popnow/background-remover-v1/edit",
   upscale: "popnow/image-upscaler-v1/upscale",
 };
-// Rough USD ranges (October 2026), paid from the separate API USD balance. The quote is the price;
+// Rough USD ranges (October 2026), paid from the PopNow balance in USD. The quote is the price;
 // these only set expectations. Amounts stay decimal strings; sums are done in whole thousandths of a dollar.
 const ESTIMATE = {
   [`${MODELS.image}@1k`]: ["0.022", "0.048"],
